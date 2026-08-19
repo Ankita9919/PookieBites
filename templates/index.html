@@ -1,0 +1,93 @@
+﻿{% extends "base.html" %}
+
+{% block title %}PookieBites | Home{% endblock %}
+
+{% block content %}
+
+<section style="
+    min-height: 75vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 6%;
+    background:linear-gradient(135deg,#fff7f2,#ffe8dc);
+">
+
+    <div style="max-width:850px;">
+
+        <div style="font-size:70px;">🍔</div>
+
+        <h1 style="
+            font-size:clamp(42px,7vw,72px);
+            margin:10px 0;
+            color:#292929;
+        ">
+            Welcome to
+            <span style="color:#ff7043;">PookieBites</span>
+        </h1>
+
+        <p style="
+            font-size:19px;
+            color:#777;
+            line-height:1.7;
+            max-width:650px;
+            margin:20px auto 30px;
+        ">
+            Your cute little corner for delicious food.
+            From Bengali favourites to cheesy cravings,
+            we've got something for every mood.
+        </p>
+
+        <a class="btn"
+           href="{{ url_for('menu') }}"
+           style="font-size:17px;">
+            Explore Menu 🍕
+        </a>
+
+    </div>
+
+</section>
+
+<section class="page">
+
+    <h2 style="text-align:center;font-size:34px;">
+        Why PookieBites? 💕
+    </h2>
+
+    <div style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+        gap:22px;
+        margin-top:30px;
+    ">
+
+        <div class="card" style="padding:28px;text-align:center;">
+            <div style="font-size:40px;">🍕</div>
+            <h3>Delicious Food</h3>
+            <p style="color:#777;">
+                Fresh and tasty food for every craving.
+            </p>
+        </div>
+
+        <div class="card" style="padding:28px;text-align:center;">
+            <div style="font-size:40px;">⚡</div>
+            <h3>Fast Delivery</h3>
+            <p style="color:#777;">
+                Get your favourite food delivered quickly.
+            </p>
+        </div>
+
+        <div class="card" style="padding:28px;text-align:center;">
+            <div style="font-size:40px;">💖</div>
+            <h3>Made With Love</h3>
+            <p style="color:#777;">
+                Good food, good mood, always.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

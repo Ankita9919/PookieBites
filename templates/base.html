@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}PookieBites{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fffaf7;
+            color: #292929;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .navbar {
+            height: 78px;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            box-shadow: 0 3px 18px rgba(0,0,0,.07);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            font-size: 32px;
+        }
+
+        .brand strong {
+            display: block;
+            color: #ff7043;
+            font-size: 22px;
+        }
+
+        .brand small {
+            color: #888;
+            font-size: 11px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            padding: 10px 15px;
+            border-radius: 22px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #fff0e8;
+            color: #ff7043;
+        }
+
+        .cart-nav {
+            background: #ff7043 !important;
+            color: white !important;
+        }
+
+        .page {
+            max-width: 1250px;
+            margin: auto;
+            padding: 50px 5%;
+        }
+
+        .flash-area {
+            max-width: 900px;
+            margin: 20px auto 0;
+        }
+
+        .flash {
+            background: #fff0e8;
+            color: #d94d20;
+            border: 1px solid #ffd2c1;
+            padding: 13px 18px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            background: #ff7043;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 25px;
+            font-weight: 700;
+        }
+
+        .btn:hover {
+            background: #e85d32;
+        }
+
+        .btn-light {
+            background: #fff0e8;
+            color: #ff7043;
+        }
+
+        .card {
+            background: white;
+            border-radius: 22px;
+            box-shadow: 0 8px 30px rgba(0,0,0,.07);
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            outline: none;
+            font-size: 15px;
+            background: white;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #ff7043;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin: 15px 0 7px;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 30px 5%;
+            text-align: center;
+            background: #292929;
+            color: white;
+        }
+
+        footer strong {
+            color: #ff8b66;
+        }
+
+        @media(max-width:700px) {
+            .navbar {
+                height: auto;
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="{{ url_for('home') }}" class="brand">
+        <span class="brand-icon">🍔</span>
+
+        <div>
+            <strong>PookieBites</strong>
+            <small>Deliciousness delivered with love</small>
+        </div>
+    </a>
+
+    <div class="nav-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('menu') }}">Menu</a>
+
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('orders') }}">Orders</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+
+        <a class="cart-nav" href="{{ url_for('cart') }}">
+            🛒 Cart{% if cart_count is defined and cart_count > 0 %} ({{ cart_count }}){% endif %}
+        </a>
+    </div>
+
+</nav>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-area">
+            {% for message in messages %}
+                <div class="flash">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+<footer>
+    <strong>PookieBites</strong>
+    <br>
+    Good food. Good mood. Always. 🍔
+    <br><br>
+    © 2026 PookieBites
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>FoodieExpress | Menu</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="brand">
+
+<span class="brand-icon">ðŸ”</span>
+
+<div>
+<strong>FoodieExpress</strong>
+<small>Deliciousness delivered</small>
+</div>
+
+</div>
+
+<div class="nav-links">
+
+<a href="/">Home</a>
+
+<a class="active"
+href="/menu">
+Menu
+</a>
+
+{% if session.get('user_id') %}
+<a href="/orders">Orders</a>
+<a href="/logout">Logout</a>
+{% else %}
+<a href="/login">Login</a>
+{% endif %}
+
+<a class="cart-nav"
+href="/cart">
+ðŸ›’ Cart
+<span class="cart-badge">{{ cart_count }}</span>
+</a>
+
+</div>
+
+</nav>
+
+
+<section class="menu-top">
+
+<span class="eyebrow">
+ðŸ½ï¸ Something delicious is waiting
+</span>
+
+<h1>
+Choose your
+<span>favourite.</span>
+</h1>
+
+<p>
+Fresh food, friendly prices and zero boring bites.
+</p>
+
+<input
+id="searchBox"
+class="search-box"
+placeholder="ðŸ” Search pizza, burger, biryani..."
+>
+
+
+<div class="categories">
+
+<button class="category-btn active"
+onclick="filterFood('all', this)">
+All
+</button>
+
+<button class="category-btn"
+onclick="filterFood('pizza', this)">
+ðŸ• Pizza
+</button>
+
+<button class="category-btn"
+onclick="filterFood('burger', this)">
+ðŸ” Burger
+</button>
+
+<button class="category-btn"
+onclick="filterFood('biryani', this)">
+ðŸ— Biryani
+</button>
+
+<button class="category-btn"
+onclick="filterFood('noodles', this)">
+ðŸœ Noodles
+</button>
+
+<button class="category-btn"
+onclick="filterFood('momos', this)">
+ðŸ¥Ÿ Momos
+</button>
+
+<button class="category-btn"
+onclick="filterFood('dessert', this)">
+ðŸ° Dessert
+</button>
+
+</div>
+
+</section>
+
+
+<section class="food-section">
+
+<div class="food-grid">
+
+{% for item in menu_items %}
+
+<div class="food-card"
+data-category="{{ item.category }}"
+data-name="{{ item.name.lower() }}">
+
+<div class="food-photo">
+
+<img
+src="{{ item.image }}"
+alt="{{ item.name }}"
+loading="lazy"
+>
+
+<span class="food-tag">
+Popular
+</span>
+
+</div>
+
+<div class="food-content">
+
+<div class="food-category">
+{{ item.category }}
+</div>
+
+<h3>{{ item.name }}</h3>
+
+<p>
+{{ item.description }}
+</p>
+
+<div class="food-bottom">
+
+<div>
+<strong class="price">
+â‚¹{{ "%.0f"|format(item.price) }}
+</strong>
+
+<span class="rating">
+â­ 4.8
+</span>
+</div>
+
+<a
+href="{{ url_for('add_to_cart', item_id=item.id) }}"
+class="add-btn">
++ Add
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<div id="noResults"
+class="empty-state hidden">
+
+<div>ðŸ½ï¸</div>
+
+<h2>Nothing found</h2>
+
+<p>
+Try another craving.
+</p>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<strong>ðŸ” FoodieExpress</strong>
+
+<p>Good food. Good mood. ðŸ’•</p>
+
+</footer>
+
+
+<script>
+
+let selectedCategory = "all";
+
+function filterFood(category, button) {
+
+selectedCategory = category;
+
+document.querySelectorAll(
+".category-btn"
+).forEach(
+btn => btn.classList.remove("active")
+);
+
+button.classList.add("active");
+
+applyFilters();
+
+}
+
+
+function applyFilters() {
+
+const search =
+document
+.getElementById("searchBox")
+.value
+.toLowerCase()
+.trim();
+
+const cards =
+document.querySelectorAll(
+".food-card"
+);
+
+let visible = 0;
+
+cards.forEach(card => {
+
+const category =
+card.dataset.category.toLowerCase();
+
+const name =
+card.dataset.name;
+
+const categoryMatch =
+selectedCategory === "all" ||
+category === selectedCategory;
+
+const searchMatch =
+name.includes(search);
+
+if (
+categoryMatch &&
+searchMatch
+) {
+
+card.style.display = "";
+
+visible++;
+
+} else {
+
+card.style.display = "none";
+
+}
+
+});
+
+document
+.getElementById("noResults")
+.classList.toggle(
+"hidden",
+visible !== 0
+);
+
+}
+
+
+document
+.getElementById("searchBox")
+.addEventListener(
+"input",
+applyFilters
+);
+
+</script>
+
+</body>
+</html>

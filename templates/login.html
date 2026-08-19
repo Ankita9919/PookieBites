@@ -1,0 +1,54 @@
+﻿{% extends "base.html" %}
+
+{% block title %}PookieBites | Login{% endblock %}
+
+{% block content %}
+
+<div class="page">
+
+    <div class="card" style="
+        max-width:480px;
+        margin:auto;
+        padding:40px;
+    ">
+
+        <div style="text-align:center;">
+            <div style="font-size:55px;">📱</div>
+
+            <h1 style="margin-bottom:8px;">
+                Welcome Back!
+            </h1>
+
+            <p style="color:#777;">
+                Login with your mobile number
+            </p>
+        </div>
+
+        <form method="POST"
+              action="{{ url_for('login') }}">
+
+            <label>Mobile Number</label>
+
+            <input
+                type="tel"
+                name="phone"
+                maxlength="10"
+                minlength="10"
+                pattern="[0-9]{10}"
+                placeholder="Enter 10-digit mobile number"
+                required
+            >
+
+            <button class="btn"
+                    type="submit"
+                    style="width:100%;margin-top:22px;">
+                Send OTP 💕
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

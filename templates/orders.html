@@ -1,0 +1,109 @@
+﻿{% extends "base.html" %}
+
+{% block title %}PookieBites | My Orders{% endblock %}
+
+{% block content %}
+
+<div class="page">
+
+    <h1 style="text-align:center;">
+        📦 My Orders
+    </h1>
+
+    {% if orders %}
+
+        <div style="
+            max-width:900px;
+            margin:30px auto;
+        ">
+
+        {% for order in orders %}
+
+            <div class="card"
+                 style="
+                    padding:25px;
+                    margin-bottom:18px;
+                 ">
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    gap:15px;
+                    flex-wrap:wrap;
+                 ">
+
+                    <div>
+                        <h3 style="margin:0;">
+                            Order #{{ order.id }}
+                        </h3>
+
+                        <p style="color:#777;">
+                            {{ order.order_date }}
+                        </p>
+                    </div>
+
+                    <strong style="
+                        color:#ff7043;
+                        font-size:20px;
+                    ">
+                        ₹{{ "%.0f"|format(order.total) }}
+                    </strong>
+
+                </div>
+
+                <hr>
+
+                <p>
+                    <strong>Payment:</strong>
+                    {{ order.payment_method }}
+                </p>
+
+                <p>
+                    <strong>Delivery:</strong>
+                    {{ order.delivery_type }}
+                    — {{ order.estimated_delivery }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ order.payment_status }}
+                </p>
+
+            </div>
+
+        {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="card"
+             style="
+                max-width:600px;
+                margin:40px auto;
+                padding:55px;
+                text-align:center;
+             ">
+
+            <div style="font-size:65px;">
+                📦
+            </div>
+
+            <h2>No orders yet</h2>
+
+            <p style="color:#777;">
+                Your order history is currently looking suspiciously empty.
+            </p>
+
+            <a class="btn"
+               href="{{ url_for('menu') }}">
+                Start Ordering
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

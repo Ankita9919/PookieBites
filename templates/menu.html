@@ -1,0 +1,249 @@
+﻿{% extends "base.html" %}
+
+{% block title %}PookieBites | Menu{% endblock %}
+
+{% block head %}
+<style>
+
+.menu-wrapper {
+    max-width:1400px;
+    margin:auto;
+    padding:45px 5%;
+}
+
+.menu-title {
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.menu-title h1 {
+    font-size:48px;
+    margin:8px 0;
+}
+
+.menu-title p {
+    color:#777;
+}
+
+.search-box {
+    display:block;
+    width:min(650px,100%);
+    margin:25px auto;
+    padding:16px 20px;
+    border:1px solid #eee;
+    border-radius:30px;
+    outline:none;
+    font-size:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.food-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.food-card {
+    background:white;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+    transition:.25s;
+}
+
+.food-card:hover {
+    transform:translateY(-6px);
+}
+
+.food-photo {
+    height:210px;
+    position:relative;
+    overflow:hidden;
+    background:#fff0e8;
+}
+
+.food-photo img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.food-content {
+    padding:20px;
+}
+
+.food-content h3 {
+    margin:7px 0;
+    font-size:20px;
+}
+
+.food-content p {
+    color:#777;
+    font-size:13px;
+    min-height:38px;
+}
+
+.food-bottom {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:18px;
+}
+
+.price {
+    font-size:21px;
+    color:#292929;
+}
+
+.add-btn {
+    background:#ff7043;
+    color:white;
+    padding:10px 16px;
+    border-radius:20px;
+    font-weight:700;
+}
+
+.add-btn:hover {
+    background:#e85d32;
+}
+
+.food-tag {
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:white;
+    padding:6px 10px;
+    border-radius:15px;
+    font-size:11px;
+    font-weight:700;
+}
+
+@media(max-width:600px) {
+    .menu-title h1 {
+        font-size:35px;
+    }
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="menu-wrapper">
+
+    <div class="menu-title">
+
+        <div style="font-size:38px;">
+            🍔 🍕 🍜 🍰
+        </div>
+
+        <h1>Pick Your Favourite</h1>
+
+        <p>
+            From Bengali classics to cheesy cravings —
+            find your next favourite bite.
+        </p>
+
+        <input
+            id="searchBox"
+            class="search-box"
+            type="text"
+            placeholder="🔍 Search your favourite food..."
+        >
+
+    </div>
+
+    <div class="food-grid">
+
+        {% for item in menu_items %}
+
+        <div class="food-card"
+             data-name="{{ item.name|lower }}">
+
+            <div class="food-photo">
+
+                <img
+                    src="{{ url_for('static', filename='images/' ~ (item.image or 'default_food.jpg')) }}"
+                    alt="{{ item.name }}"
+                    loading="lazy"
+                    onerror="this.src='https://placehold.co/800x600/fff0e8/ff7043?text={{ item.name|urlencode }}'"
+                >
+
+                <span class="food-tag">
+                    ✨ Fresh
+                </span>
+
+            </div>
+
+            <div class="food-content">
+
+                <small style="color:#ff7043;font-weight:700;">
+                    PookieBites Special
+                </small>
+
+                <h3>{{ item.name }}</h3>
+
+                <p>
+                    {{ item.description or "Delicious food made for your cravings." }}
+                </p>
+
+                <div class="food-bottom">
+
+                    <strong class="price">
+                        ₹{{ "%.0f"|format(item.price) }}
+                    </strong>
+
+                    <a class="add-btn"
+                       href="{{ url_for('add_to_cart', item_id=item.id) }}">
+                        Add +
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div class="card"
+             style="grid-column:1/-1;padding:50px;text-align:center;">
+
+            <div style="font-size:50px;">🍽️</div>
+
+            <h2>No food items found</h2>
+
+            <p style="color:#777;">
+                Your database appears to be hungry.
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<script>
+
+const searchBox = document.getElementById("searchBox");
+
+searchBox.addEventListener("input", function() {
+
+    const search = this.value.toLowerCase().trim();
+
+    document.querySelectorAll(".food-card").forEach(card => {
+
+        const name = card.dataset.name;
+
+        card.style.display =
+            name.includes(search) ? "" : "none";
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

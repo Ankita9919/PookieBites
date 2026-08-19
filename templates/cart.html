@@ -1,0 +1,193 @@
+﻿{% extends "base.html" %}
+
+{% block title %}PookieBites | Cart{% endblock %}
+
+{% block content %}
+
+<div class="page">
+
+    <h1 style="text-align:center;">
+        🛒 Your Cart
+    </h1>
+
+    {% if cart_items %}
+
+    <div style="
+        display:grid;
+        grid-template-columns:2fr 1fr;
+        gap:25px;
+        margin-top:30px;
+    ">
+
+        <div>
+
+            {% for row in cart_items %}
+
+            <div class="card"
+                 style="
+                    padding:20px;
+                    margin-bottom:15px;
+                    display:flex;
+                    align-items:center;
+                    gap:18px;
+                 ">
+
+                <img
+                    src="{{ url_for('static', filename='images/' ~ (row.item.image or 'default_food.jpg')) }}"
+                    alt="{{ row.item.name }}"
+                    style="
+                        width:90px;
+                        height:90px;
+                        object-fit:cover;
+                        border-radius:15px;
+                    "
+                >
+
+                <div style="flex:1;">
+
+                    <h3 style="margin:0 0 5px;">
+                        {{ row.item.name }}
+                    </h3>
+
+                    <p style="color:#777;margin:0;">
+                        ₹{{ "%.0f"|format(row.item.price) }} each
+                    </p>
+
+                    <div style="margin-top:12px;">
+
+                        <a class="btn btn-light"
+                           href="{{ url_for('decrease_quantity', item_id=row.item.id) }}">
+                            −
+                        </a>
+
+                        <strong style="margin:0 12px;">
+                            {{ row.quantity }}
+                        </strong>
+
+                        <a class="btn"
+                           href="{{ url_for('increase_quantity', item_id=row.item.id) }}">
+                            +
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div style="text-align:right;">
+
+                    <strong>
+                        ₹{{ "%.0f"|format(row.total) }}
+                    </strong>
+
+                    <br><br>
+
+                    <a href="{{ url_for('remove_from_cart', item_id=row.item.id) }}"
+                       style="color:#e85d32;font-size:13px;">
+                        Remove
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+            <a href="{{ url_for('clear_cart') }}"
+               style="color:#e85d32;font-weight:700;">
+                Clear Cart
+            </a>
+
+        </div>
+
+
+        <div class="card"
+             style="padding:28px;height:max-content;">
+
+            <h2>Order Summary</h2>
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                margin:15px 0;
+            ">
+                <span>Subtotal</span>
+                <strong>₹{{ "%.0f"|format(subtotal) }}</strong>
+            </div>
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                margin:15px 0;
+            ">
+                <span>Delivery</span>
+
+                <strong>
+                    {% if delivery_charge == 0 %}
+                        FREE
+                    {% else %}
+                        ₹{{ delivery_charge }}
+                    {% endif %}
+                </strong>
+            </div>
+
+            {% if subtotal < 499 %}
+            <p style="color:#e85d32;font-size:13px;">
+                Add ₹{{ "%.0f"|format(499-subtotal) }} more for FREE delivery.
+            </p>
+            {% endif %}
+
+            <hr>
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                font-size:20px;
+                margin:20px 0;
+            ">
+                <strong>Total</strong>
+                <strong>₹{{ "%.0f"|format(total) }}</strong>
+            </div>
+
+            <a class="btn"
+               href="{{ url_for('checkout') }}"
+               style="width:100%;text-align:center;">
+                Proceed to Checkout
+            </a>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="card"
+         style="max-width:600px;margin:40px auto;padding:55px;text-align:center;">
+
+        <div style="font-size:70px;">🛒</div>
+
+        <h2>Your cart is empty</h2>
+
+        <p style="color:#777;">
+            Looks like your food hasn't found its way here yet.
+        </p>
+
+        <a class="btn"
+           href="{{ url_for('menu') }}">
+            Browse Menu
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<style>
+@media(max-width:800px) {
+    .page > div[style*="grid-template-columns:2fr"] {
+        grid-template-columns:1fr !important;
+    }
+}
+</style>
+
+{% endblock %}

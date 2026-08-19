@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Placed | PookieBites</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff7f2, #ffe8dc);
+            min-height: 100vh;
+        }
+
+        .success-wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .success-card {
+            width: min(650px, 100%);
+            background: white;
+            border-radius: 30px;
+            padding: 45px 35px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-circle {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #ff7043;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            animation: pop .7s ease;
+        }
+
+        .bear {
+            font-size: 90px;
+            display: inline-block;
+            margin: 10px 0 5px;
+            animation: bearDance .8s infinite alternate ease-in-out;
+            transform-origin: bottom center;
+        }
+
+        .bear-shadow {
+            width: 100px;
+            height: 15px;
+            background: rgba(0,0,0,.12);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: shadowDance .8s infinite alternate ease-in-out;
+        }
+
+        @keyframes bearDance {
+            0% {
+                transform: rotate(-8deg) translateY(3px);
+            }
+
+            50% {
+                transform: rotate(8deg) translateY(-8px) scale(1.04);
+            }
+
+            100% {
+                transform: rotate(-8deg) translateY(3px);
+            }
+        }
+
+        @keyframes shadowDance {
+            from {
+                transform: scale(.85);
+                opacity: .15;
+            }
+
+            to {
+                transform: scale(1.05);
+                opacity: .25;
+            }
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0);
+            }
+
+            70% {
+                transform: scale(1.15);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .success-card h1 {
+            color: #ff7043;
+            font-size: 38px;
+            margin: 10px 0;
+        }
+
+        .thank-you {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .message {
+            color: #777;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .order-box {
+            background: #fff7f2;
+            border-radius: 18px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0ddd5;
+        }
+
+        .order-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-row span:first-child {
+            color: #777;
+        }
+
+        .order-row strong {
+            color: #333;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 13px 22px;
+            border-radius: 25px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .btn-primary {
+            background: #ff7043;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e85d32;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #fff0e8;
+            color: #ff7043;
+        }
+
+        .btn-secondary:hover {
+            background: #ffe0d2;
+            transform: translateY(-2px);
+        }
+
+        .footer-text {
+            margin-top: 25px;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .hearts {
+            position: absolute;
+            font-size: 25px;
+            animation: floatHeart 3s infinite ease-in-out;
+            opacity: .7;
+        }
+
+        .heart1 {
+            left: 8%;
+            top: 15%;
+        }
+
+        .heart2 {
+            right: 10%;
+            top: 25%;
+            animation-delay: .8s;
+        }
+
+        .heart3 {
+            left: 15%;
+            bottom: 15%;
+            animation-delay: 1.3s;
+        }
+
+        .heart4 {
+            right: 15%;
+            bottom: 12%;
+            animation-delay: 1.8s;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% {
+                transform: translateY(0) rotate(0);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(10deg);
+            }
+        }
+
+        @media(max-width:600px) {
+            .success-card {
+                padding: 35px 20px;
+            }
+
+            .success-card h1 {
+                font-size: 30px;
+            }
+
+            .bear {
+                font-size: 75px;
+            }
+
+            .order-row {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="success-wrapper">
+
+    <div class="success-card">
+
+        <div class="hearts heart1">💖</div>
+        <div class="hearts heart2">💗</div>
+        <div class="hearts heart3">💕</div>
+        <div class="hearts heart4">💖</div>
+
+        <div class="success-circle">
+            ✓
+        </div>
+
+        <div class="bear">
+            🐻
+        </div>
+
+        <div class="bear-shadow"></div>
+
+        <h1>Order Placed!</h1>
+
+        <div class="thank-you">
+            Thank You for ordering from PookieBites! 🥰
+        </div>
+
+        <p class="message">
+            Your delicious food is being prepared with love.
+            Our delivery partner will bring your happiness
+            straight to your doorstep. 🍔🍕🍰
+        </p>
+
+        <div class="order-box">
+
+            <div class="order-row">
+                <span>Order ID</span>
+                <strong>#{{ order.id }}</strong>
+            </div>
+
+            <div class="order-row">
+                <span>Customer</span>
+                <strong>{{ order.customer_name }}</strong>
+            </div>
+
+            <div class="order-row">
+                <span>Payment</span>
+                <strong>{{ order.payment_method }}</strong>
+            </div>
+
+            <div class="order-row">
+                <span>Delivery</span>
+                <strong>{{ order.delivery_type }}</strong>
+            </div>
+
+            <div class="order-row">
+                <span>Estimated Time</span>
+                <strong>{{ order.estimated_delivery }}</strong>
+            </div>
+
+            <div class="order-row">
+                <span>Total Amount</span>
+                <strong>₹{{ "%.0f"|format(order.total) }}</strong>
+            </div>
+
+        </div>
+
+        <div class="buttons">
+
+            <a href="{{ url_for('menu') }}"
+               class="btn btn-primary">
+                🍔 Continue Shopping
+            </a>
+
+            <a href="{{ url_for('orders') }}"
+               class="btn btn-secondary">
+                📦 View My Orders
+            </a>
+
+        </div>
+
+        <div class="footer-text">
+            Good food. Good mood. Always. 💕
+            <br>
+            PookieBites © 2026
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

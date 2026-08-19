@@ -1,0 +1,179 @@
+﻿{% extends "base.html" %}
+
+{% block title %}PookieBites | Checkout{% endblock %}
+
+{% block content %}
+
+<div class="page">
+
+    <h1 style="text-align:center;">
+        💳 Checkout
+    </h1>
+
+    <div style="
+        display:grid;
+        grid-template-columns:1.5fr 1fr;
+        gap:25px;
+        margin-top:30px;
+    ">
+
+        <div class="card" style="padding:30px;">
+
+            <h2>Delivery Details</h2>
+
+            <form method="POST"
+                  action="{{ url_for('checkout') }}">
+
+                <label>Customer Name</label>
+
+                <input
+                    type="text"
+                    name="customer_name"
+                    value="{{ session.get('user_name','Pookie User') }}"
+                    required
+                >
+
+                <label>Mobile Number</label>
+
+                <input
+                    type="tel"
+                    name="phone"
+                    value="{{ session.get('user_phone','') }}"
+                    required
+                >
+
+                <label>Delivery Address</label>
+
+                <textarea
+                    name="address"
+                    rows="4"
+                    placeholder="Enter your complete delivery address"
+                    required
+                ></textarea>
+
+                <label>Delivery Type</label>
+
+                <select name="delivery_type">
+                    <option value="Normal">
+                        Normal — 40-55 minutes
+                    </option>
+                    <option value="Fast">
+                        Fast — 25-35 minutes (+₹79)
+                    </option>
+                </select>
+
+                <label>Payment Method</label>
+
+                <select name="payment_method">
+                    <option>Cash on Delivery</option>
+                    <option>UPI</option>
+                    <option>Card</option>
+                    <option>Net Banking</option>
+                </select>
+
+                <label style="
+                    display:flex;
+                    align-items:center;
+                    gap:10px;
+                    font-weight:600;
+                ">
+                    <input
+                        type="checkbox"
+                        name="special_packing"
+                        style="width:auto;"
+                    >
+                    Special Packing (+₹29)
+                </label>
+
+                <button class="btn"
+                        type="submit"
+                        style="width:100%;margin-top:25px;">
+                    Place Order 🍔
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="card"
+             style="padding:30px;height:max-content;">
+
+            <h2>Order Summary</h2>
+
+            {% for row in cart_items %}
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                margin:13px 0;
+            ">
+                <span>
+                    {{ row.item.name }} × {{ row.quantity }}
+                </span>
+
+                <strong>
+                    ₹{{ "%.0f"|format(row.total) }}
+                </strong>
+            </div>
+
+            {% endfor %}
+
+            <hr>
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                margin:15px 0;
+            ">
+                <span>Subtotal</span>
+                <strong>₹{{ "%.0f"|format(subtotal) }}</strong>
+            </div>
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                margin:15px 0;
+            ">
+                <span>Delivery</span>
+                <strong>
+                    {% if delivery_charge == 0 %}
+                        FREE
+                    {% else %}
+                        ₹{{ delivery_charge }}
+                    {% endif %}
+                </strong>
+            </div>
+
+            {% if gift %}
+            <div style="
+                padding:12px;
+                background:#fff0e8;
+                border-radius:12px;
+                color:#d94d20;
+                margin-top:15px;
+            ">
+                🎁 You unlocked a special PookieBites reward!
+            </div>
+            {% endif %}
+
+            <p style="font-size:13px;color:#777;">
+                Fast delivery and special packing charges,
+                if selected, will be calculated at checkout.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+@media(max-width:800px) {
+    .page > div[style*="grid-template-columns:1.5fr"] {
+        grid-template-columns:1fr !important;
+    }
+}
+</style>
+
+{% endblock %}
