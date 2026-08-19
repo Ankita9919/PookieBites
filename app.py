@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+﻿from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from datetime import datetime
@@ -248,51 +248,11 @@ def login():
             )
 
             return redirect(url_for("login"))
-
-        otp = str(
-            random.randint(
-                100000,
-                999999
-            )
-        )
+        otp = "123456"
 
         session["otp"] = otp
         session["otp_phone"] = phone
         session["demo_otp"] = otp
-
-        authkey = os.getenv("MSG91_AUTHKEY")
-
-        if not authkey:
-            flash("MSG91 API key is missing.")
-            return redirect(url_for("login"))
-
-        try:
-
-            response = requests.get(
-                "https://api.msg91.com/api/sendotp.php",
-                params={
-                    "authkey": authkey,
-                    "mobile": phone,
-                    "otp": otp,
-                    "otp_length": 6,
-                    "otp_expiry": 5
-                },
-                timeout=20
-            )
-
-            print("MSG91 STATUS:", response.status_code)
-            print("MSG91 RESPONSE:", response.text)
-
-            if response.status_code != 200:
-                flash("Unable to send OTP. Please try again.")
-                return redirect(url_for("login"))
-
-        except Exception as e:
-
-            print("MSG91 ERROR:", e)
-            flash("OTP service is temporarily unavailable.")
-            return redirect(url_for("login"))
-
         user = User.query.filter_by(
             phone=phone
         ).first()
@@ -519,6 +479,9 @@ with app.app_context():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
 
 
 
