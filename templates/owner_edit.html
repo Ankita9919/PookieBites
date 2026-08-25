@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{{ title }} 💗</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-family:Arial,sans-serif;
+
+    background:
+    radial-gradient(circle at 10% 20%,#ffd6e8,transparent 30%),
+    radial-gradient(circle at 90% 80%,#ffc4de,transparent 30%),
+    linear-gradient(135deg,#fff1f7,#ffe0ed);
+}
+
+.card{
+
+    width:440px;
+
+    padding:35px;
+
+    background:rgba(255,255,255,.86);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:30px;
+
+    box-shadow:0 25px 60px rgba(210,80,130,.2);
+
+    animation:pop .7s ease;
+}
+
+@keyframes pop{
+
+    from{
+        opacity:0;
+        transform:scale(.9) translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+h1{
+
+    text-align:center;
+
+    color:#d93678;
+
+    margin-bottom:25px;
+}
+
+.preview{
+
+    height:130px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:70px;
+
+    background:#fff0f6;
+
+    border-radius:20px;
+
+    margin-bottom:22px;
+
+    animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-5px);
+    }
+}
+
+label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    color:#555;
+
+    font-weight:bold;
+
+    font-size:13px;
+}
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:13px;
+
+    margin-bottom:18px;
+
+    border:1px solid #f0b8cd;
+
+    border-radius:14px;
+
+    outline:none;
+
+    font-size:14px;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    border-color:#ff4f91;
+
+    box-shadow:0 0 0 4px rgba(255,79,145,.12);
+}
+
+textarea{
+    resize:none;
+    height:80px;
+}
+
+.save{
+
+    width:100%;
+
+    padding:14px;
+
+    border:0;
+
+    border-radius:15px;
+
+    background:linear-gradient(135deg,#ff4081,#ff82b2);
+
+    color:white;
+
+    font-weight:bold;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.save:hover{
+    transform:translateY(-3px);
+}
+
+.back{
+
+    display:block;
+
+    text-align:center;
+
+    margin-top:18px;
+
+    color:#d93678;
+
+    text-decoration:none;
+
+    font-size:13px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>
+{% if food %}
+✏️ Edit Food 💗
+{% else %}
+🍰 Add New Food 💗
+{% endif %}
+</h1>
+
+<div class="preview" id="preview">
+{% if food %}
+{{ food.icon }}
+{% else %}
+🍽️
+{% endif %}
+</div>
+
+<form method="POST">
+
+<label>Food Name</label>
+
+<input
+    type="text"
+    name="name"
+    value="{{ food.name if food else '' }}"
+    placeholder="Example: Chicken Pizza"
+    required
+>
+
+<label>Category</label>
+
+<select name="category">
+
+{% for cat in ["pizza","burger","biryani","noodles","momos","dessert"] %}
+
+<option value="{{ cat }}"
+{% if food and food.category == cat %}selected{% endif %}>
+{{ cat|capitalize }}
+</option>
+
+{% endfor %}
+
+</select>
+
+<label>Description</label>
+
+<textarea
+    name="description"
+    placeholder="Describe the food..."
+    required
+>{{ food.description if food else '' }}</textarea>
+
+<label>Price ₹</label>
+
+<input
+    type="number"
+    name="price"
+    value="{{ food.price if food else '' }}"
+    min="1"
+    required
+>
+
+<label>Food Emoji</label>
+
+<input
+    type="text"
+    name="icon"
+    value="{{ food.icon if food else '🍽️' }}"
+    placeholder="🍕"
+    oninput="document.getElementById('preview').innerText=this.value"
+>
+
+<button class="save" type="submit">
+    💗 Save Changes
+</button>
+
+</form>
+
+<a class="back" href="/owner/dashboard">
+    ← Back to Dashboard
+</a>
+
+</div>
+
+</body>
+</html>

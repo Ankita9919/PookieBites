@@ -1,0 +1,8 @@
+[
+    {"id": 1, "name": "Chicken Pizza", "category": "pizza", "description": "Cheesy pizza with delicious chicken toppings.", "price": 249, "icon": "🍕"},
+    {"id": 2, "name": "Chicken Burger", "category": "burger", "description": "Crispy chicken burger with fresh vegetables.", "price": 149, "icon": "🍔"},
+    {"id": 3, "name": "Chicken Biryani", "category": "biryani", "description": "Aromatic basmati rice with tender chicken.", "price": 199, "icon": "🍛"},
+    {"id": 4, "name": "Chicken Noodles", "category": "noodles", "description": "Delicious noodles tossed with chicken and vegetables.", "price": 159, "icon": "🍜"},
+    {"id": 5, "name": "Chicken Momos", "category": "momos", "description": "Soft steamed momos served with spicy chutney.", "price": 129, "icon": "🥟"},
+    {"id": 6, "name": "Chocolate Cake", "category": "dessert", "description": "Soft and delicious chocolate cake.", "price": 179, "icon": "🍰"}
+]

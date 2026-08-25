@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodieExpress - Menu</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🍔 FoodieExpress
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+
+        {% if session.get("logged_in") %}
+            <span style="color:white;font-weight:bold;">
+                &#128100; {{ session["user"]["name"] }}
+            </span>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+        {% endif %}
+
+        <a href="/cart">🛒 Cart</a>
+    </div>
+
+</nav>
+
+
+<section class="menu-header">
+
+    <h1>Our Delicious Menu ðŸ½ï¸</h1>
+
+    <p>Choose your favourite food and order now!</p>
+
+</section>
+
+
+<section class="menu-section">
+
+    <input
+        type="text"
+        class="search-box"
+        placeholder="ðŸ” Search for food..."
+    >
+
+
+    <div class="menu-categories">
+
+        <button>All</button>
+        <button>ðŸ• Pizza</button>
+        <button>ðŸ” Burger</button>
+        <button>ðŸ› Biryani</button>
+        <button>ðŸœ Noodles</button>
+        <button>ðŸ¥Ÿ Momos</button>
+        <button>ðŸ° Dessert</button>
+        <button>ðŸ¥¤ Drinks</button>
+
+    </div>
+
+
+    <div class="menu-food-container">
+
+
+        <!-- Chicken Pizza -->
+
+        <div class="menu-food-card">
+
+            <div class="menu-food-image">
+                ðŸ•
+            </div>
+
+            <div class="menu-food-info">
+
+                <h3>Chicken Pizza</h3>
+
+                <p>
+                    Cheesy pizza with delicious chicken toppings.
+                </p>
+
+                <div class="menu-food-bottom">
+
+                    <span>â‚¹249</span>
+
+                    <a href="/add_to_cart/Chicken%20Pizza/249">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Chicken Burger -->
+
+        <div class="menu-food-card">
+
+            <div class="menu-food-image">
+                ðŸ”
+            </div>
+
+            <div class="menu-food-info">
+
+                <h3>Chicken Burger</h3>
+
+                <p>
+                    Crispy chicken burger with fresh vegetables.
+                </p>
+
+                <div class="menu-food-bottom">
+
+                    <span>â‚¹149</span>
+
+                    <a href="/add_to_cart/Chicken%20Burger/149">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Chicken Biryani -->
+
+        <div class="menu-food-card">
+
+            <div class="menu-food-image">
+                ðŸ›
+            </div>
+
+            <div class="menu-food-info">
+
+                <h3>Chicken Biryani</h3>
+
+                <p>
+                    Aromatic basmati rice with tender chicken.
+                </p>
+
+                <div class="menu-food-bottom">
+
+                    <span>â‚¹199</span>
+
+                    <a href="/add_to_cart/Chicken%20Biryani/199">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Chicken Noodles -->
+
+        <div class="menu-food-card">
+
+            <div class="menu-food-image">
+                ðŸœ
+            </div>
+
+            <div class="menu-food-info">
+
+                <h3>Chicken Noodles</h3>
+
+                <p>
+                    Delicious noodles tossed with chicken and vegetables.
+                </p>
+
+                <div class="menu-food-bottom">
+
+                    <span>â‚¹159</span>
+
+                    <a href="/add_to_cart/Chicken%20Noodles/159">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Chicken Momos -->
+
+        <div class="menu-food-card">
+
+            <div class="menu-food-image">
+                ðŸ¥Ÿ
+            </div>
+
+            <div class="menu-food-info">
+
+                <h3>Chicken Momos</h3>
+
+                <p>
+                    Soft steamed momos served with spicy chutney.
+                </p>
+
+                <div class="menu-food-bottom">
+
+                    <span>â‚¹129</span>
+
+                    <a href="/add_to_cart/Chicken%20Momos/129">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Chocolate Cake -->
+
+        <div class="menu-food-card">
+
+            <div class="menu-food-image">
+                ðŸ°
+            </div>
+
+            <div class="menu-food-info">
+
+                <h3>Chocolate Cake</h3>
+
+                <p>
+                    Soft and delicious chocolate cake.
+                </p>
+
+                <div class="menu-food-bottom">
+
+                    <span>â‚¹179</span>
+
+                    <a href="/add_to_cart/Chocolate%20Cake/179">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <h2>ðŸ” FoodieExpress</h2>
+
+    <p>Delicious food delivered to your doorstep.</p>
+
+    <p>Â© 2026 FoodieExpress. All Rights Reserved.</p>
+
+</footer>
+
+</body>
+
+</html>

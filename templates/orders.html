@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodieExpress - My Orders</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        &#127828; FoodieExpress
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+
+        {% if session.get("logged_in") %}
+            <span style="color:white;font-weight:bold;">
+                &#128100; {{ session["user"]["name"] }}
+            </span>
+
+            <a href="/orders">Orders</a>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+        {% endif %}
+
+        <a href="/cart">&#128722; Cart</a>
+
+    </div>
+
+</nav>
+
+
+<section class="menu-section">
+
+    <h1 style="
+        text-align:center;
+        color:#ff5722;
+        margin-bottom:30px;
+    ">
+        &#128230; My Orders
+    </h1>
+
+
+    {% if order %}
+
+    <div style="
+        max-width:800px;
+        margin:auto;
+        background:white;
+        padding:30px;
+        border-radius:15px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    ">
+
+        <h2>Order #{{ order.id }}</h2>
+
+        <p style="margin:10px 0;">
+            <strong>Status:</strong>
+            <span style="color:#ff5722;">
+                {{ order.status }}
+            </span>
+        </p>
+
+        <hr style="margin:20px 0;">
+
+
+        {% for item in order["items"] %}
+
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            padding:15px 0;
+            border-bottom:1px solid #eee;
+        ">
+
+            <div>
+                <h3>{{ item.name }}</h3>
+                <p>Quantity: {{ item.quantity }}</p>
+            </div>
+
+            <strong>
+                &#8377;{{ item.price * item.quantity }}
+            </strong>
+
+        </div>
+
+        {% endfor %}
+
+
+        <div style="
+            text-align:right;
+            margin-top:25px;
+        ">
+
+            <h2>
+                Total: &#8377;{{ order.total }}
+            </h2>
+
+            <p style="margin-top:10px;">
+                Payment: {{ order.payment }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div style="
+        text-align:center;
+        background:white;
+        padding:40px;
+        border-radius:15px;
+        max-width:600px;
+        margin:auto;
+    ">
+
+        <h2>No orders yet &#128533;</h2>
+
+        <p style="margin:20px;">
+            You haven't placed any orders yet.
+        </p>
+
+        <a href="/menu"
+           style="
+           display:inline-block;
+           background:#ff5722;
+           color:white;
+           padding:12px 20px;
+           border-radius:8px;
+           text-decoration:none;
+           ">
+            Order Food &#127829;
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+
+<footer>
+
+    <h2>&#127828; FoodieExpress</h2>
+
+    <p>
+        Delicious food delivered to your doorstep.
+    </p>
+
+    <p>
+        &#169; 2026 FoodieExpress. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+</html>
+

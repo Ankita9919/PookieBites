@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodieExpress - Checkout</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🍔 FoodieExpress
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="/login">Login</a>
+        <a href="/cart">🛒 Cart</a>
+    </div>
+
+</nav>
+
+
+<section class="menu-section">
+
+    <h1 style="text-align:center; color:#ff5722; margin-bottom:30px;">
+        💳 Checkout
+    </h1>
+
+
+    {% if cart_items %}
+
+    <div style="
+        background:white;
+        max-width:700px;
+        margin:auto;
+        padding:30px;
+        border-radius:15px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    ">
+
+        <h2 style="margin-bottom:20px;">
+            Order Summary
+        </h2>
+
+
+        {% for item in cart_items %}
+
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            padding:12px 0;
+            border-bottom:1px solid #eee;
+        ">
+
+            <span>
+                {{ item.name }} × {{ item.quantity }}
+            </span>
+
+            <strong>
+                ₹{{ item.price * item.quantity }}
+            </strong>
+
+        </div>
+
+        {% endfor %}
+
+
+        <h2 style="
+            text-align:right;
+            margin-top:25px;
+            color:#ff5722;
+        ">
+            Total: ₹{{ total }}
+        </h2>
+
+
+        <form action="/place_order" method="POST">
+
+            <h2 style="margin-top:30px;">
+                Delivery Details
+            </h2>
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin-top:15px;
+                "
+            >
+
+            <input
+                type="text"
+                name="address"
+                placeholder="Delivery Address"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin-top:15px;
+                "
+            >
+
+            <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin-top:15px;
+                "
+            >
+
+
+            <select
+                name="payment"
+                required
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin-top:15px;
+                "
+            >
+
+                <option value="">
+                    Select Payment Method
+                </option>
+
+                <option value="Cash on Delivery">
+                    Cash on Delivery
+                </option>
+
+                <option value="UPI">
+                    UPI
+                </option>
+
+                <option value="Card">
+                    Card
+                </option>
+
+            </select>
+
+
+            <button
+                type="submit"
+                style="
+                    width:100%;
+                    margin-top:25px;
+                    padding:15px;
+                    background:#ff5722;
+                    color:white;
+                    border:none;
+                    border-radius:8px;
+                    font-size:18px;
+                    cursor:pointer;
+                "
+            >
+                Place Order 🚴
+            </button>
+
+        </form>
+
+    </div>
+
+    {% else %}
+
+    <div style="text-align:center;">
+
+        <h2>Your cart is empty 🛒</h2>
+
+        <p style="margin:20px;">
+            Please add food before checkout.
+        </p>
+
+        <a href="/menu"
+           style="
+               display:inline-block;
+               background:#ff5722;
+               color:white;
+               padding:12px 20px;
+               border-radius:8px;
+               text-decoration:none;
+           ">
+            Go to Menu 🍕
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+
+<footer>
+
+    <h2>🍔 FoodieExpress</h2>
+
+    <p>
+        Delicious food delivered to your doorstep.
+    </p>
+
+    <p>
+        © 2026 FoodieExpress. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+</html>

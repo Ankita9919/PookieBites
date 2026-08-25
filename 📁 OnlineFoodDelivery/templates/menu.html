@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodieExpress - Menu</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        FoodieExpress
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+
+        {% if session.get("logged_in") %}
+            <span style="color:white;font-weight:bold;">
+                &#128100; {{ session["user"]["name"] }}
+            </span>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+        {% endif %}
+
+        <a href="/cart">&#128722; Cart</a>
+    </div>
+
+</nav>
+
+
+<section class="menu-header">
+
+    <h1>Our Delicious Menu</h1>
+
+    <p>Choose your favourite food and order now!</p>
+
+</section>
+
+
+<section class="menu-section">
+
+    <input
+        type="text"
+        id="searchBox"
+        class="search-box"
+        placeholder="Search for food..."
+    >
+
+    <div class="menu-categories">
+
+        <button onclick="filterFood('all')">All</button>
+        <button onclick="filterFood('pizza')">Pizza</button>
+        <button onclick="filterFood('burger')">Burger</button>
+        <button onclick="filterFood('biryani')">Biryani</button>
+        <button onclick="filterFood('noodles')">Noodles</button>
+        <button onclick="filterFood('momos')">Momos</button>
+        <button onclick="filterFood('dessert')">Dessert</button>
+
+    </div>
+
+
+    <div class="menu-food-container">
+
+
+        <div class="menu-food-card" data-category="pizza">
+
+            <div class="menu-food-image">&#127829;</div>
+
+            <div class="menu-food-info">
+
+                <h3>Chicken Pizza</h3>
+
+                <p>Cheesy pizza with delicious chicken toppings.</p>
+
+                <div class="menu-food-bottom">
+
+                    <span>&#8377;249</span>
+
+                    <a href="/add_to_cart/Chicken%20Pizza/249">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="menu-food-card" data-category="burger">
+
+            <div class="menu-food-image">&#127828;</div>
+
+            <div class="menu-food-info">
+
+                <h3>Chicken Burger</h3>
+
+                <p>Crispy chicken burger with fresh vegetables.</p>
+
+                <div class="menu-food-bottom">
+
+                    <span>&#8377;149</span>
+
+                    <a href="/add_to_cart/Chicken%20Burger/149">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="menu-food-card" data-category="biryani">
+
+            <div class="menu-food-image">&#127835;</div>
+
+            <div class="menu-food-info">
+
+                <h3>Chicken Biryani</h3>
+
+                <p>Aromatic basmati rice with tender chicken.</p>
+
+                <div class="menu-food-bottom">
+
+                    <span>&#8377;199</span>
+
+                    <a href="/add_to_cart/Chicken%20Biryani/199">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="menu-food-card" data-category="noodles">
+
+            <div class="menu-food-image">&#127836;</div>
+
+            <div class="menu-food-info">
+
+                <h3>Chicken Noodles</h3>
+
+                <p>Delicious noodles tossed with chicken and vegetables.</p>
+
+                <div class="menu-food-bottom">
+
+                    <span>&#8377;159</span>
+
+                    <a href="/add_to_cart/Chicken%20Noodles/159">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="menu-food-card" data-category="momos">
+
+            <div class="menu-food-image">&#129377;</div>
+
+            <div class="menu-food-info">
+
+                <h3>Chicken Momos</h3>
+
+                <p>Soft steamed momos served with spicy chutney.</p>
+
+                <div class="menu-food-bottom">
+
+                    <span>&#8377;129</span>
+
+                    <a href="/add_to_cart/Chicken%20Momos/129">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="menu-food-card" data-category="dessert">
+
+            <div class="menu-food-image">&#127856;</div>
+
+            <div class="menu-food-info">
+
+                <h3>Chocolate Cake</h3>
+
+                <p>Soft and delicious chocolate cake.</p>
+
+                <div class="menu-food-bottom">
+
+                    <span>&#8377;179</span>
+
+                    <a href="/add_to_cart/Chocolate%20Cake/179">
+                        <button>Add to Cart</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <h2>FoodieExpress</h2>
+
+    <p>Delicious food delivered to your doorstep.</p>
+
+    <p>&#169; 2026 FoodieExpress. All Rights Reserved.</p>
+
+</footer>
+
+
+<script>
+
+function filterFood(category) {
+
+    const cards = document.querySelectorAll(".menu-food-card");
+
+    cards.forEach(function(card) {
+
+        if (
+            category === "all" ||
+            card.dataset.category === category
+        ) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+}
+
+
+const searchBox = document.getElementById("searchBox");
+
+searchBox.addEventListener("input", function() {
+
+    const searchText = this.value.toLowerCase();
+
+    const cards = document.querySelectorAll(".menu-food-card");
+
+    cards.forEach(function(card) {
+
+        const foodName =
+            card.querySelector("h3").textContent.toLowerCase();
+
+        if (foodName.includes(searchText)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+});
+
+</script>
+
+
+</body>
+</html>

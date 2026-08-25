@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodieExpress - Signup</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🍔 FoodieExpress
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+        <a href="/cart">🛒 Cart</a>
+    </div>
+
+</nav>
+
+
+<section class="menu-section">
+
+    <div style="
+        max-width:450px;
+        margin:40px auto;
+        background:white;
+        padding:35px;
+        border-radius:15px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    ">
+
+        <h1 style="
+            text-align:center;
+            color:#ff5722;
+            margin-bottom:25px;
+        ">
+            Create Account 👤
+        </h1>
+
+        <form action="/signup" method="POST">
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                required
+                style="
+                    width:100%;
+                    padding:13px;
+                    margin-bottom:15px;
+                "
+            >
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                required
+                style="
+                    width:100%;
+                    padding:13px;
+                    margin-bottom:15px;
+                "
+            >
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+                style="
+                    width:100%;
+                    padding:13px;
+                    margin-bottom:20px;
+                "
+            >
+
+            <button
+                type="submit"
+                style="
+                    width:100%;
+                    padding:14px;
+                    background:#ff5722;
+                    color:white;
+                    border:none;
+                    border-radius:8px;
+                    font-size:17px;
+                    cursor:pointer;
+                "
+            >
+                Create Account 🚀
+            </button>
+
+        </form>
+
+        <p style="text-align:center; margin-top:20px;">
+            Already have an account?
+            <a href="/login" style="color:#ff5722;">
+                Login
+            </a>
+        </p>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <h2>🍔 FoodieExpress</h2>
+
+    <p>
+        Delicious food delivered to your doorstep.
+    </p>
+
+    <p>
+        © 2026 FoodieExpress. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+
+</html>

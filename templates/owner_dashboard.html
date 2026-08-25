@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Owner Dashboard 💗</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    padding:35px;
+
+    background:
+    radial-gradient(circle at 10% 10%,#ffd6e8,transparent 30%),
+    radial-gradient(circle at 90% 90%,#ffc5df,transparent 30%),
+    linear-gradient(135deg,#fff2f8,#ffe1ee);
+
+    color:#555;
+}
+
+.header{
+    max-width:1100px;
+    margin:auto;
+    padding:30px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.8);
+    backdrop-filter:blur(15px);
+
+    border-radius:30px;
+
+    box-shadow:0 20px 50px rgba(210,80,130,.15);
+
+    animation:show .7s ease;
+}
+
+.header h1{
+    color:#d93678;
+    margin-bottom:8px;
+}
+
+.header p{
+    color:#888;
+}
+
+.add{
+    display:inline-block;
+    margin-top:20px;
+    padding:13px 22px;
+
+    background:linear-gradient(135deg,#ff4081,#ff82b2);
+
+    color:white;
+    text-decoration:none;
+
+    border-radius:15px;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.add:hover{
+    transform:translateY(-3px);
+}
+
+.food-grid{
+    max-width:1100px;
+    margin:35px auto;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:25px;
+}
+
+.food-card{
+
+    background:rgba(255,255,255,.9);
+
+    border-radius:25px;
+
+    padding:25px;
+
+    box-shadow:0 15px 40px rgba(210,80,130,.14);
+
+    transition:.35s;
+
+    animation:show .7s ease;
+}
+
+.food-card:hover{
+    transform:translateY(-8px);
+}
+
+.food-image{
+
+    width:100%;
+    height:160px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:80px;
+
+    background:#fff0f6;
+
+    border-radius:20px;
+
+    margin-bottom:18px;
+}
+
+.food-card h2{
+    color:#d93678;
+    margin-bottom:8px;
+}
+
+.category{
+
+    display:inline-block;
+
+    padding:6px 12px;
+
+    background:#ffe5ef;
+
+    color:#d93678;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    margin-bottom:12px;
+}
+
+.description{
+    color:#888;
+    font-size:14px;
+    min-height:40px;
+}
+
+.price{
+
+    font-size:25px;
+
+    font-weight:bold;
+
+    color:#333;
+
+    margin:15px 0;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.actions a,
+.actions button{
+
+    border:0;
+
+    padding:10px 13px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    font-size:12px;
+
+    transition:.25s;
+}
+
+.edit{
+    background:#ffe1ed;
+    color:#d93678;
+}
+
+.delete{
+    background:#ffe0e0;
+    color:#d33;
+}
+
+.actions a:hover,
+.actions button:hover{
+    transform:translateY(-2px);
+}
+
+.logout{
+
+    display:block;
+
+    text-align:center;
+
+    margin:30px;
+
+    color:#d93678;
+
+    text-decoration:none;
+
+    font-weight:bold;
+}
+
+@keyframes show{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1>🍰 FoodieExpress Owner Panel 💗</h1>
+
+    <p>Manage your delicious menu ✨</p>
+
+    <a class="add" href="/owner/add-food">
+        ➕ Add New Food
+    </a>
+
+</div>
+
+<div class="food-grid">
+
+{% for food in foods %}
+
+<div class="food-card">
+
+    <div class="food-image">
+        {{ food.icon }}
+    </div>
+
+    <h2>{{ food.name }}</h2>
+
+    <span class="category">
+        {{ food.category }}
+    </span>
+
+    <p class="description">
+        {{ food.description }}
+    </p>
+
+    <div class="price">
+        ₹{{ food.price }}
+    </div>
+
+    <div class="actions">
+
+        <a class="edit"
+           href="/owner/edit-food/{{ food.id }}">
+            ✏️ Edit
+        </a>
+
+        <form method="POST"
+              action="/owner/delete-food/{{ food.id }}">
+
+            <button class="delete"
+                    type="submit"
+                    onclick="return confirm('Delete {{ food.name }}?')">
+
+                🗑️ Delete
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<a class="logout" href="/owner/logout">
+    🚪 Owner Logout
+</a>
+
+</body>
+</html>

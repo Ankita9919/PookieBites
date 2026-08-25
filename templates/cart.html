@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodieExpress - Cart</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🍔 FoodieExpress
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="/login">Login</a>
+        <a href="/cart">🛒 Cart</a>
+    </div>
+
+</nav>
+
+
+<section class="menu-section">
+
+    <h1 style="text-align:center; color:#ff5722; margin-bottom:30px;">
+        🛒 Your Cart
+    </h1>
+
+    {% if cart_items %}
+
+        {% for item in cart_items %}
+
+        <div style="
+            background:white;
+            padding:20px;
+            margin:15px auto;
+            max-width:700px;
+            border-radius:12px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
+        ">
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                gap:20px;
+            ">
+
+                <div>
+                    <h3>{{ item.name }}</h3>
+
+                    <p>
+                        <a href="{{ url_for('decrease_quantity', name=item.name) }}" style="text-decoration:none;"><button type="button">−</button></a>
+<span style="padding:0 12px;">{{ item.quantity }}</span>
+<a href="{{ url_for('increase_quantity', name=item.name) }}" style="text-decoration:none;"><button type="button">+</button></a>
+                    </p>
+                </div>
+
+                <div>
+
+                    <strong style="color:#ff5722;">
+                        ₹{{ item.price * item.quantity }}
+                    </strong>
+
+                    <a
+                        href="{{ url_for('remove_from_cart', name=item.name) }}"
+                        style="
+                            margin-left:15px;
+                            color:red;
+                            text-decoration:none;
+                        "
+                    >
+                        Remove
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+        <div style="
+            max-width:700px;
+            margin:30px auto;
+            text-align:right;
+        ">
+
+            <h2>
+                Total:
+                <span style="color:#ff5722;">
+                    ₹{{ total }}
+                </span>
+            </h2>
+
+            <div style="margin-top:25px;">
+
+                <a
+                    href="/menu"
+                    style="
+                        display:inline-block;
+                        background:#777;
+                        color:white;
+                        padding:12px 20px;
+                        border-radius:8px;
+                        text-decoration:none;
+                        margin-right:10px;
+                    "
+                >
+                    Continue Shopping
+                </a>
+
+                <a
+                    href="/checkout"
+                    style="
+                        display:inline-block;
+                        background:#ff5722;
+                        color:white;
+                        padding:12px 25px;
+                        border-radius:8px;
+                        text-decoration:none;
+                    "
+                >
+                    Checkout 💳
+                </a>
+
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <div style="text-align:center;">
+
+            <h2>Your cart is empty 🛒</h2>
+
+            <p style="margin:20px;">
+                Add some delicious food first!
+            </p>
+
+            <a
+                href="/menu"
+                style="
+                    display:inline-block;
+                    background:#ff5722;
+                    color:white;
+                    padding:12px 20px;
+                    border-radius:8px;
+                    text-decoration:none;
+                "
+            >
+                Browse Menu 🍕
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+
+<footer>
+
+    <h2>🍔 FoodieExpress</h2>
+
+    <p>
+        Delicious food delivered to your doorstep.
+    </p>
+
+    <p>
+        © 2026 FoodieExpress. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+
+</html>

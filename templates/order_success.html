@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Confirmed - FoodieExpress</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🍔 FoodieExpress
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="/cart">🛒 Cart</a>
+    </div>
+
+</nav>
+
+
+<section class="menu-section">
+
+    <div style="
+        max-width:700px;
+        margin:40px auto;
+        background:white;
+        padding:40px;
+        text-align:center;
+        border-radius:15px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    ">
+
+        <div style="font-size:70px;">
+            🎉
+        </div>
+
+        <h1 style="color:#ff5722; margin:20px 0;">
+            Order Placed Successfully!
+        </h1>
+
+        <p>
+            Thank you, {{ order.customer_name }}!
+        </p>
+
+        <p style="margin-top:10px;">
+            Your delicious food is on its way. 🚴
+        </p>
+
+        <hr style="margin:25px 0;">
+
+        <h2>
+            Order Total:
+            <span style="color:#ff5722;">
+                ₹{{ order.total }}
+            </span>
+        </h2>
+
+        <p style="margin-top:15px;">
+            Payment: {{ order.payment }}
+        </p>
+
+        <a href="/menu"
+           style="
+               display:inline-block;
+               margin-top:30px;
+               background:#ff5722;
+               color:white;
+               padding:12px 25px;
+               border-radius:8px;
+               text-decoration:none;
+           ">
+            Order More Food 🍕
+        </a>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <h2>🍔 FoodieExpress</h2>
+
+    <p>
+        Delicious food delivered to your doorstep.
+    </p>
+
+    <p>
+        © 2026 FoodieExpress. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+</html>

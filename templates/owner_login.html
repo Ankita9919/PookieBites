@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Owner Login | FoodieExpress</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 10% 20%, #ffd6e7 0%, transparent 30%),
+        radial-gradient(circle at 90% 80%, #ffc1dc 0%, transparent 30%),
+        linear-gradient(135deg, #fff0f6, #ffe1ed);
+}
+
+/* Floating hearts */
+
+.heart {
+    position: absolute;
+    font-size: 25px;
+    opacity: 0.6;
+    animation: float 6s infinite ease-in-out;
+}
+
+.h1 { left: 10%; top: 15%; animation-delay: 0s; }
+.h2 { left: 80%; top: 20%; animation-delay: 1s; }
+.h3 { left: 20%; top: 75%; animation-delay: 2s; }
+.h4 { left: 75%; top: 70%; animation-delay: 3s; }
+.h5 { left: 50%; top: 10%; animation-delay: 1.5s; }
+
+@keyframes float {
+
+    0%,100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-30px) rotate(15deg);
+    }
+}
+
+/* Login Card */
+
+.login-card {
+
+    width: 390px;
+    padding: 42px 38px;
+
+    background: rgba(255,255,255,0.82);
+
+    backdrop-filter: blur(18px);
+
+    border-radius: 28px;
+
+    border: 1px solid rgba(255,255,255,0.8);
+
+    box-shadow:
+        0 25px 60px rgba(210,80,130,0.22);
+
+    text-align: center;
+
+    animation: appear 0.8s ease;
+}
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Logo */
+
+.logo {
+
+    width: 75px;
+    height: 75px;
+
+    margin: auto;
+    margin-bottom: 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 38px;
+
+    background: linear-gradient(135deg,#ff4f91,#ff86b5);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 10px 25px rgba(255,79,145,0.35);
+
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.07);
+    }
+}
+
+h1 {
+
+    color: #d93678;
+    font-size: 27px;
+    margin-bottom: 7px;
+}
+
+.subtitle {
+
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+/* Input */
+
+.input-box {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.input-box label {
+
+    display: block;
+    margin-bottom: 7px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    color: #555;
+}
+
+.input-box input {
+
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border-radius: 14px;
+
+    border: 1px solid #f0b8cd;
+
+    outline: none;
+
+    background: #fff;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+}
+
+.input-box input:focus {
+
+    border-color: #ff4f91;
+
+    box-shadow:
+        0 0 0 4px rgba(255,79,145,0.12);
+}
+
+/* Login Button */
+
+.login-btn {
+
+    width: 100%;
+
+    border: none;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(135deg,#ff4081,#ff78aa);
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    box-shadow:
+        0 10px 25px rgba(255,64,129,0.28);
+}
+
+.login-btn:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 30px rgba(255,64,129,0.38);
+}
+
+.login-btn:active {
+
+    transform: scale(0.97);
+}
+
+/* Error */
+
+.error {
+
+    background: #ffe3eb;
+
+    color: #d6295b;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    margin-bottom: 18px;
+
+    font-size: 13px;
+}
+
+/* Footer */
+
+.footer {
+
+    margin-top: 25px;
+
+    font-size: 12px;
+
+    color: #999;
+}
+
+.footer span {
+    color: #ff4f91;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="heart h1">💗</div>
+<div class="heart h2">✨</div>
+<div class="heart h3">💕</div>
+<div class="heart h4">🌸</div>
+<div class="heart h5">💖</div>
+
+<div class="login-card">
+
+    <div class="logo">
+        🍔
+    </div>
+
+    <h1>Owner Login</h1>
+
+    <p class="subtitle">
+        Welcome back to FoodieExpress ✨
+    </p>
+
+    {% if error %}
+
+    <div class="error">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+    <form method="POST">
+
+        <div class="input-box">
+
+            <label>Username</label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter owner username"
+                required
+            >
+
+        </div>
+
+        <div class="input-box">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter owner password"
+                required
+            >
+
+        </div>
+
+        <button class="login-btn" type="submit">
+            Login to Dashboard 💗
+        </button>
+
+    </form>
+
+    <div class="footer">
+        FoodieExpress <span>♥</span> Owner Panel
+    </div>
+
+</div>
+
+</body>
+</html>
