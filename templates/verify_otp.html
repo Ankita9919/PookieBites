@@ -1,0 +1,66 @@
+﻿{% extends "base.html" %}
+
+{% block title %}PookieBites | Verify OTP{% endblock %}
+
+{% block content %}
+
+<div class="page">
+
+    <div class="card" style="
+        max-width:480px;
+        margin:auto;
+        padding:40px;
+        text-align:center;
+    ">
+
+        <div style="font-size:55px;">🔐</div>
+
+        <h1>Verify OTP</h1>
+
+        <p style="color:#777;">
+            Enter the 6-digit OTP sent to your mobile number.
+        </p>
+
+        <form method="POST"
+              action="{{ url_for('verify_otp') }}">
+
+            <input
+                type="text"
+                name="otp"
+                maxlength="6"
+                minlength="6"
+                pattern="[0-9]{6}"
+                placeholder="Enter OTP"
+                required
+                style="
+                    text-align:center;
+                    font-size:24px;
+                    letter-spacing:8px;
+                "
+            >
+
+            <button class="btn"
+                    type="submit"
+                    style="width:100%;margin-top:22px;">
+                Verify OTP
+            </button>
+
+        </form>
+
+        {% if demo_otp %}
+        <div style="
+            margin-top:20px;
+            padding:12px;
+            background:#fff7f2;
+            border-radius:12px;
+            color:#d94d20;
+        ">
+            Demo OTP: <strong>{{ demo_otp }}</strong>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

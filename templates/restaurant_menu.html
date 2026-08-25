@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ restaurant.name }} - FoodieExpress</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        &#127828; FoodieExpress
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="/restaurants">Restaurants</a>
+        <a href="/cart">&#128722; Cart</a>
+
+    </div>
+
+</nav>
+
+
+<section class="menu-header">
+
+    <h1>{{ restaurant.name }}</h1>
+
+    <p>{{ restaurant.description }}</p>
+
+    <p>&#128205; {{ restaurant.address }}</p>
+
+    {% if restaurant.is_open %}
+
+        <p style="color:green;font-weight:bold;">
+            &#128994; Open Now
+        </p>
+
+    {% else %}
+
+        <p style="color:red;font-weight:bold;">
+            &#128308; Closed
+        </p>
+
+    {% endif %}
+
+</section>
+
+
+<section class="menu-section">
+
+    <div class="menu-food-container">
+
+        {% for food in foods %}
+
+        <div class="menu-food-card"
+             data-category="{{ food.category.name|lower }}">
+
+            <div class="menu-food-image">
+
+                {% if food.category.name|lower == "pizza" %}
+                    &#127829;
+                {% elif food.category.name|lower == "burger" %}
+                    &#127828;
+                {% elif food.category.name|lower == "biryani" %}
+                    &#127835;
+                {% elif food.category.name|lower == "noodles" %}
+                    &#127836;
+                {% elif food.category.name|lower == "momos" %}
+                    &#129377;
+                {% elif food.category.name|lower == "dessert" %}
+                    &#127856;
+                {% else %}
+                    &#127828;
+                {% endif %}
+
+            </div>
+
+
+            <div class="menu-food-info">
+
+                <h3>{{ food.name }}</h3>
+
+                <p>{{ food.description }}</p>
+
+                <div class="menu-food-bottom">
+
+                    <span>
+                        &#8377;{{ food.price|int }}
+                    </span>
+
+                    <a href="{{ url_for(
+                        'add_to_cart',
+                        name=food.name,
+                        price=food.price|int
+                    ) }}">
+
+                        <button>
+                            Add to Cart
+                        </button>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <p>No food available at this restaurant.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <h2>FoodieExpress</h2>
+
+    <p>
+        Delicious food delivered to your doorstep.
+    </p>
+
+    <p>
+        &#169; 2026 FoodieExpress. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+
+</html>

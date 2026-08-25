@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+.env
+*.db
+*.db-journal
+*_backup*
+*backup*
+*_test*
+cart_function.txt
+templates/static/
+static/images_backup/
+templates_backup_before_pookie_final/

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodieExpress - Restaurants</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        &#127828; FoodieExpress
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="/restaurants">Restaurants</a>
+
+        {% if session.get("logged_in") %}
+            <span style="color:white;font-weight:bold;">
+                &#128100; {{ session["user"]["name"] }}
+            </span>
+
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+        {% endif %}
+
+        <a href="/cart">&#128722; Cart</a>
+
+    </div>
+
+</nav>
+
+
+<section class="menu-header">
+
+    <h1>Restaurants Near You &#127860;</h1>
+
+    <p>
+        Discover restaurants and order your favourite food.
+    </p>
+
+</section>
+
+
+<section class="menu-section">
+
+    <div class="menu-food-container">
+
+        {% for restaurant in restaurants %}
+
+        <div class="menu-food-card">
+
+            <div class="menu-food-image">
+                &#127869;
+            </div>
+
+            <div class="menu-food-info">
+
+                <h3>{{ restaurant.name }}</h3>
+
+                <p>
+                    {{ restaurant.description }}
+                </p>
+
+                <p>
+                    &#128205; {{ restaurant.address }}
+                </p>
+
+                {% if restaurant.is_open %}
+                    <p style="color:green;font-weight:bold;">
+                        &#128994; Open Now
+                    </p>
+                {% else %}
+                    <p style="color:red;font-weight:bold;">
+                        &#128308; Closed
+                    </p>
+                {% endif %}
+
+                {% if restaurant.is_verified %}
+                    <p style="font-weight:bold;">
+                        &#9989; Verified Restaurant
+                    </p>
+                {% endif %}
+
+                <div class="menu-food-bottom">
+
+                    <a href="/menu">
+                        <button>View Menu</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <h2>FoodieExpress</h2>
+
+    <p>
+        Delicious food delivered to your doorstep.
+    </p>
+
+    <p>
+        &#169; 2026 FoodieExpress. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+</html>
