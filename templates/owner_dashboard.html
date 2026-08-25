@@ -1,14 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Owner Dashboard 💗</title>
+<title>FoodieExpress Owner 💗</title>
 
 <style>
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -18,31 +16,24 @@
 body{
     font-family:Arial,sans-serif;
     min-height:100vh;
-    padding:35px;
-
+    padding:30px;
     background:
     radial-gradient(circle at 10% 10%,#ffd6e8,transparent 30%),
     radial-gradient(circle at 90% 90%,#ffc5df,transparent 30%),
     linear-gradient(135deg,#fff2f8,#ffe1ee);
-
     color:#555;
 }
 
 .header{
-    max-width:1100px;
+    max-width:1150px;
     margin:auto;
     padding:30px;
-
     text-align:center;
-
-    background:rgba(255,255,255,.8);
+    background:rgba(255,255,255,.82);
     backdrop-filter:blur(15px);
-
     border-radius:30px;
-
     box-shadow:0 20px 50px rgba(210,80,130,.15);
-
-    animation:show .7s ease;
+    animation:drop .7s ease;
 }
 
 .header h1{
@@ -54,50 +45,46 @@ body{
     color:#888;
 }
 
-.add{
+.add-btn{
     display:inline-block;
     margin-top:20px;
-    padding:13px 22px;
-
+    padding:13px 24px;
     background:linear-gradient(135deg,#ff4081,#ff82b2);
-
     color:white;
     text-decoration:none;
-
     border-radius:15px;
-
     font-weight:bold;
-
+    box-shadow:0 10px 25px rgba(255,64,129,.25);
     transition:.3s;
 }
 
-.add:hover{
-    transform:translateY(-3px);
+.add-btn:hover{
+    transform:translateY(-4px) scale(1.02);
+}
+
+.category-title{
+    max-width:1150px;
+    margin:40px auto 18px;
+    color:#d93678;
+    font-size:25px;
+    animation:drop .6s ease;
 }
 
 .food-grid{
-    max-width:1100px;
-    margin:35px auto;
-
+    max-width:1150px;
+    margin:auto;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
+    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
     gap:25px;
 }
 
 .food-card{
-
-    background:rgba(255,255,255,.9);
-
+    background:rgba(255,255,255,.92);
     border-radius:25px;
-
-    padding:25px;
-
+    padding:18px;
     box-shadow:0 15px 40px rgba(210,80,130,.14);
-
     transition:.35s;
-
-    animation:show .7s ease;
+    animation:drop .7s ease;
 }
 
 .food-card:hover{
@@ -105,43 +92,27 @@ body{
 }
 
 .food-image{
-
     width:100%;
-    height:160px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:80px;
-
-    background:#fff0f6;
-
+    height:190px;
+    object-fit:cover;
     border-radius:20px;
+    display:block;
+    margin-bottom:16px;
+}
 
-    margin-bottom:18px;
+.category{
+    display:inline-block;
+    padding:6px 12px;
+    background:#ffe5ef;
+    color:#d93678;
+    border-radius:20px;
+    font-size:12px;
+    margin-bottom:10px;
 }
 
 .food-card h2{
     color:#d93678;
-    margin-bottom:8px;
-}
-
-.category{
-
-    display:inline-block;
-
-    padding:6px 12px;
-
-    background:#ffe5ef;
-
-    color:#d93678;
-
-    border-radius:20px;
-
-    font-size:12px;
-
-    margin-bottom:12px;
+    margin-bottom:7px;
 }
 
 .description{
@@ -151,142 +122,283 @@ body{
 }
 
 .price{
-
-    font-size:25px;
-
+    font-size:24px;
     font-weight:bold;
-
     color:#333;
-
     margin:15px 0;
 }
 
 .actions{
     display:flex;
     gap:8px;
-    flex-wrap:wrap;
 }
 
-.actions a,
 .actions button{
-
     border:0;
-
     padding:10px 13px;
-
     border-radius:12px;
-
-    text-decoration:none;
-
     cursor:pointer;
-
     font-weight:bold;
-
-    font-size:12px;
-
     transition:.25s;
 }
 
-.edit{
-    background:#ffe1ed;
-    color:#d93678;
-}
-
-.delete{
-    background:#ffe0e0;
-    color:#d33;
-}
-
-.actions a:hover,
 .actions button:hover{
     transform:translateY(-2px);
 }
 
-.logout{
-
-    display:block;
-
-    text-align:center;
-
-    margin:30px;
-
+.edit-btn{
+    background:#ffe1ed;
     color:#d93678;
+}
 
+.delete-btn{
+    background:#ffe0e0;
+    color:#d33;
+}
+
+.logout{
+    display:block;
+    text-align:center;
+    margin:35px;
+    color:#d93678;
     text-decoration:none;
-
     font-weight:bold;
 }
 
-@keyframes show{
+/* MODAL */
 
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(80,20,50,.35);
+    backdrop-filter:blur(8px);
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+    animation:fade .25s ease;
+}
+
+.modal-box{
+    width:100%;
+    max-width:500px;
+    background:white;
+    border-radius:30px;
+    padding:28px;
+    box-shadow:0 30px 80px rgba(210,80,130,.3);
+    animation:pookie .45s cubic-bezier(.2,.8,.2,1);
+}
+
+.modal-box h2{
+    color:#d93678;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.modal-box label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:5px;
+    color:#777;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.modal-box input,
+.modal-box textarea,
+.modal-box select{
+    width:100%;
+    padding:12px;
+    border:2px solid #ffe0ec;
+    border-radius:13px;
+    outline:none;
+    font-size:14px;
+}
+
+.modal-box input:focus,
+.modal-box textarea:focus,
+.modal-box select:focus{
+    border-color:#ff70a5;
+}
+
+.price-control{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.price-control button{
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:12px;
+    background:#ffe1ed;
+    color:#d93678;
+    font-size:22px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.price-control input{
+    text-align:center;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.modal-actions{
+    display:flex;
+    gap:10px;
+    margin-top:22px;
+}
+
+.save-btn,
+.close-btn{
+    flex:1;
+    border:0;
+    padding:13px;
+    border-radius:14px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.save-btn{
+    background:linear-gradient(135deg,#ff4081,#ff82b2);
+    color:white;
+}
+
+.close-btn{
+    background:#eee;
+    color:#666;
+}
+
+@keyframes drop{
     from{
         opacity:0;
         transform:translateY(25px);
     }
-
     to{
         opacity:1;
         transform:translateY(0);
     }
 }
 
+@keyframes fade{
+    from{opacity:0}
+    to{opacity:1}
+}
+
+@keyframes pookie{
+    from{
+        opacity:0;
+        transform:scale(.75) translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+@media(max-width:600px){
+    body{padding:15px}
+    .header{padding:22px}
+    .food-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-
     <h1>🍰 FoodieExpress Owner Panel 💗</h1>
-
     <p>Manage your delicious menu ✨</p>
 
-    <a class="add" href="/owner/add-food">
+    <a class="add-btn" href="/owner/add-food">
         ➕ Add New Food
     </a>
-
 </div>
+
+
+{% set categories = ["pizza","burger","biryani","noodles","momos","dessert"] %}
+
+{% for category in categories %}
+
+{% set category_foods = foods | selectattr("category","equalto",category) | list %}
+
+{% if category_foods %}
+
+<h2 class="category-title">
+    {% if category == "pizza" %}🍕
+    {% elif category == "burger" %}🍔
+    {% elif category == "biryani" %}🍛
+    {% elif category == "noodles" %}🍜
+    {% elif category == "momos" %}🥟
+    {% elif category == "dessert" %}🍰
+    {% endif %}
+    {{ category|title }}
+</h2>
 
 <div class="food-grid">
 
-{% for food in foods %}
+{% for food in category_foods %}
 
 <div class="food-card">
 
-    <div class="food-image">
-        {{ food.icon }}
-    </div>
-
-    <h2>{{ food.name }}</h2>
+    {% if food.name == "Chicken Pizza" %}
+        <img class="food-image" src="{{ url_for('static', filename='images/chicken_pizza.jpg') }}" onerror="this.src='{{ url_for('static', filename='images/default_food.jpg') }}'">
+    {% elif food.name == "Chicken Burger" %}
+        <img class="food-image" src="{{ url_for('static', filename='images/chicken_burger.jpg') }}">
+    {% elif food.name == "Chicken Biryani" %}
+        <img class="food-image" src="{{ url_for('static', filename='images/chicken_biryani.jpg') }}">
+    {% elif food.name == "Chicken Noodles" %}
+        <img class="food-image" src="{{ url_for('static', filename='images/chicken_hakka_noodles.jpg') }}">
+    {% elif food.name == "Chicken Momos" %}
+        <img class="food-image" src="{{ url_for('static', filename='images/chicken_momos.jpg') }}">
+    {% elif food.name == "Chocolate Cake" %}
+        <img class="food-image" src="{{ url_for('static', filename='images/chocolate_cake.jpg') }}">
+    {% else %}
+        <img class="food-image" src="{{ url_for('static', filename='images/default_food.jpg') }}">
+    {% endif %}
 
     <span class="category">
-        {{ food.category }}
+        {{ food.category|title }}
     </span>
+
+    <h2>{{ food.name }}</h2>
 
     <p class="description">
         {{ food.description }}
     </p>
 
     <div class="price">
-        ₹{{ food.price }}
+        ₹<span id="price-{{ food.id }}">{{ food.price }}</span>
     </div>
 
     <div class="actions">
 
-        <a class="edit"
-           href="/owner/edit-food/{{ food.id }}">
+        <button
+            class="edit-btn"
+            onclick="openEdit(
+                '{{ food.id }}',
+                '{{ food.name|e }}',
+                '{{ food.category|e }}',
+                '{{ food.description|e }}',
+                '{{ food.price }}'
+            )">
             ✏️ Edit
-        </a>
+        </button>
 
         <form method="POST"
               action="/owner/delete-food/{{ food.id }}">
 
-            <button class="delete"
+            <button class="delete-btn"
                     type="submit"
                     onclick="return confirm('Delete {{ food.name }}?')">
-
                 🗑️ Delete
-
             </button>
 
         </form>
@@ -299,9 +411,149 @@ body{
 
 </div>
 
+{% endif %}
+
+{% endfor %}
+
+
 <a class="logout" href="/owner/logout">
     🚪 Owner Logout
 </a>
 
+
+<!-- EDIT MODAL -->
+
+<div class="modal" id="editModal">
+
+<div class="modal-box">
+
+<h2>✨ Edit Food 💗</h2>
+
+<form id="editForm" method="POST">
+
+<label>Food Name</label>
+<input type="text" id="editName" name="name" required>
+
+<label>Category</label>
+<select id="editCategory" name="category">
+    <option value="pizza">Pizza</option>
+    <option value="burger">Burger</option>
+    <option value="biryani">Biryani</option>
+    <option value="noodles">Noodles</option>
+    <option value="momos">Momos</option>
+    <option value="dessert">Dessert</option>
+</select>
+
+<label>Description</label>
+<textarea id="editDescription" name="description" rows="3"></textarea>
+
+<label>Price</label>
+
+<div class="price-control">
+
+<button type="button" onclick="changePrice(-10)">−</button>
+
+<input type="number" id="editPrice" name="price" min="1" required>
+
+<button type="button" onclick="changePrice(10)">+</button>
+
+</div>
+
+<input type="hidden" name="icon" value="🍽️">
+
+<div class="modal-actions">
+
+<button type="submit" class="save-btn">
+💗 Save Changes
+</button>
+
+<button type="button" class="close-btn" onclick="closeEdit()">
+Cancel
+</button>
+
+</div>
+
+</form>
+
+</div>
+</div>
+
+
+<script>
+
+function openEdit(id,name,category,description,price){
+
+    document.getElementById("editModal").classList.add("show");
+
+    document.getElementById("editName").value=name;
+    document.getElementById("editCategory").value=category;
+    document.getElementById("editDescription").value=description;
+    document.getElementById("editPrice").value=price;
+
+    document.getElementById("editForm").action="/owner/edit-food/"+id;
+}
+
+function closeEdit(){
+
+    document.getElementById("editModal").classList.remove("show");
+
+}
+
+function changePrice(amount){
+
+    const input=document.getElementById("editPrice");
+
+    let value=parseInt(input.value)||0;
+
+    value+=amount;
+
+    if(value<1)value=1;
+
+    input.value=value;
+
+}
+
+document.getElementById("editModal").addEventListener("click",function(e){
+
+    if(e.target===this){
+        closeEdit();
+    }
+
+});
+
+</script>
+
 </body>
 </html>
+
+
+<style>
+.food-image img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    border-radius:20px;
+}
+</style>
+
+
+<style>
+.food-image img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+}
+</style>
+
+
+<style>
+.food-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+}
+</style>

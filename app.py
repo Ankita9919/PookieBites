@@ -9,14 +9,156 @@ OWNER_PASSWORD = "admin123"
 
 FOODS_FILE = "foods.json"
 
+FOOD_IMAGES = {
+    "Chicken Pizza": "chicken_pizza.jpg",
+    "Margherita Pizza": "margherita_pizza.jpg",
+    "Chicken Burger": "chicken_burger.jpg",
+    "Chicken Burger Combo": "chicken_burger_combo.jpg",
+    "Chicken Biryani": "chicken_biryani.jpg",
+    "Mutton Biryani": "mutton_biryani.jpg",
+    "Egg Biryani": "egg_biryani.jpg",
+    "Veg Biryani": "veg_biryani.jpg",
+    "Kolkata Chicken Biryani": "kolkata_chicken_biryani.jpg",
+    "Kolkata Mutton Biryani": "kolkata_mutton_biryani.jpg",
+    "Hyderabadi Chicken Biryani": "hyderabadi_chicken_biryani.jpg",
+    "Biryani Combo": "biryani_combo.jpg",
+    "Chicken Noodles": "chicken_hakka_noodles.jpg",
+    "Hakka Noodles": "hakka_noodles.jpg",
+    "Egg Noodles": "egg_noodles.jpg",
+    "Schezwan Chicken Noodles": "schezwan_chicken_noodles.jpg",
+    "Schezwan Veg Noodles": "schezwan_veg_noodles.jpg",
+    "Chilli Garlic Noodles": "chilli_garlic_noodles.jpg",
+    "Veg Hakka Noodles": "veg_hakka_noodles.jpg",
+    "Noodles Combo": "noodles_combo.jpg",
+    "Chicken Momos": "chicken_momos.jpg",
+    "Momo Combo": "momo_combo.jpg",
+    "Chocolate Cake": "chocolate_cake.jpg",
+    "Brownie": "brownie.jpg",
+    "Cheesecake": "cheesecake.jpg",
+    "Chocolate Mousse": "chocolate_mousse.jpg",
+    "Rosogolla": "rosogolla.jpg",
+    "Sandesh": "sandesh.jpg",
+    "Mishti Doi": "mishti_doi.jpg",
+    "Rasmalai": "rasmalai.jpg",
+    "Cham Cham": "cham_cham.jpg",
+    "Kheer Kadam": "kheer_kadam.jpg",
+    "Nolen Gur Sandesh": "nolen_gur_sandesh.jpg",
+    "Gulab Jamun": "gulab_jamun.jpg",
+    "Mango Ice Cream": "mango_ice_cream.jpg",
+    "Chocolate Ice Cream": "chocolate_ice_cream.jpg",
+    "Vanilla Ice Cream": "vanilla_ice_cream.jpg",
+    "Butterscotch Ice Cream": "butterscotch_ice_cream.jpg",
+    "Strawberry Ice Cream": "strawberry_ice_cream.jpg",
+    "Kesar Pista Ice Cream": "kesar_pista_ice_cream.jpg",
+    "Mango Juice": "mango_juice.jpg",
+    "Coca Cola": "coca_cola.jpg",
+    "Pepsi": "pepsi.jpg",
+    "Sprite": "sprite.jpg",
+    "Chicken Thali": "chicken_thali.jpg",
+    "Mutton Thali": "mutton_thali.jpg",
+    "Bengali Fish Thali": "bengali_fish_thali.jpg",
+    "Bengali Veg Thali": "bengali_veg_thali.jpg",
+    "Special Veg Thali": "special_veg_thali.jpg",
+    "Luchi Aloor Dom": "luchi_aloor_dom.jpg",
+    "Kosha Mangsho": "kosha_mangsho.jpg",
+    "Shorshe Ilish": "shorshe_ilish.jpg",
+    "Bhetki Paturi": "bhetki_paturi.jpg",
+    "Chingri Malai Curry": "chingri_malai_curry.jpg",
+    "Aloo Posto": "aloo_posto.jpg",
+    "Dhokar Dalna": "dhokar_dalna.jpg",
+    "Doi Katla": "doi_katla.jpg"
+}
+
+
+def get_food_image(food_name):
+
+    image_map = {
+
+        "Chicken Pizza": "margherita_pizza.jpg",
+
+        "Chicken Burger": "chicken_burger.jpg",
+        "Chicken Burger Combo": "chicken_burger_combo.jpg",
+
+        "Chicken Biryani": "chicken_biryani.jpg",
+        "Mutton Biryani": "mutton_biryani.jpg",
+        "Egg Biryani": "egg_biryani.jpg",
+        "Veg Biryani": "veg_biryani.jpg",
+        "Hyderabadi Chicken Biryani": "hyderabadi_chicken_biryani.jpg",
+        "Kolkata Chicken Biryani": "kolkata_chicken_biryani.jpg",
+        "Kolkata Mutton Biryani": "kolkata_mutton_biryani.jpg",
+        "Biryani Combo": "biryani_combo.jpg",
+
+        "Chicken Noodles": "chicken_hakka_noodles.jpg",
+        "Chicken Hakka Noodles": "chicken_hakka_noodles.jpg",
+        "Hakka Noodles": "hakka_noodles.jpg",
+        "Egg Noodles": "egg_noodles.jpg",
+        "Veg Hakka Noodles": "veg_hakka_noodles.jpg",
+        "Chilli Garlic Noodles": "chilli_garlic_noodles.jpg",
+        "Schezwan Chicken Noodles": "schezwan_chicken_noodles.jpg",
+        "Schezwan Veg Noodles": "schezwan_veg_noodles.jpg",
+        "Noodles Combo": "noodles_combo.jpg",
+
+        "Chicken Momos": "chicken_momos.jpg",
+        "Momo Combo": "momo_combo.jpg",
+
+        "Chicken Thali": "chicken_thali.jpg",
+        "Mutton Thali": "mutton_thali.jpg",
+        "Bengali Fish Thali": "bengali_fish_thali.jpg",
+        "Bengali Veg Thali": "bengali_veg_thali.jpg",
+        "Special Veg Thali": "special_veg_thali.jpg",
+
+        "Aloo Posto": "aloo_posto.jpg",
+        "Bengali Fish Thali": "bengali_fish_thali.jpg",
+        "Bengali Veg Thali": "bengali_veg_thali.jpg",
+        "Bhetki Paturi": "bhetki_paturi.jpg",
+        "Chingri Malai Curry": "chingri_malai_curry.jpg",
+        "Dhokar Dalna": "dhokar_dalna.jpg",
+        "Doi Katla": "doi_katla.jpg",
+        "Kosha Mangsho": "kosha_mangsho.jpg",
+        "Luchi Aloor Dom": "luchi_aloor_dom.jpg",
+        "Shorshe Ilish": "shorshe_ilish.jpg",
+
+        "Rosogolla": "rosogolla.jpg",
+        "Sandesh": "sandesh.jpg",
+        "Nolen Gur Sandesh": "nolen_gur_sandesh.jpg",
+        "Cham Cham": "cham_cham.jpg",
+        "Kheer Kadam": "kheer_kadam.jpg",
+        "Mishti Doi": "mishti_doi.jpg",
+        "Gulab Jamun": "gulab_jamun.jpg",
+        "Rasmalai": "rasmalai.jpg",
+
+        "Chocolate Cake": "chocolate_cake.jpg",
+        "Cheesecake": "cheesecake.jpg",
+        "Brownie": "brownie.jpg",
+        "Chocolate Mousse": "chocolate_mousse.jpg",
+
+        "Chocolate Ice Cream": "chocolate_ice_cream.jpg",
+        "Vanilla Ice Cream": "vanilla_ice_cream.jpg",
+        "Mango Ice Cream": "mango_ice_cream.jpg",
+        "Strawberry Ice Cream": "strawberry_ice_cream.jpg",
+        "Butterscotch Ice Cream": "butterscotch_ice_cream.jpg",
+        "Kesar Pista Ice Cream": "kesar_pista_ice_cream.jpg",
+
+        "Mango Juice": "mango_juice.jpg",
+        "Mango Lassi": "mango_lassi.jpg",
+        "Cold Coffee": "cold_coffee.jpg",
+        "Fresh Lime Soda": "fresh_lime_soda.jpg",
+        "Coca Cola": "coca_cola.jpg",
+        "Pepsi": "pepsi.jpg",
+        "Sprite": "sprite.jpg",
+
+        "Family Feast Combo": "family_feast_combo.jpg"
+    }
+
+    return image_map.get(food_name, "default_food.jpg")
 
 def load_foods():
-    with open(FOODS_FILE, "r", encoding="utf-8") as f:
+    with open(FOODS_FILE, "r", encoding="utf-8-sig") as f:
         return json.load(f)
 
 
 def save_foods(foods):
-    with open(FOODS_FILE, "w", encoding="utf-8") as f:
+    with open(FOODS_FILE, "w", encoding="utf-8-sig") as f:
         json.dump(foods, f, indent=4, ensure_ascii=False)
 
 
@@ -121,10 +263,7 @@ def owner_dashboard():
 
     foods = load_foods()
 
-    return render_template(
-        "owner_dashboard.html",
-        foods=foods
-    )
+    return render_template("owner_dashboard.html", foods=foods, get_food_image=get_food_image)
 
 
 # ---------------- ADD FOOD ----------------
@@ -147,7 +286,7 @@ def add_food():
             "category": request.form.get("category"),
             "description": request.form.get("description"),
             "price": int(request.form.get("price")),
-            "icon": request.form.get("icon") or "🍽️"
+            "icon": request.form.get("icon") or "Ã°Å¸ÂÂ½Ã¯Â¸Â"
         }
 
         foods.append(food)
@@ -391,3 +530,11 @@ def orders():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+
+
+
+
+

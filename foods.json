@@ -1,8 +1,515 @@
 [
-    {"id": 1, "name": "Chicken Pizza", "category": "pizza", "description": "Cheesy pizza with delicious chicken toppings.", "price": 249, "icon": "🍕"},
-    {"id": 2, "name": "Chicken Burger", "category": "burger", "description": "Crispy chicken burger with fresh vegetables.", "price": 149, "icon": "🍔"},
-    {"id": 3, "name": "Chicken Biryani", "category": "biryani", "description": "Aromatic basmati rice with tender chicken.", "price": 199, "icon": "🍛"},
-    {"id": 4, "name": "Chicken Noodles", "category": "noodles", "description": "Delicious noodles tossed with chicken and vegetables.", "price": 159, "icon": "🍜"},
-    {"id": 5, "name": "Chicken Momos", "category": "momos", "description": "Soft steamed momos served with spicy chutney.", "price": 129, "icon": "🥟"},
-    {"id": 6, "name": "Chocolate Cake", "category": "dessert", "description": "Soft and delicious chocolate cake.", "price": 179, "icon": "🍰"}
+  {
+    "id": 1,
+    "name": "Chicken Pizza",
+    "category": "pizza",
+    "description": "Cheesy pizza with delicious chicken toppings.",
+    "price": 249,
+    "icon": "🍕",
+    "image": "margherita_pizza.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Chicken Burger",
+    "category": "burger",
+    "description": "Crispy chicken burger with fresh vegetables.",
+    "price": 149,
+    "icon": "🍔",
+    "image": "chicken_burger.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Chicken Biryani",
+    "category": "biryani",
+    "description": "Aromatic basmati rice with tender chicken.",
+    "price": 199,
+    "icon": "🍛",
+    "image": "chicken_biryani.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Chicken Noodles",
+    "category": "noodles",
+    "description": "Delicious noodles tossed with chicken and vegetables.",
+    "price": 159,
+    "icon": "🍜",
+    "image": "chicken_hakka_noodles.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Chicken Momos",
+    "category": "momos",
+    "description": "Soft steamed momos served with spicy chutney.",
+    "price": 129,
+    "icon": "🥟",
+    "image": "chicken_momos.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Chocolate Cake",
+    "category": "dessert",
+    "description": "Soft and delicious chocolate cake.",
+    "price": 179,
+    "icon": "🍰",
+    "image": "chocolate_cake.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Margherita Pizza",
+    "category": "pizza",
+    "description": "Classic pizza with cheese and fresh herbs.",
+    "price": 199,
+    "icon": "🍕",
+    "image": "margherita_pizza.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Chicken Burger Combo",
+    "category": "burger",
+    "description": "Chicken burger with fries and drink.",
+    "price": 249,
+    "icon": "🍔",
+    "image": "chicken_burger_combo.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Egg Biryani",
+    "category": "biryani",
+    "description": "Flavourful basmati rice with boiled eggs.",
+    "price": 159,
+    "icon": "🍛",
+    "image": "egg_biryani.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Mutton Biryani",
+    "category": "biryani",
+    "description": "Aromatic biryani with tender mutton.",
+    "price": 279,
+    "icon": "🍛",
+    "image": "mutton_biryani.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Veg Biryani",
+    "category": "biryani",
+    "description": "Fragrant basmati rice with fresh vegetables.",
+    "price": 149,
+    "icon": "🍛",
+    "image": "veg_biryani.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Kolkata Chicken Biryani",
+    "category": "biryani",
+    "description": "Traditional Kolkata-style chicken biryani with potato.",
+    "price": 229,
+    "icon": "🍛",
+    "image": "kolkata_chicken_biryani.jpg"
+  },
+  {
+    "id": 13,
+    "name": "Kolkata Mutton Biryani",
+    "category": "biryani",
+    "description": "Classic Kolkata-style mutton biryani with potato.",
+    "price": 299,
+    "icon": "🍛",
+    "image": "kolkata_mutton_biryani.jpg"
+  },
+  {
+    "id": 14,
+    "name": "Chicken Hakka Noodles",
+    "category": "noodles",
+    "description": "Stir-fried noodles with chicken and vegetables.",
+    "price": 169,
+    "icon": "🍜",
+    "image": "chicken_hakka_noodles.jpg"
+  },
+  {
+    "id": 15,
+    "name": "Egg Noodles",
+    "category": "noodles",
+    "description": "Noodles tossed with egg and vegetables.",
+    "price": 139,
+    "icon": "🍜",
+    "image": "egg_noodles.jpg"
+  },
+  {
+    "id": 16,
+    "name": "Chilli Garlic Noodles",
+    "category": "noodles",
+    "description": "Spicy noodles cooked with chilli and garlic.",
+    "price": 149,
+    "icon": "🍜",
+    "image": "chilli_garlic_noodles.jpg"
+  },
+  {
+    "id": 17,
+    "name": "Schezwan Chicken Noodles",
+    "category": "noodles",
+    "description": "Spicy Schezwan noodles with chicken.",
+    "price": 179,
+    "icon": "🍜",
+    "image": "schezwan_chicken_noodles.jpg"
+  },
+  {
+    "id": 18,
+    "name": "Veg Hakka Noodles",
+    "category": "noodles",
+    "description": "Classic Hakka noodles with vegetables.",
+    "price": 129,
+    "icon": "🍜",
+    "image": "veg_hakka_noodles.jpg"
+  },
+  {
+    "id": 19,
+    "name": "Chicken Thali",
+    "category": "thali",
+    "description": "Complete meal with chicken, rice, dal and sides.",
+    "price": 249,
+    "icon": "🍱",
+    "image": "chicken_thali.jpg"
+  },
+  {
+    "id": 20,
+    "name": "Mutton Thali",
+    "category": "thali",
+    "description": "Traditional thali with delicious mutton curry.",
+    "price": 299,
+    "icon": "🍱",
+    "image": "mutton_thali.jpg"
+  },
+  {
+    "id": 21,
+    "name": "Bengali Fish Thali",
+    "category": "thali",
+    "description": "Traditional Bengali meal with fish, rice and sides.",
+    "price": 279,
+    "icon": "🍱",
+    "image": "bengali_fish_thali.jpg"
+  },
+  {
+    "id": 22,
+    "name": "Bengali Veg Thali",
+    "category": "thali",
+    "description": "Traditional Bengali vegetarian meal.",
+    "price": 199,
+    "icon": "🍱",
+    "image": "bengali_veg_thali.jpg"
+  },
+  {
+    "id": 23,
+    "name": "Special Veg Thali",
+    "category": "thali",
+    "description": "Special vegetarian thali with variety of dishes.",
+    "price": 229,
+    "icon": "🍱",
+    "image": "special_veg_thali.jpg"
+  },
+  {
+    "id": 24,
+    "name": "Luchi Aloor Dom",
+    "category": "bengali",
+    "description": "Soft luchi served with Bengali aloor dom.",
+    "price": 129,
+    "icon": "🍽️",
+    "image": "luchi_aloor_dom.jpg"
+  },
+  {
+    "id": 25,
+    "name": "Kosha Mangsho",
+    "category": "bengali",
+    "description": "Slow-cooked Bengali-style mutton curry.",
+    "price": 299,
+    "icon": "🍖",
+    "image": "kosha_mangsho.jpg"
+  },
+  {
+    "id": 26,
+    "name": "Shorshe Ilish",
+    "category": "bengali",
+    "description": "Hilsa fish cooked in mustard gravy.",
+    "price": 349,
+    "icon": "🐟",
+    "image": "shorshe_ilish.jpg"
+  },
+  {
+    "id": 27,
+    "name": "Chingri Malai Curry",
+    "category": "bengali",
+    "description": "Prawns cooked in creamy coconut gravy.",
+    "price": 329,
+    "icon": "🍤",
+    "image": "chingri_malai_curry.jpg"
+  },
+  {
+    "id": 28,
+    "name": "Bhetki Paturi",
+    "category": "bengali",
+    "description": "Bhetki fish steamed with mustard.",
+    "price": 299,
+    "icon": "🐟",
+    "image": "bhetki_paturi.jpg"
+  },
+  {
+    "id": 29,
+    "name": "Doi Katla",
+    "category": "bengali",
+    "description": "Katla fish cooked in yogurt gravy.",
+    "price": 249,
+    "icon": "🐟",
+    "image": "doi_katla.jpg"
+  },
+  {
+    "id": 30,
+    "name": "Aloo Posto",
+    "category": "bengali",
+    "description": "Classic Bengali potatoes with poppy seeds.",
+    "price": 149,
+    "icon": "🥔",
+    "image": "aloo_posto.jpg"
+  },
+  {
+    "id": 31,
+    "name": "Dhokar Dalna",
+    "category": "bengali",
+    "description": "Traditional Bengali lentil cakes in gravy.",
+    "price": 159,
+    "icon": "🍛",
+    "image": "dhokar_dalna.jpg"
+  },
+  {
+    "id": 32,
+    "name": "Momo Combo",
+    "category": "momos",
+    "description": "Steamed momos with chutney and sides.",
+    "price": 199,
+    "icon": "🥟",
+    "image": "momo_combo.jpg"
+  },
+  {
+    "id": 33,
+    "name": "Noodles Combo",
+    "category": "noodles",
+    "description": "Noodles served with sides and drink.",
+    "price": 229,
+    "icon": "🍜",
+    "image": "noodles_combo.jpg"
+  },
+  {
+    "id": 34,
+    "name": "Biryani Combo",
+    "category": "biryani",
+    "description": "Biryani combo with sides and drink.",
+    "price": 279,
+    "icon": "🍛",
+    "image": "biryani_combo.jpg"
+  },
+  {
+    "id": 35,
+    "name": "Family Feast Combo",
+    "category": "combo",
+    "description": "Delicious family meal with multiple favourites.",
+    "price": 599,
+    "icon": "🍱",
+    "image": "family_feast_combo.jpg"
+  },
+  {
+    "id": 36,
+    "name": "Rosogolla",
+    "category": "dessert",
+    "description": "Soft juicy Bengali sweet in syrup.",
+    "price": 99,
+    "icon": "🍡",
+    "image": "rosogolla.jpg"
+  },
+  {
+    "id": 37,
+    "name": "Sandesh",
+    "category": "dessert",
+    "description": "Traditional Bengali sweet made with fresh chhena.",
+    "price": 119,
+    "icon": "🍬",
+    "image": "sandesh.jpg"
+  },
+  {
+    "id": 38,
+    "name": "Nolen Gur Sandesh",
+    "category": "dessert",
+    "description": "Sandesh made with date palm jaggery.",
+    "price": 149,
+    "icon": "🍬",
+    "image": "nolen_gur_sandesh.jpg"
+  },
+  {
+    "id": 39,
+    "name": "Kheer Kadam",
+    "category": "dessert",
+    "description": "Soft Bengali sweet filled with kheer.",
+    "price": 129,
+    "icon": "🍡",
+    "image": "kheer_kadam.jpg"
+  },
+  {
+    "id": 40,
+    "name": "Cham Cham",
+    "category": "dessert",
+    "description": "Soft Bengali sweet soaked in syrup.",
+    "price": 109,
+    "icon": "🍬",
+    "image": "cham_cham.jpg"
+  },
+  {
+    "id": 41,
+    "name": "Rasmalai",
+    "category": "dessert",
+    "description": "Soft chhena dumplings in creamy milk.",
+    "price": 139,
+    "icon": "🍮",
+    "image": "rasmalai.jpg"
+  },
+  {
+    "id": 42,
+    "name": "Mishti Doi",
+    "category": "dessert",
+    "description": "Classic Bengali sweetened yogurt.",
+    "price": 89,
+    "icon": "🥣",
+    "image": "mishti_doi.jpg"
+  },
+  {
+    "id": 43,
+    "name": "Chocolate Ice Cream",
+    "category": "ice-cream",
+    "description": "Rich creamy chocolate ice cream.",
+    "price": 99,
+    "icon": "🍨",
+    "image": "chocolate_ice_cream.jpg"
+  },
+  {
+    "id": 44,
+    "name": "Vanilla Ice Cream",
+    "category": "ice-cream",
+    "description": "Classic creamy vanilla ice cream.",
+    "price": 89,
+    "icon": "🍨",
+    "image": "vanilla_ice_cream.jpg"
+  },
+  {
+    "id": 45,
+    "name": "Mango Ice Cream",
+    "category": "ice-cream",
+    "description": "Refreshing mango ice cream.",
+    "price": 109,
+    "icon": "🍨",
+    "image": "mango_ice_cream.jpg"
+  },
+  {
+    "id": 46,
+    "name": "Kesar Pista Ice Cream",
+    "category": "ice-cream",
+    "description": "Creamy saffron and pistachio ice cream.",
+    "price": 129,
+    "icon": "🍨",
+    "image": "kesar_pista_ice_cream.jpg"
+  },
+  {
+    "id": 47,
+    "name": "Butterscotch Ice Cream",
+    "category": "ice-cream",
+    "description": "Creamy butterscotch ice cream.",
+    "price": 109,
+    "icon": "🍨",
+    "image": "butterscotch_ice_cream.jpg"
+  },
+  {
+    "id": 48,
+    "name": "Cheesecake",
+    "category": "dessert",
+    "description": "Creamy cheesecake with biscuit base.",
+    "price": 199,
+    "icon": "🍰",
+    "image": "cheesecake.jpg"
+  },
+  {
+    "id": 49,
+    "name": "Brownie",
+    "category": "dessert",
+    "description": "Soft fudgy chocolate brownie.",
+    "price": 129,
+    "icon": "🍫",
+    "image": "brownie.jpg"
+  },
+  {
+    "id": 50,
+    "name": "Chocolate Mousse",
+    "category": "dessert",
+    "description": "Light creamy chocolate mousse.",
+    "price": 149,
+    "icon": "🍫",
+    "image": "chocolate_mousse.jpg"
+  },
+  {
+    "id": 51,
+    "name": "Cold Coffee",
+    "category": "beverage",
+    "description": "Chilled creamy coffee.",
+    "price": 119,
+    "icon": "🥤",
+    "image": "cold_coffee.jpg"
+  },
+  {
+    "id": 52,
+    "name": "Mango Lassi",
+    "category": "beverage",
+    "description": "Refreshing creamy mango yogurt drink.",
+    "price": 99,
+    "icon": "🥭",
+    "image": "mango_lassi.jpg"
+  },
+  {
+    "id": 53,
+    "name": "Fresh Lime Soda",
+    "category": "beverage",
+    "description": "Refreshing sweet and tangy lime soda.",
+    "price": 79,
+    "icon": "🥤",
+    "image": "fresh_lime_soda.jpg"
+  },
+  {
+    "id": 54,
+    "name": "Mango Juice",
+    "category": "beverage",
+    "description": "Refreshing chilled mango juice.",
+    "price": 89,
+    "icon": "🥭",
+    "image": "mango_juice.jpg"
+  },
+  {
+    "id": 55,
+    "name": "Coca Cola",
+    "category": "beverage",
+    "description": "Chilled Coca Cola soft drink.",
+    "price": 60,
+    "icon": "🥤",
+    "image": "coca_cola.jpg"
+  },
+  {
+    "id": 56,
+    "name": "Pepsi",
+    "category": "beverage",
+    "description": "Chilled Pepsi soft drink.",
+    "price": 60,
+    "icon": "🥤",
+    "image": "pepsi.jpg"
+  },
+  {
+    "id": 57,
+    "name": "Sprite",
+    "category": "beverage",
+    "description": "Refreshing lemon-lime soft drink.",
+    "price": 60,
+    "icon": "🥤",
+    "image": "sprite.jpg"
+  }
 ]
