@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PookieBites ðŸ’—</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            background: #fff7fa;
+            color: #573743;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: rgba(255, 151, 181, 0.95);
+            padding: 17px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(255, 105, 150, 0.15);
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: white;
+            letter-spacing: 1px;
+            animation: logoBounce 2.5s ease-in-out infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-3px);
+            color: #fff0f5;
+        }
+
+        @keyframes logoBounce {
+
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(-2deg) scale(1.05);
+            }
+        }
+
+
+        /* HERO */
+
+        .hero {
+            min-height: 570px;
+            padding: 70px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background:
+                radial-gradient(circle at 10% 20%, #e6ddff 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, #ffe9d6 0%, transparent 25%),
+                linear-gradient(135deg, #f5f0ff, #fff8ef);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-text {
+            max-width: 560px;
+            z-index: 2;
+        }
+
+        .tiny-text {
+            color: #ff719e;
+            font-weight: bold;
+            font-size: 17px;
+            letter-spacing: 2px;
+        }
+
+        .hero-text h1 {
+            font-size: 60px;
+            line-height: 1.05;
+            margin: 15px 0;
+            color: #e85d88;
+        }
+
+        .hero-text h1 span {
+            color: #ff8fab;
+            animation: heartBeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        .hero-text p {
+            font-size: 19px;
+            line-height: 1.7;
+            color: #75515e;
+        }
+
+        .order-btn {
+            display: inline-block;
+            margin-top: 22px;
+            padding: 15px 30px;
+            border-radius: 30px;
+            background: #ff79a5;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(255, 121, 165, 0.3);
+            transition: 0.3s;
+        }
+
+        .order-btn:hover {
+            transform: translateY(-5px) scale(1.04);
+        }
+
+        @keyframes heartBeat {
+
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+
+        /* ANIMATED FOOD */
+
+        .food-animation {
+            width: 420px;
+            height: 420px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .food-circle {
+            width: 330px;
+            height: 330px;
+            background: #ffd9e5;
+            border-radius: 50%;
+            box-shadow:
+                0 20px 50px rgba(232, 93, 136, 0.2),
+                inset 0 0 30px rgba(255,255,255,0.7);
+            animation: floatCircle 4s ease-in-out infinite;
+        }
+
+        .main-food {
+            position: absolute;
+            font-size: 150px;
+            animation: foodFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 15px 12px rgba(180,80,110,0.15));
+        }
+
+        .floating-food {
+            position: absolute;
+            font-size: 50px;
+            animation: orbitFloat 4s ease-in-out infinite;
+        }
+
+        .food1 {
+            top: 25px;
+            left: 40px;
+        }
+
+        .food2 {
+            top: 50px;
+            right: 20px;
+            animation-delay: 0.7s;
+        }
+
+        .food3 {
+            bottom: 50px;
+            left: 15px;
+            animation-delay: 1.2s;
+        }
+
+        .food4 {
+            bottom: 25px;
+            right: 45px;
+            animation-delay: 1.8s;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 28px;
+            animation: heartFloat 3s ease-in-out infinite;
+        }
+
+        .heart1 {
+            top: 5px;
+            right: 110px;
+        }
+
+        .heart2 {
+            bottom: 20px;
+            left: 120px;
+            animation-delay: 1s;
+        }
+
+        @keyframes floatCircle {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes foodFloat {
+
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        @keyframes orbitFloat {
+
+            0%, 100% {
+                transform: translateY(0) rotate(0);
+            }
+
+            50% {
+                transform: translateY(-18px) rotate(8deg);
+            }
+        }
+
+        @keyframes heartFloat {
+
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-12px) scale(1.2);
+            }
+        }
+
+
+        /* CATEGORIES */
+
+        .section-title {
+            text-align: center;
+            color: #df5d88;
+            font-size: 32px;
+            margin-top: 55px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #89616d;
+            margin-bottom: 30px;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 10px 8% 50px;
+        }
+
+        .category {
+            background: white;
+            width: 130px;
+            padding: 22px 15px;
+            text-align: center;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(230, 100, 140, 0.12);
+            transition: 0.35s;
+        }
+
+        .category:hover {
+            transform: translateY(-10px) rotate(-2deg);
+            box-shadow: 0 15px 30px rgba(230, 100, 140, 0.2);
+        }
+
+        .category-icon {
+            font-size: 48px;
+            animation: tinyBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes tinyBounce {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-7px);
+            }
+        }
+
+
+        /* POOKIE PICKS */
+
+        .popular {
+            padding: 20px 8% 80px;
+            background: #fff0f5;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 28px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(230, 100, 140, 0.12);
+            transition: 0.35s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+        }
+
+        .food-emoji {
+            font-size: 90px;
+            display: inline-block;
+            animation: foodBounce 2.5s ease-in-out infinite;
+        }
+
+        @keyframes foodBounce {
+
+            0%, 100% {
+                transform: translateY(0) rotate(-3deg);
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(3deg);
+            }
+        }
+
+        .food-card h3 {
+            color: #df5d88;
+            font-size: 21px;
+        }
+
+        .food-card p {
+            color: #80606b;
+        }
+
+        .price {
+            color: #df5d88;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cart-btn {
+            display: block;
+            margin-top: 14px;
+            padding: 11px;
+            border-radius: 25px;
+            background: #ff8fab;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .cart-btn:hover {
+            background: #ed6d96;
+            transform: scale(1.03);
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            background: #ff8fab;
+            color: white;
+            text-align: center;
+            padding: 35px;
+        }
+
+        footer h2 {
+            animation: logoBounce 2.5s infinite;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 50px;
+            }
+
+            .hero-text h1 {
+                font-size: 42px;
+            }
+
+            .food-animation {
+                width: 320px;
+                height: 320px;
+            }
+
+            .food-circle {
+                width: 250px;
+                height: 250px;
+            }
+
+            .main-food {
+                font-size: 110px;
+            }
+        }
+
+    
+
+/* ===== CUTE POOKIEBITES BRAND ===== */
+
+.pookie-logo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    position: relative;
+    padding: 7px 18px;
+    border-radius: 25px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.brand-name {
+    font-family: Georgia, serif;
+    font-size: 29px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #6d4057;
+    text-shadow: 2px 2px 0 #ead7e5;
+}
+
+.teddy {
+    font-size: 31px;
+    display: inline-block;
+    animation: teddyWiggle 2.5s ease-in-out infinite;
+}
+
+.ribbon {
+    font-size: 27px;
+    display: inline-block;
+    animation: ribbonFloat 2s ease-in-out infinite;
+}
+
+.sparkle {
+    color: #8d6bb3;
+    font-size: 22px;
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes teddyWiggle {
+    0%,100% {
+        transform: rotate(0deg) translateY(0);
+    }
+    25% {
+        transform: rotate(-5deg) translateY(-2px);
+    }
+    75% {
+        transform: rotate(5deg) translateY(-2px);
+    }
+}
+
+@keyframes ribbonFloat {
+    0%,100% {
+        transform: translateY(0) rotate(-4deg);
+    }
+    50% {
+        transform: translateY(-5px) rotate(4deg);
+    }
+}
+
+@keyframes sparkle {
+    0%,100% {
+        opacity: .4;
+        transform: scale(.8) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.3) rotate(20deg);
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo pookie-logo">
+        <span class="ribbon">ðŸŽ€</span>
+        <span class="teddy">ðŸ§¸</span>
+        <span class="brand-name">PookieBites</span>
+        <span class="sparkle">âœ¦</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/menu">Menu</a>
+
+        <a href="#">About</a>
+
+        <a href="#">Contact</a>
+
+        {% if session.get("logged_in") %}
+
+            <span style="color:white;font-weight:bold;">
+                ðŸ‘¤ {{ session["user"]["name"] }}
+            </span>
+
+            <a href="/logout">Logout</a>
+
+        {% else %}
+
+            <a href="/login">Login</a>
+
+        {% endif %}
+
+        <a href="/owner/login">Admin Portal</a>
+
+        <a href="/cart">ðŸ›’ Cart</a>
+
+    </div>
+
+</nav>
+
+
+<section class="hero">
+
+    <div class="hero-text">
+
+        <div class="tiny-text">
+            âœ¨ WELCOME TO YOUR LITTLE FOODIE WORLD âœ¨
+        </div>
+
+        <h1>
+            Eat Cute.<br>
+            Stay <span>Pookie.</span> ðŸ’—
+        </h1>
+
+        <p>
+            Delicious food, happy tummy and a tiny bit of
+            pookie magic in every bite. ðŸ¥¹
+        </p>
+
+        <a href="/menu" class="order-btn">
+            Explore Menu ðŸ“
+        </a>
+
+    </div>
+
+
+    <div class="food-animation">
+
+        <div class="food-circle"></div>
+
+        <div class="main-food">
+            ðŸœ
+        </div>
+
+        <div class="floating-food food1">
+            ðŸ•
+        </div>
+
+        <div class="floating-food food2">
+            ðŸ”
+        </div>
+
+        <div class="floating-food food3">
+            ðŸ§
+        </div>
+
+        <div class="floating-food food4">
+            ðŸ©
+        </div>
+
+        <div class="heart heart1">
+            ðŸ’—
+        </div>
+
+        <div class="heart heart2">
+            ðŸ’•
+        </div>
+
+    </div>
+
+</section>
+
+
+<h2 class="section-title">
+    What is your Pookie craving? ðŸ¥¹
+</h2>
+
+<p class="section-subtitle">
+    Pick a mood. Pick a food. Become happy.
+</p>
+
+
+<div class="categories">
+
+    <div class="category">
+        <div class="category-icon">ðŸ•</div>
+        Pizza
+    </div>
+
+    <div class="category">
+        <div class="category-icon">ðŸ”</div>
+        Burger
+    </div>
+
+    <div class="category">
+        <div class="category-icon">ðŸ›</div>
+        Biryani
+    </div>
+
+    <div class="category">
+        <div class="category-icon">ðŸœ</div>
+        Noodles
+    </div>
+
+    <div class="category">
+        <div class="category-icon">ðŸ¥Ÿ</div>
+        Momos
+    </div>
+
+    <div class="category">
+        <div class="category-icon">ðŸ°</div>
+        Dessert
+    </div>
+
+    <div class="category">
+        <div class="category-icon">ðŸ¥¤</div>
+        Drinks
+    </div>
+
+</div>
+
+
+<section class="popular">
+
+    <h2 class="section-title">
+        Pookie's Favourite Bites ðŸ’—
+    </h2>
+
+    <p class="section-subtitle">
+        No food photos. Just maximum cuteness. ðŸŽ€
+    </p>
+
+
+    <div class="food-grid">
+
+
+        <div class="food-card">
+
+            <div class="food-emoji">
+                ðŸ•
+            </div>
+
+            <h3>Chicken Pizza</h3>
+
+            <p>
+                Cheesy, yummy and absolutely pookie-approved.
+            </p>
+
+            <div class="price">
+                â‚¹249
+            </div>
+
+            <a href="/add_to_cart/Chicken%20Pizza/249"
+               class="cart-btn">
+                Add to Cart ðŸ’—
+            </a>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-emoji">
+                ðŸ”
+            </div>
+
+            <h3>Chicken Burger</h3>
+
+            <p>
+                Crispy little burger with big main-character energy.
+            </p>
+
+            <div class="price">
+                â‚¹149
+            </div>
+
+            <a href="/add_to_cart/Chicken%20Burger/149"
+               class="cart-btn">
+                Add to Cart ðŸ’—
+            </a>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-emoji">
+                ðŸ›
+            </div>
+
+            <h3>Chicken Biryani</h3>
+
+            <p>
+                Aromatic, spicy and dangerously delicious.
+            </p>
+
+            <div class="price">
+                â‚¹199
+            </div>
+
+            <a href="/add_to_cart/Chicken%20Biryani/199"
+               class="cart-btn">
+                Add to Cart ðŸ’—
+            </a>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-emoji">
+                ðŸ§
+            </div>
+
+            <h3>Chocolate Cake</h3>
+
+            <p>
+                Soft, sweet and basically a hug in dessert form.
+            </p>
+
+            <div class="price">
+                â‚¹179
+            </div>
+
+            <a href="/add_to_cart/Chocolate%20Cake/179"
+               class="cart-btn">
+                Add to Cart ðŸ’—
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <h2>
+        ðŸ§ PookieBites ðŸ’—
+    </h2>
+
+    <p>
+        Made for hungry little pookies. ðŸŽ€
+    </p>
+
+    <p>
+        Â© 2026 PookieBites. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+</body>
+</html>
+
+
+

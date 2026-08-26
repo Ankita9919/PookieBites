@@ -1,22 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodieExpress - Menu</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
 <nav class="navbar">
-
-    <div class="logo">
-        🍔 FoodieExpress
-    </div>
+    <div class="logo">🍔 FoodieExpress</div>
 
     <div class="nav-links">
         <a href="/">Home</a>
@@ -26,102 +20,130 @@
 
         {% if session.get("logged_in") %}
             <span style="color:white;font-weight:bold;">
-                &#128100; {{ session["user"]["name"] }}
+                👤 {{ session["user"]["name"] }}
             </span>
             <a href="/logout">Logout</a>
         {% else %}
             <a href="/login">Login</a>
         {% endif %}
 
+        <a href="/owner/login">Admin Portal</a>
         <a href="/cart">🛒 Cart</a>
     </div>
-
 </nav>
 
-
 <section class="menu-header">
-
-    <h1>Our Delicious Menu ðŸ½ï¸</h1>
-
+    <h1>Our Delicious Menu 🍽️</h1>
     <p>Choose your favourite food and order now!</p>
-
 </section>
-
 
 <section class="menu-section">
 
     <input
         type="text"
+        id="searchBox"
         class="search-box"
-        placeholder="ðŸ” Search for food..."
+        placeholder="🔍 Search for food..."
     >
 
-
     <div class="menu-categories">
-
-        <button>All</button>
-        <button>ðŸ• Pizza</button>
-        <button>ðŸ” Burger</button>
-        <button>ðŸ› Biryani</button>
-        <button>ðŸœ Noodles</button>
-        <button>ðŸ¥Ÿ Momos</button>
-        <button>ðŸ° Dessert</button>
-        <button>ðŸ¥¤ Drinks</button>
-
+        <button onclick="filterFood('all')">All</button>
+        <button onclick="filterFood('pizza')">🍕 Pizza</button>
+        <button onclick="filterFood('burger')">🍔 Burger</button>
+        <button onclick="filterFood('biryani')">🍛 Biryani</button>
+        <button onclick="filterFood('noodles')">🍜 Noodles</button>
+        <button onclick="filterFood('momos')">🥟 Momos</button>
+        <button onclick="filterFood('dessert')">🍰 Dessert</button>
+        <button onclick="filterFood('beverage')">🥤 Drinks</button>
+        <button onclick="filterFood('thali')">🍱 Thali</button>
     </div>
-
 
     <div class="menu-food-container">
 
-{% for food in foods %}
+        {% for food in foods %}
 
-<div class="menu-food-card" data-category="{{ food.category|lower }}">
+        <div class="menu-food-card"
+             data-category="{{ food.category|lower }}"
+             data-name="{{ food.name|lower }}">
 
-    <div class="menu-food-image">
-        <img
-            src="{{ url_for('static', filename='images/' + food.image) }}"
-            alt="{{ food.name }}"
-            style="width:100%;height:100%;object-fit:cover;border-radius:15px;"
-            onerror="this.src='{{ url_for('static', filename='images/default_food.jpg') }}'">
-    </div>
+            <div class="menu-food-image">
+                <img
+                    src="{{ url_for('static', filename='images/' + food.image) }}"
+                    alt="{{ food.name }}"
+                >
+            </div>
 
-    <div class="menu-food-info">
+            <div class="menu-food-info">
 
-        <h3>{{ food.name }}</h3>
+                <h3>{{ food.name }}</h3>
 
-        <p>{{ food.description }}</p>
+                <p>{{ food.description }}</p>
 
-        <div class="menu-food-bottom">
+                <div class="menu-food-bottom">
+                    <span>₹{{ food.price }}</span>
 
-            <span>&#8377;{{ food.price }}</span>
+                    <a href="/add_to_cart/{{ food.name|urlencode }}/{{ food.price }}">
+                        <button>Add to Cart</button>
+                    </a>
+                </div>
 
-            <a href="/add_to_cart/{{ food.name|urlencode }}/{{ food.price }}">
-                <button>Add to Cart</button>
-            </a>
-
+            </div>
         </div>
 
+        {% endfor %}
+
     </div>
-
-</div>
-
-{% endfor %}
-
-</div>
-
 </section>
 
-
 <footer>
-
-    <h2>ðŸ” FoodieExpress</h2>
-
+    <h2>🍔 FoodieExpress</h2>
     <p>Delicious food delivered to your doorstep.</p>
-
-    <p>Â© 2026 FoodieExpress. All Rights Reserved.</p>
-
+    <p>© 2026 FoodieExpress. All Rights Reserved.</p>
 </footer>
 
-</body>
+<script>
 
+function filterFood(category) {
+
+    const cards = document.querySelectorAll(".menu-food-card");
+
+    cards.forEach(card => {
+
+        const cardCategory = card.getAttribute("data-category");
+
+        if (category === "all" ||
+            cardCategory === category.toLowerCase()) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+}
+
+
+document.getElementById("searchBox").addEventListener("input", function () {
+
+    const search = this.value.toLowerCase();
+
+    const cards = document.querySelectorAll(".menu-food-card");
+
+    cards.forEach(card => {
+
+        const name = card.getAttribute("data-name");
+
+        card.style.display =
+            name.includes(search) ? "block" : "none";
+
+    });
+
+});
+
+</script>
+
+</body>
 </html>

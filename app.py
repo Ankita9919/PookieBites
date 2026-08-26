@@ -1,4 +1,4 @@
-﻿from flask import Flask, render_template, session, redirect, url_for, request
+from flask import Flask, render_template, session, redirect, url_for, request
 import json
 
 app = Flask(__name__)
@@ -286,7 +286,7 @@ def add_food():
             "category": request.form.get("category"),
             "description": request.form.get("description"),
             "price": int(request.form.get("price")),
-            "icon": request.form.get("icon") or "Ã°Å¸ÂÂ½Ã¯Â¸Â"
+            "icon": request.form.get("icon") or "ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½ÃƒÂ¯Ã‚Â¸Ã‚Â"
         }
 
         foods.append(food)
@@ -528,6 +528,13 @@ def orders():
     )
 
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
 if __name__ == "__main__":
     app.run(debug=True)
 
@@ -538,3 +545,4 @@ if __name__ == "__main__":
 
 
 
+    

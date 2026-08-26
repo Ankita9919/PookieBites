@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | PookieBites</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 10% 15%, #ffd6e7 0 8%, transparent 25%),
+                radial-gradient(circle at 90% 20%, #e5d5ff 0 8%, transparent 25%),
+                linear-gradient(135deg, #fff5fa, #fffaf3);
+            color: #49384d;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 75px;
+            padding: 0 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 20px rgba(120, 70, 110, 0.12);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #6f4b75;
+        }
+
+        .logo span {
+            display: inline-block;
+            animation: wiggle 2.5s ease-in-out infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #624b66;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e65f91;
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
+
+        .about-hero {
+            text-align: center;
+            padding: 90px 20px 60px;
+            position: relative;
+        }
+
+        .floating {
+            position: absolute;
+            font-size: 38px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .bow {
+            left: 12%;
+            top: 80px;
+        }
+
+        .teddy {
+            right: 12%;
+            top: 120px;
+            animation-delay: 1s;
+        }
+
+        .sparkle {
+            left: 20%;
+            bottom: 20px;
+            animation-delay: .6s;
+        }
+
+        .cake {
+            right: 20%;
+            bottom: 15px;
+            animation-delay: 1.3s;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(42px, 7vw, 72px);
+            color: #694b72;
+            margin-bottom: 18px;
+            animation: titlePop 1s ease;
+        }
+
+        .about-hero h1 span {
+            color: #e75c8d;
+        }
+
+        .about-hero p {
+            max-width: 700px;
+            margin: auto;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #765f78;
+        }
+
+        /* CONTENT */
+
+        .about-container {
+            width: min(1100px, 90%);
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding: 30px 0 80px;
+        }
+
+        .about-card {
+            background: rgba(255,255,255,.82);
+            border: 1px solid rgba(210,160,195,.35);
+            border-radius: 28px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(100,70,100,.10);
+            transition: .35s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px) rotate(-1deg);
+            box-shadow: 0 20px 45px rgba(210,100,150,.18);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: bounce 2.5s ease-in-out infinite;
+        }
+
+        .about-card h2 {
+            color: #76527b;
+            margin-bottom: 12px;
+        }
+
+        .about-card p {
+            color: #766477;
+            line-height: 1.7;
+        }
+
+        /* STORY */
+
+        .story {
+            width: min(900px, 90%);
+            margin: 0 auto 80px;
+            padding: 45px;
+            border-radius: 35px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff, #fff0f7);
+            box-shadow: 0 15px 40px rgba(100,70,100,.10);
+            border: 2px dashed #e8a5c1;
+        }
+
+        .story h2 {
+            font-size: 32px;
+            color: #6d4d72;
+            margin-bottom: 15px;
+        }
+
+        .story p {
+            line-height: 1.9;
+            color: #735f75;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #6d526f;
+            color: white;
+        }
+
+        footer .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes float {
+            0%,100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(-18px) rotate(5deg);
+            }
+        }
+
+        @keyframes wiggle {
+            0%,100% {
+                transform: rotate(0);
+            }
+            25% {
+                transform: rotate(-6deg);
+            }
+            75% {
+                transform: rotate(6deg);
+            }
+        }
+
+        @keyframes bounce {
+            0%,100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-9px);
+            }
+        }
+
+        @keyframes titlePop {
+            from {
+                opacity: 0;
+                transform: scale(.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media(max-width: 800px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 10px;
+                font-size: 14px;
+            }
+
+            .floating {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        <span>🎀</span> PookieBites <span>✨</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="/about">About</a>
+        <a href="/login">Login</a>
+        <a href="/cart">🛒 Cart</a>
+    </div>
+
+</nav>
+
+
+<section class="about-hero">
+
+    <div class="floating bow">🎀</div>
+    <div class="floating teddy">🧸</div>
+    <div class="floating sparkle">✨</div>
+    <div class="floating cake">🍰</div>
+
+    <h1>Welcome to <span>PookieBites</span> 🎀</h1>
+
+    <p>
+        A cheerful little food corner made for delicious cravings,
+        happy moments and food that feels like a warm hug.
+        At PookieBites, every order comes with a little extra love.
+    </p>
+
+</section>
+
+
+<section class="about-container">
+
+    <div class="about-card">
+        <div class="card-icon">🍕</div>
+        <h2>Made for Foodies</h2>
+        <p>
+            From cheesy pizzas to comforting biryani,
+            we bring together tasty favourites for every kind of craving.
+        </p>
+    </div>
+
+
+    <div class="about-card">
+        <div class="card-icon">💗</div>
+        <h2>Made with Love</h2>
+        <p>
+            PookieBites is designed around one simple idea:
+            good food should make your day a little happier.
+        </p>
+    </div>
+
+
+    <div class="about-card">
+        <div class="card-icon">🚀</div>
+        <h2>Quick & Easy</h2>
+        <p>
+            Browse the menu, add your favourites to the cart
+            and place your order without unnecessary complications.
+        </p>
+    </div>
+
+</section>
+
+
+<section class="story">
+
+    <h2>🎀 Our Little Story 🧸</h2>
+
+    <p>
+        PookieBites started with a simple thought:
+        why should ordering food feel boring?
+        So we created a playful food experience where tasty meals,
+        cute design and easy ordering come together.
+        Whether you are craving something spicy, cheesy, sweet or refreshing,
+        there is always a little something waiting for you.
+    </p>
+
+</section>
+
+
+<footer>
+
+    <div class="footer-logo">🎀 PookieBites 🧸</div>
+
+    <p>
+        Delicious food. Happy moments. A little Pookie magic. ✨
+    </p>
+
+    <p>
+        © 2026 PookieBites. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+</html>
