@@ -1,145 +1,351 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FoodieExpress - Login</title>
+    <title>PookieBites | Login</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 15% 20%, #ffd6e7 0%, transparent 25%),
+                radial-gradient(circle at 85% 80%, #ffe8f1 0%, transparent 28%),
+                linear-gradient(135deg, #fff5f9, #ffeaf2, #fff8fb);
+            overflow-x: hidden;
+        }
+
+        /* Floating cute decorations */
+
+        .cute {
+            position: fixed;
+            font-size: 32px;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatCute 5s ease-in-out infinite;
+        }
+
+        .cute.one {
+            top: 12%;
+            left: 8%;
+        }
+
+        .cute.two {
+            top: 20%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+
+        .cute.three {
+            bottom: 15%;
+            left: 12%;
+            animation-delay: 2s;
+        }
+
+        .cute.four {
+            bottom: 10%;
+            right: 12%;
+            animation-delay: 3s;
+        }
+
+        @keyframes floatCute {
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateY(-18px) rotate(5deg);
+            }
+        }
+
+        /* Navbar */
+
+        .navbar {
+            position: relative;
+            z-index: 5;
+        }
+
+        .pookie-logo {
+            font-weight: 800;
+        }
+
+        /* Login area */
+
+        .login-wrapper {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(15px);
+            border: 2px solid #ffd1e1;
+            border-radius: 32px;
+            padding: 42px 38px;
+            text-align: center;
+            box-shadow:
+                0 20px 50px rgba(220, 90, 135, 0.18),
+                0 5px 15px rgba(255, 145, 180, 0.12);
+            animation: cardAppear 0.8s ease;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(35px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Teddy */
+
+        .teddy {
+            font-size: 78px;
+            display: inline-block;
+            animation: teddyBounce 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 8px 8px rgba(200, 100, 130, 0.15));
+        }
+
+        @keyframes teddyBounce {
+            0%, 100% {
+                transform: translateY(0) rotate(-3deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(3deg);
+            }
+        }
+
+        .ribbon {
+            color: #ff6f9d;
+            font-size: 28px;
+            margin-bottom: 3px;
+            animation: ribbonPulse 2s infinite;
+        }
+
+        @keyframes ribbonPulse {
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .login-card h1 {
+            margin: 5px 0 8px;
+            color: #d94f7d;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #8f6575;
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        /* Form */
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #704557;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #f5c7d8;
+            border-radius: 16px;
+            outline: none;
+            background: #fffafd;
+            color: #633d4d;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #ff83aa;
+            box-shadow: 0 0 0 4px rgba(255, 131, 170, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 8px;
+            padding: 15px;
+            border: none;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #ff78a6, #ff9abd);
+            color: white;
+            font-size: 17px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(255, 105, 150, 0.25);
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(255, 105, 150, 0.35);
+        }
+
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+
+        .signup-text {
+            margin-top: 23px;
+            color: #8d6877;
+            font-size: 14px;
+        }
+
+        .signup-text a {
+            color: #e65386;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Cute message */
+
+        .cute-message {
+            margin-top: 25px;
+            padding: 12px;
+            background: #fff0f6;
+            border-radius: 15px;
+            color: #9a6278;
+            font-size: 13px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+            .login-card {
+                padding: 32px 24px;
+            }
+
+            .login-card h1 {
+                font-size: 27px;
+            }
+
+            .teddy {
+                font-size: 65px;
+            }
+
+            .cute {
+                font-size: 25px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<nav class="navbar">
+    <div class="cute one">🎀</div>
+    <div class="cute two">🧸</div>
+    <div class="cute three">💗</div>
+    <div class="cute four">✨</div>
 
-    <div class="logo">
-        🍔 FoodieExpress
-    </div>
+    <nav class="navbar">
 
-    <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/menu">Menu</a>
-        <a href="/signup">Signup</a>
-        <a href="/cart">🛒 Cart</a>
-    </div>
+        <div class="logo pookie-logo">
+            🎀 🧸 <span class="brand-name">PookieBites ✨</span>
+        </div>
 
-</nav>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/menu">Menu</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/login">Login</a>
+            <a href="/cart">🛒 Cart</a>
+        </div>
 
+    </nav>
 
-<section class="menu-section">
+    <section class="login-wrapper">
 
-    <div style="
-        max-width:450px;
-        margin:40px auto;
-        background:white;
-        padding:35px;
-        border-radius:15px;
-        box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    ">
+        <div class="login-card">
 
-        <h1 style="
-            text-align:center;
-            color:#ff5722;
-            margin-bottom:25px;
-        ">
-            Welcome Back 👋
-        </h1>
+            <div class="ribbon">🎀</div>
 
-        {% if error %}
+            <div class="teddy">🧸</div>
 
-        <p style="
-            background:#ffe5e5;
-            color:red;
-            padding:10px;
-            border-radius:6px;
-            text-align:center;
-            margin-bottom:15px;
-        ">
-            {{ error }}
-        </p>
+            <h1>Welcome Back, Pookie! 💗</h1>
 
-        {% endif %}
+            <p class="subtitle">
+                Your favourite bites are waiting for you ✨
+            </p>
 
+            <form action="/login" method="POST">
 
-        <form action="/login" method="POST">
+                <div class="input-group">
+                    <label>📧 Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
 
-            <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                required
-                style="
-                    width:100%;
-                    padding:13px;
-                    margin-bottom:15px;
-                "
-            >
+                <div class="input-group">
+                    <label>🔐 Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
 
-            <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                required
-                style="
-                    width:100%;
-                    padding:13px;
-                    margin-bottom:20px;
-                "
-            >
+                <button type="submit" class="login-btn">
+                    Login to PookieBites 🎀
+                </button>
 
-            <button
-                type="submit"
-                style="
-                    width:100%;
-                    padding:14px;
-                    background:#ff5722;
-                    color:white;
-                    border:none;
-                    border-radius:8px;
-                    font-size:17px;
-                    cursor:pointer;
-                "
-            >
-                Login 🔐
-            </button>
+            </form>
 
-        </form>
+            <div class="cute-message">
+                🧸 A little food + a little pookie magic = happy you 💗
+            </div>
 
+            <p class="signup-text">
+                New to PookieBites?
+                <a href="/signup">Create an account ✨</a>
+            </p>
 
-        <p style="
-            text-align:center;
-            margin-top:20px;
-        ">
-            Don't have an account?
+        </div>
 
-            <a href="/signup"
-               style="color:#ff5722;">
-                Create Account
-            </a>
-        </p>
-
-    </div>
-
-</section>
-
-
-<footer>
-
-    <h2>🍔 FoodieExpress</h2>
-
-    <p>
-        Delicious food delivered to your doorstep.
-    </p>
-
-    <p>
-        © 2026 FoodieExpress. All Rights Reserved.
-    </p>
-
-</footer>
+    </section>
 
 </body>
-
 </html>

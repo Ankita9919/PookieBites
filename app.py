@@ -1,9 +1,12 @@
 from flask import Flask, render_template, session, redirect, url_for, request
 import json
+from models.database import db, User
 
 app = Flask(__name__)
 app.secret_key = "foodieexpress_secret_key"
-
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///foodieexpress.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db.init_app(app)
 OWNER_USERNAME = "admin"
 OWNER_PASSWORD = "admin123"
 
@@ -181,15 +184,35 @@ def signup():
 
     if request.method == "POST":
 
-        name = request.form.get("name")
-        email = request.form.get("email")
-        password = request.form.get("password")
+        name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
 
-        session["user"] = {
-            "name": name,
-            "email": email,
-            "password": password
-        }
+        if not name or not email or not password:
+            return render_template(
+                "signup.html",
+                error="Please fill in all fields."
+            )
+
+        existing_user = User.query.filter_by(email=email).first()
+
+        if existing_user:
+            return render_template(
+                "signup.html",
+                error="Email already registered. Please login."
+            )
+
+        new_user = User(
+            name=name,
+            email=email,
+            password=password
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        session["user_id"] = new_user.id
+        session["logged_in"] = True
 
         return redirect(url_for("menu"))
 
@@ -202,13 +225,14 @@ def login():
 
     if request.method == "POST":
 
-        email = request.form.get("email")
-        password = request.form.get("password")
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
 
-        user = session.get("user")
+        user = User.query.filter_by(email=email).first()
 
-        if user and user["email"] == email and user["password"] == password:
+        if user and user.password == password:
 
+            session["user_id"] = user.id
             session["logged_in"] = True
 
             return redirect(url_for("home"))
@@ -219,7 +243,6 @@ def login():
         )
 
     return render_template("login.html")
-
 
 @app.route("/logout")
 def logout():
@@ -286,7 +309,7 @@ def add_food():
             "category": request.form.get("category"),
             "description": request.form.get("description"),
             "price": int(request.form.get("price")),
-            "icon": request.form.get("icon") or "ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â½ÃƒÂ¯Ã‚Â¸Ã‚Â"
+            "icon": request.form.get("icon") or "ÃƒÆ’Ã‚Â°Ãƒâ€¦Ã‚Â¸Ãƒâ€šÃ‚ÂÃƒâ€šÃ‚Â½ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¸Ãƒâ€šÃ‚Â"
         }
 
         foods.append(food)
@@ -545,4 +568,10 @@ if __name__ == "__main__":
 
 
 
-    
+
+
+
+
+
+
+
