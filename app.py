@@ -23,6 +23,7 @@ app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/foodieexpress.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.instance_path = "/tmp"
 db.init_app(app)
 
 OWNER_USERNAME = "admin"
@@ -1024,6 +1025,8 @@ def clear_cart():
     session["cart"] = []
 
     return redirect(url_for("cart"))
+
+
 
 
 
