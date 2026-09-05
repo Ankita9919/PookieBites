@@ -26,6 +26,9 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.instance_path = "/tmp"
 db.init_app(app)
 
+with app.app_context():
+    db.create_all()
+
 OWNER_USERNAME = "admin"
 OWNER_PASSWORD = "admin123"
 
@@ -1025,6 +1028,7 @@ def clear_cart():
     session["cart"] = []
 
     return redirect(url_for("cart"))
+
 
 
 
