@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -179,7 +179,27 @@
                 position: static;
             }
         }
-    </style>
+    
+.quantity-control .quantity-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    background: #ff5722;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.quantity-control .quantity-btn:hover {
+    opacity: 0.85;
+}
+</style>
 </head>
 
 <body>
@@ -187,21 +207,21 @@
 <nav class="navbar">
 
     <div class="logo">
-        🍔 FoodieExpress
+        ?? FoodieExpress
     </div>
 
     <div class="nav-links">
         <a href="/">Home</a>
         <a href="/menu">Menu</a>
         <a href="/login">Login</a>
-        <a href="/cart">🛒 Cart</a>
+        <a href="/cart">?? Cart</a>
     </div>
 
 </nav>
 
 <section class="cart-page">
 
-    <h1 class="cart-title">🛒 Your Cart</h1>
+    <h1 class="cart-title">?? Your Cart</h1>
 
     {% if cart_items %}
 
@@ -222,17 +242,13 @@
 
                         <div class="quantity-control">
 
-                            <a href="{{ url_for('decrease_quantity', name=item.name) }}">
-                                <button type="button">−</button>
-                            </a>
+                            <a href="{{ url_for('decrease_quantity', name=item.name) }}" class="quantity-btn">-</a>
 
                             <span class="quantity-number">
                                 {{ item.quantity }}
                             </span>
 
-                            <a href="{{ url_for('increase_quantity', name=item.name) }}">
-                                <button type="button">+</button>
-                            </a>
+                            <a href="{{ url_for('increase_quantity', name=item.name) }}" class="quantity-btn">+</a>
 
                         </div>
 
@@ -246,7 +262,7 @@
                     </div>
 
                     <div class="item-price">
-                        ₹{{ item.price * item.quantity }}
+                        ?{{ item.price * item.quantity }}
                     </div>
 
                 </div>
@@ -263,7 +279,7 @@
 
     <div class="summary-row">
         <span>Subtotal</span>
-        <span>₹{{ subtotal }}</span>
+        <span>?{{ subtotal }}</span>
     </div>
 
     <div class="summary-row">
@@ -272,26 +288,26 @@
         {% if delivery_charge == 0 %}
             <span style="color:green;">FREE</span>
         {% else %}
-            <span>₹{{ delivery_charge }}</span>
+            <span>?{{ delivery_charge }}</span>
         {% endif %}
     </div>
 
     <div class="summary-row">
         <span>Packing</span>
-        <span>₹{{ packing_charge }}</span>
+        <span>?{{ packing_charge }}</span>
     </div>
 
     <hr>
 
     <div class="summary-total">
         <span>Total</span>
-        <span>₹{{ total }}</span>
+        <span>?{{ total }}</span>
     </div>
 <div class="free-delivery-message">
     {% if subtotal >= 500 %}
-        🎉 You have unlocked FREE DELIVERY!
+        ?? You have unlocked FREE DELIVERY!
     {% else %}
-        🚚 Add ₹{{ 500 - subtotal }} more to get FREE DELIVERY
+        ?? Add ?{{ 500 - subtotal }} more to get FREE DELIVERY
     {% endif %}
 </div>
 
@@ -302,7 +318,7 @@
             </a>
 
             <a href="/menu" class="continue-btn">
-                ← Continue Shopping
+                ? Continue Shopping
             </a>
 
         </div>
@@ -313,7 +329,7 @@
 
     <div class="empty-cart">
 
-        <div class="empty-cart-icon">🛒</div>
+        <div class="empty-cart-icon">??</div>
 
         <h2>Your Cart is Empty</h2>
 
@@ -331,14 +347,14 @@
 
 <footer>
 
-    <h2>🍔 FoodieExpress</h2>
+    <h2>?? FoodieExpress</h2>
 
     <p>
         Delicious food delivered to your doorstep.
     </p>
 
     <p>
-        © 2026 FoodieExpress. All Rights Reserved.
+        � 2026 FoodieExpress. All Rights Reserved.
     </p>
 
 </footer>
@@ -346,6 +362,8 @@
 </body>
 
 </html>
+
+
 
 
 
