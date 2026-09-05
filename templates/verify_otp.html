@@ -1,66 +1,206 @@
-﻿{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-{% block title %}PookieBites | Verify OTP{% endblock %}
+    <title>Verify OTP - PookieBites</title>
 
-{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-<div class="page">
+    <style>
+        .otp-container {
+            max-width: 430px;
+            margin: 80px auto;
+            padding: 35px;
+            background: #fff;
+            border-radius: 25px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.10);
+            text-align: center;
+        }
 
-    <div class="card" style="
-        max-width:480px;
-        margin:auto;
-        padding:40px;
-        text-align:center;
-    ">
+        .otp-logo {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
 
-        <div style="font-size:55px;">🔐</div>
+        .otp-container h1 {
+            margin-bottom: 10px;
+        }
 
-        <h1>Verify OTP</h1>
+        .otp-container p {
+            color: #777;
+        }
 
-        <p style="color:#777;">
-            Enter the 6-digit OTP sent to your mobile number.
-        </p>
+        .otp-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 16px;
+            margin: 20px 0;
+            border: 2px solid #eee;
+            border-radius: 14px;
+            font-size: 26px;
+            text-align: center;
+            letter-spacing: 10px;
+            outline: none;
+        }
 
-        <form method="POST"
-              action="{{ url_for('verify_otp') }}">
+        .otp-input:focus {
+            border-color: #d94f7d;
+        }
 
-            <input
-                type="text"
-                name="otp"
-                maxlength="6"
-                minlength="6"
-                pattern="[0-9]{6}"
-                placeholder="Enter OTP"
-                required
-                style="
-                    text-align:center;
-                    font-size:24px;
-                    letter-spacing:8px;
-                "
-            >
+        .verify-btn,
+        .resend-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-            <button class="btn"
-                    type="submit"
-                    style="width:100%;margin-top:22px;">
-                Verify OTP
-            </button>
+        .verify-btn {
+            background: #d94f7d;
+            color: white;
+        }
 
-        </form>
+        .verify-btn:hover {
+            opacity: 0.9;
+        }
 
-        {% if demo_otp %}
-        <div style="
-            margin-top:20px;
-            padding:12px;
-            background:#fff7f2;
-            border-radius:12px;
-            color:#d94d20;
-        ">
-            Demo OTP: <strong>{{ demo_otp }}</strong>
+        .resend-btn {
+            margin-top: 12px;
+            background: #fce4ec;
+            color: #d94f7d;
+        }
+
+        .resend-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .timer {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .error-message {
+            background: #fff0f0;
+            color: #d93025;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .email-text {
+            font-weight: bold;
+            color: #d94f7d;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="otp-container">
+
+    <div class="otp-logo">🧸</div>
+
+    <h1>Verify Your Email 🎀</h1>
+
+    <p>
+        We sent a 6-digit OTP to
+    </p>
+
+    <p class="email-text">
+        {{ session.get("otp_email", "your email") }}
+    </p>
+
+    {% if error %}
+        <div class="error-message">
+            {{ error }}
         </div>
-        {% endif %}
+    {% endif %}
 
+    <form action="{{ url_for('verify_otp') }}" method="POST">
+
+        <input
+            type="text"
+            name="otp"
+            id="otp"
+            class="otp-input"
+            maxlength="6"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            placeholder="••••••"
+            autocomplete="one-time-code"
+            required
+        >
+
+        <button type="submit" class="verify-btn">
+            Verify OTP ✨
+        </button>
+
+    </form>
+
+    <div class="timer">
+        <span id="timerText">
+            Resend OTP available in 30 seconds
+        </span>
     </div>
+
+    <form action="{{ url_for('login') }}" method="GET">
+        <button
+            type="submit"
+            id="resendBtn"
+            class="resend-btn"
+            disabled
+        >
+            Resend OTP 🔄
+        </button>
+    </form>
 
 </div>
 
-{% endblock %}
+<script>
+
+let seconds = 30;
+
+const timerText = document.getElementById("timerText");
+const resendBtn = document.getElementById("resendBtn");
+
+const countdown = setInterval(function() {
+
+    seconds--;
+
+    if (seconds > 0) {
+
+        timerText.textContent =
+            "Resend OTP available in " + seconds + " seconds";
+
+    } else {
+
+        clearInterval(countdown);
+
+        timerText.textContent =
+            "Didn't receive the OTP?";
+
+        resendBtn.disabled = false;
+
+    }
+
+}, 1000);
+
+
+// Only allow numbers in OTP
+document.getElementById("otp").addEventListener("input", function() {
+
+    this.value = this.value.replace(/[^0-9]/g, "");
+
+});
+
+</script>
+
+</body>
+</html>

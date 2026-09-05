@@ -1,22 +1,295 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Order Confirmed - FoodieExpress</title>
+    <title>🎀 PookieBites - Order Confirmed</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg,#fff0f7,#ffe6f0,#f8eaff);
+            font-family: Arial, sans-serif;
+            color: #604752;
+        }
+
+        .success-container {
+            max-width: 850px;
+            margin: 45px auto;
+            padding: 20px;
+        }
+
+        .success-card {
+            background: rgba(255,255,255,.96);
+            border-radius: 32px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 18px 50px rgba(216,91,135,.18);
+            animation: popIn .7s ease;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(.85) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .cute-characters {
+            font-size: 58px;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%,100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .success-title {
+            color: #d85b87;
+            font-size: 42px;
+            margin: 10px 0;
+        }
+
+        .success-text {
+            color: #80606b;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .order-id {
+            display: inline-block;
+            margin: 15px 0;
+            padding: 10px 20px;
+            background: #fff0f6;
+            border-radius: 20px;
+            color: #c94f7c;
+            font-weight: bold;
+        }
+
+        .journey {
+            margin: 30px 0;
+            padding: 25px;
+            background: #fff8fb;
+            border-radius: 25px;
+        }
+
+        .journey-title {
+            color: #d85b87;
+            margin-bottom: 25px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .step {
+            flex: 1;
+            padding: 15px 5px;
+            border-radius: 18px;
+            background: #ffeaf2;
+            font-size: 13px;
+        }
+
+        .step.active {
+            background: #ff8fab;
+            color: white;
+            animation: glow 1.5s infinite;
+        }
+
+        @keyframes glow {
+            50% {
+                box-shadow: 0 0 20px rgba(255,143,171,.5);
+            }
+        }
+
+        .step-icon {
+            display: block;
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .bill {
+            margin-top: 25px;
+            padding: 25px;
+            background: linear-gradient(135deg,#fff7fb,#fff0f6);
+            border: 2px solid #f5d7e4;
+            border-radius: 25px;
+            text-align: left;
+        }
+
+        .bill h2 {
+            text-align: center;
+            color: #d85b87;
+            margin-top: 0;
+        }
+
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f2dce5;
+        }
+
+        .discount {
+            color: #d85b87;
+        }
+
+        .saved {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 18px;
+            background: #f4edff;
+            color: #76577f;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .pay-box {
+            margin-top: 15px;
+            padding: 18px;
+            border-radius: 20px;
+            background: linear-gradient(135deg,#ff8fab,#e96f9a);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .message {
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: 22px;
+            background: #fff5fa;
+        }
+
+        .message .cat {
+            font-size: 50px;
+        }
+
+        .home-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 15px 28px;
+            border-radius: 25px;
+            background: linear-gradient(135deg,#ff8fab,#e96f9a);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+        }
+
+        .floating {
+            position: fixed;
+            font-size: 25px;
+            animation: floatUp 5s linear infinite;
+            opacity: .7;
+        }
+
+        .f1 { left: 10%; bottom: -40px; animation-delay: 0s; }
+        .f2 { left: 35%; bottom: -40px; animation-delay: 1s; }
+        .f3 { left: 65%; bottom: -40px; animation-delay: 2s; }
+        .f4 { left: 85%; bottom: -40px; animation-delay: 3s; }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: .7;
+            }
+            to {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+
+        @media(max-width:650px) {
+
+            .success-title {
+                font-size: 32px;
+            }
+
+            .steps {
+                flex-direction: column;
+            }
+
+            .pay-box {
+                font-size: 18px;
+            }
+
+        }
+
+    </style>
+<style>
+.tracking-bar {
+    width: 100%;
+    height: 10px;
+    background: #f7dce7;
+    border-radius: 20px;
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+.tracking-progress {
+    width: 25%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff8fab, #e96f9a);
+    border-radius: 20px;
+    transition: width 0.8s ease;
+}
+
+.step {
+    transition: 0.4s ease;
+}
+
+.step.completed {
+    opacity: 1;
+    transform: scale(1.03);
+}
+
+.step.active {
+    transform: scale(1.05);
+}
+</style>
 </head>
 
 <body>
 
+<div class="floating f1">🎀</div>
+<div class="floating f2">💗</div>
+<div class="floating f3">🧸</div>
+<div class="floating f4">✨</div>
+
 <nav class="navbar">
 
     <div class="logo">
-        🍔 FoodieExpress
+        🎀 🧸 PookieBites ✨
     </div>
 
     <div class="nav-links">
@@ -28,58 +301,302 @@
 </nav>
 
 
-<section class="menu-section">
+<section class="success-container">
 
-    <div style="
-        max-width:700px;
-        margin:40px auto;
-        background:white;
-        padding:40px;
-        text-align:center;
-        border-radius:15px;
-        box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    ">
+    <div class="success-card">
 
-        <div style="font-size:70px;">
-            🎉
+        <div class="cute-characters">
+            🐱 🧸 🎀
         </div>
 
-        <h1 style="color:#ff5722; margin:20px 0;">
-            Order Placed Successfully!
+        <h1 class="success-title">
+            Yayyy! Order Confirmed! 💗
         </h1>
 
-        <p>
-            Thank you, {{ order.customer_name }}!
+        <p class="success-text">
+            Your delicious PookieBites order is officially confirmed! 🥹💗
+            <br>
+            Our little kitchen is preparing everything with extra love. 🍕🧸
         </p>
 
-        <p style="margin-top:10px;">
-            Your delicious food is on its way. 🚴
-        </p>
 
-        <hr style="margin:25px 0;">
+        <div class="order-id">
+            🎟️ Order ID: {{ order.id }}
+        </div>
 
-        <h2>
-            Order Total:
-            <span style="color:#ff5722;">
-                ₹{{ order.total }}
-            </span>
-        </h2>
 
-        <p style="margin-top:15px;">
-            Payment: {{ order.payment }}
-        </p>
+        <div class="journey">
 
-        <a href="/menu"
-           style="
-               display:inline-block;
-               margin-top:30px;
-               background:#ff5722;
-               color:white;
-               padding:12px 25px;
-               border-radius:8px;
-               text-decoration:none;
-           ">
-            Order More Food 🍕
+            <h2 class="journey-title">
+                🧸 Your Pookie Order Journey 🎀
+            </h2>
+
+            <div class="steps" id="orderSteps">
+
+<div id="deliveryTimer" style="
+    text-align:center;
+    margin-top:15px;
+    padding:12px;
+    border-radius:15px;
+    background:#fff0f6;
+    color:#d85b87;
+    font-weight:bold;
+    font-size:17px;
+">
+    🛵 Estimated Delivery: 25 minutes
+    <br>
+    ⏱️ <span id="countdown">25:00</span> remaining
+</div>
+
+<p id="trackingMessage" style="text-align:center;margin-top:18px;color:#d85b87;font-weight:bold;">
+    👩‍🍳 Your Pookie meal is being prepared...
+</p>
+
+<div class="tracking-bar">
+    <div id="trackingProgress" class="tracking-progress"></div>
+</div>
+
+                <div class="step active">
+                    <span class="step-icon">👩‍🍳</span>
+                    Preparing
+                </div>
+
+                <div class="step">
+                    <span class="step-icon">🎁</span>
+                    Packing
+                </div>
+
+                <div class="step">
+                    <span class="step-icon">🛵</span>
+                    On the Way
+                </div>
+
+                <div class="step">
+                    <span class="step-icon">🏠</span>
+                    Delivered
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="bill">
+
+            <h2>
+                🧾 Your Pookie Bill 🎀
+            </h2>
+
+            <div class="bill-row">
+                <span>🍱 Food Subtotal</span>
+                <strong>₹{{ order.subtotal }}</strong>
+            </div>
+
+            <div class="bill-row">
+                <span>🚚 Delivery</span>
+                <strong>
+                    {% if order.delivery_charge == 0 %}
+                        FREE 🎉
+                    {% else %}
+                        ₹{{ order.delivery_charge }}
+                    {% endif %}
+                </strong>
+            </div>
+
+            <div class="bill-row">
+                <span>🎀 Packing</span>
+                <strong>₹{{ order.packing_charge }}</strong>
+            </div>
+
+            {% if order.first_order_discount > 0 %}
+            <div class="bill-row discount">
+                <span>🎁 First Order Discount</span>
+                <strong>- ₹{{ order.first_order_discount }}</strong>
+            </div>
+            {% endif %}
+
+            {% if order.order_discount > 0 %}
+            <div class="bill-row discount">
+                <span>💗 Order Value Discount</span>
+                <strong>- ₹{{ order.order_discount }}</strong>
+            </div>
+            {% endif %}
+
+            {% if order.birthday_discount > 0 %}
+            <div class="bill-row discount">
+                <span>🎂 Birthday Discount</span>
+                <strong>- ₹{{ order.birthday_discount }}</strong>
+            </div>
+            {% endif %}
+
+            {% if order.game_discount > 0 %}
+            <div class="bill-row discount">
+                <span>🎮 Tic-Tac-Toe Reward</span>
+                <strong>- ₹{{ order.game_discount }}</strong>
+            </div>
+            {% endif %}
+
+            {% if order.payment_discount > 0 %}
+            <div class="bill-row discount">
+                <span>💳 Payment Offer</span>
+                <strong>- ₹{{ order.payment_discount }}</strong>
+            </div>
+            {% endif %}
+
+            {% if order.coupon_discount > 0 %}
+            <div class="bill-row discount">
+                <span>🎟️ Coupon ({{ order.coupon_code }})</span>
+                <strong>- ₹{{ order.coupon_discount }}</strong>
+            </div>
+            {% endif %}
+
+
+            <div class="saved">
+                💝 You saved
+                <strong>₹{{ order.total_discount }}</strong>
+                on this order! 🎉
+            </div>
+
+
+            <div class="pay-box">
+                <span>🧸 YOU PAY</span>
+                <span>₹{{ order.total }}</span>
+            </div>
+
+        </div>
+
+
+        <div class="calculation-box">
+    <h3>🧮 How Your Pookie Total Was Calculated 🎀</h3>
+
+    <div class="calc-line">
+        🍱 Food
+        <span>₹{{ order.subtotal }}</span>
+    </div>
+
+    <div class="calc-line">
+        🚚 Delivery
+        <span>
+            {% if order.delivery_charge == 0 %}
+                FREE 🎉
+            {% else %}
+                + ₹{{ order.delivery_charge }}
+            {% endif %}
+        </span>
+    </div>
+
+    <div class="calc-line">
+        🎀 Packing
+        <span>+ ₹{{ order.packing_charge }}</span>
+    </div>
+
+    <div class="calc-discount">
+        💝 Total Discounts
+        <span>- ₹{{ order.total_discount }}</span>
+    </div>
+
+    <div class="calc-divider"></div>
+
+    <div class="calc-formula">
+        ₹{{ order.subtotal }}
+        + ₹{{ order.delivery_charge }}
+        + ₹{{ order.packing_charge }}
+        − ₹{{ order.total_discount }}
+        =
+        <strong>₹{{ order.total }}</strong>
+    </div>
+
+    <div class="calc-final">
+        🧸 Final Amount You Pay
+        <strong>₹{{ order.total }}</strong>
+    </div>
+</div>
+
+<style>
+.calculation-box {
+    margin-top: 25px;
+    padding: 22px;
+    border-radius: 24px;
+    background: linear-gradient(135deg,#fff8fc,#fdf0ff);
+    border: 2px dashed #efb6cf;
+    box-shadow: 0 8px 25px rgba(216,91,135,0.10);
+}
+
+.calculation-box h3 {
+    text-align: center;
+    color: #d85b87;
+    margin-bottom: 18px;
+}
+
+.calc-line,
+.calc-discount {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    color: #684c59;
+}
+
+.calc-discount {
+    color: #d85b87;
+    font-weight: bold;
+}
+
+.calc-divider {
+    height: 1px;
+    background: #efd5df;
+    margin: 12px 0;
+}
+
+.calc-formula {
+    text-align: center;
+    padding: 12px;
+    border-radius: 15px;
+    background: #fff;
+    color: #765767;
+}
+
+.calc-formula strong {
+    color: #d85b87;
+    font-size: 18px;
+}
+
+.calc-final {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,#ff8fab,#e96f9a);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+</style>
+
+<div class="message">
+
+            <div class="cat">
+                🐱💗🧸
+            </div>
+
+            <h2>
+                Thank you, Pookie! 🎀
+            </h2>
+
+            <p>
+                Your order is being made with lots of love,
+                yummy magic and tiny Pookie happiness. 🥹✨
+            </p>
+
+            <p>
+                Please wait patiently while our little delivery
+                buddy brings your food! 🛵💨
+            </p>
+
+        </div>
+
+
+        <a href="/" class="home-btn">
+            🏠 Back to Pookie Home
         </a>
 
     </div>
@@ -89,17 +606,113 @@
 
 <footer>
 
-    <h2>🍔 FoodieExpress</h2>
+    <h2>🎀 🧸 PookieBites ✨</h2>
 
     <p>
-        Delicious food delivered to your doorstep.
+        Made with love, food and a little Pookie magic 💗
     </p>
 
     <p>
-        © 2026 FoodieExpress. All Rights Reserved.
+        © 2026 PookieBites. All Rights Reserved.
     </p>
 
 </footer>
 
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const steps = document.querySelectorAll("#orderSteps .step");
+    const message = document.getElementById("trackingMessage");
+    const progress = document.getElementById("trackingProgress");
+
+    const countdown = document.getElementById("countdown");
+
+    let timeLeft = 25 * 60;
+
+    function updateCountdown() {
+
+        if (!countdown) return;
+
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        countdown.innerText =
+            String(minutes).padStart(2, "0") + ":" +
+            String(seconds).padStart(2, "0");
+
+        if (timeLeft > 0) {
+            timeLeft--;
+        }
+    }
+
+    updateCountdown();
+
+    setInterval(updateCountdown, 1000);
+
+
+    if (!steps.length) return;
+
+    const messages = [
+        "👩‍🍳 Your Pookie meal is being prepared...",
+        "🎁 Your order is being packed with love...",
+        "🛵 Your Pookie order is on the way!",
+        "🏠 Yayyy! Your order has been delivered! 💗"
+    ];
+
+    function updateTracking() {
+
+        let elapsed = (25 * 60) - timeLeft;
+
+        let current = 0;
+
+        if (elapsed >= 20 * 60) {
+            current = 3;
+        } else if (elapsed >= 10 * 60) {
+            current = 2;
+        } else if (elapsed >= 5 * 60) {
+            current = 1;
+        } else {
+            current = 0;
+        }
+
+        steps.forEach((step, index) => {
+
+            step.classList.remove("active");
+            step.classList.remove("completed");
+
+            if (index < current) {
+                step.classList.add("completed");
+            }
+
+            if (index === current) {
+                step.classList.add("active");
+            }
+
+        });
+
+        if (message) {
+            message.innerText = messages[current];
+        }
+
+        if (progress) {
+            progress.style.width =
+                ((current + 1) * 25) + "%";
+        }
+    }
+
+    updateTracking();
+
+    setInterval(updateTracking, 1000);
+
+});
+</script>
 </body>
+
+
+
 </html>
+
+
+
+

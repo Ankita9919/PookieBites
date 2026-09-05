@@ -1,149 +1,323 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodieExpress - Menu</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎀 PookieBites Menu 🧸</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Poppins,Arial,sans-serif;
+    color:#633f52;
+    background:
+    radial-gradient(circle at 10% 10%,#ffd6e7 0,transparent 22%),
+    radial-gradient(circle at 90% 25%,#ffe4ef 0,transparent 25%),
+    radial-gradient(circle at 50% 100%,#ffd9e8 0,transparent 30%),
+    #fff7fb;
+    overflow-x:hidden;
+}
+
+/* Floating cute decorations */
+.cute{
+    position:fixed;
+    z-index:0;
+    pointer-events:none;
+    font-size:32px;
+    opacity:.65;
+    animation:float 5s ease-in-out infinite;
+}
+
+.c1{top:15%;left:3%}
+.c2{top:35%;right:4%;animation-delay:1s}
+.c3{bottom:18%;left:6%;animation-delay:2s}
+.c4{bottom:28%;right:7%;animation-delay:3s}
+
+@keyframes float{
+    0%,100%{transform:translateY(0) rotate(-6deg)}
+    50%{transform:translateY(-20px) rotate(7deg)}
+}
+
+/* Hero */
+.menu-hero{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    padding:65px 20px 40px;
+}
+
+.ribbon{
+    display:inline-block;
+    font-size:48px;
+    animation:ribbon 2s infinite ease-in-out;
+}
+
+@keyframes ribbon{
+    0%,100%{transform:rotate(-7deg) scale(1)}
+    50%{transform:rotate(7deg) scale(1.15)}
+}
+
+.menu-hero h1{
+    margin:5px 0;
+    font-size:clamp(40px,6vw,65px);
+    color:#e75d91;
+    font-weight:800;
+    text-shadow:0 6px 20px #e75d9130;
+}
+
+.menu-hero p{
+    color:#916a7c;
+    font-size:18px;
+}
+
+.sparkle{
+    display:inline-block;
+    animation:sparkle 1.4s infinite alternate;
+}
+
+@keyframes sparkle{
+    from{transform:scale(.8);opacity:.5}
+    to{transform:scale(1.3);opacity:1}
+}
+
+/* Main */
+.pookie-menu{
+    width:min(1200px,92%);
+    margin:auto;
+    position:relative;
+    z-index:1;
+    padding-bottom:70px;
+}
+
+.category-title{
+    text-align:center;
+    font-size:30px;
+    margin:25px 0 30px;
+    color:#70485c;
+}
+
+.food-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+    gap:28px;
+}
+
+/* Food cards */
+.pookie-card{
+    position:relative;
+    background:#ffffffec;
+    border:2px solid #ffd2e3;
+    border-radius:28px;
+    padding:15px;
+    box-shadow:0 12px 35px #c46c8f20;
+    overflow:hidden;
+    transition:.35s ease;
+    animation:cardIn .7s ease both;
+}
+
+.pookie-card:hover{
+    transform:translateY(-10px) rotate(.5deg);
+    box-shadow:0 20px 45px #c46c8f35;
+}
+
+@keyframes cardIn{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.pookie-card:before{
+    content:"🎀";
+    position:absolute;
+    right:12px;
+    top:8px;
+    font-size:25px;
+    z-index:2;
+    animation:tiny 2s infinite ease-in-out;
+}
+
+@keyframes tiny{
+    0%,100%{transform:rotate(-8deg)}
+    50%{transform:rotate(8deg) scale(1.1)}
+}
+
+.food-image{
+    width:100%;
+    height:210px;
+    object-fit:cover;
+    border-radius:22px;
+    display:block;
+    transition:.5s ease;
+}
+
+.pookie-card:hover .food-image{
+    transform:scale(1.06);
+}
+
+.food-info{
+    padding:15px 8px 8px;
+}
+
+.food-info h3{
+    margin:0 0 7px;
+    font-size:21px;
+    color:#633f52;
+}
+
+.food-info p{
+    color:#927181;
+    line-height:1.5;
+    font-size:14px;
+}
+
+.price{
+    color:#e65389;
+    font-size:22px;
+    font-weight:800;
+}
+
+.add-button{
+    display:block;
+    width:100%;
+    margin-top:13px;
+    padding:13px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#ff91b8,#ed6597);
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    font-weight:700;
+    box-shadow:0 7px 18px #ed659740;
+    transition:.3s ease;
+}
+
+.add-button:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:0 12px 25px #ed659760;
+}
+
+footer{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    padding:35px 20px;
+    background:#ffe5ef;
+    color:#754c60;
+}
+
+.footer-bow{
+    font-size:32px;
+    animation:float 3s infinite ease-in-out;
+}
+
+@media(max-width:600px){
+    .food-grid{grid-template-columns:1fr}
+    .food-image{height:220px}
+}
+</style>
 </head>
 
 <body>
 
-<nav class="navbar">
-    <div class="logo">🍔 FoodieExpress</div>
+<div class="cute c1">🎀</div>
+<div class="cute c2">🧸</div>
+<div class="cute c3">💗</div>
+<div class="cute c4">✨</div>
 
-    <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/menu">Menu</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+<header class="menu-hero">
 
-        {% if session.get("logged_in") %}
-            <span style="color:white;font-weight:bold;">
-                👤 {{ session["user"]["name"] }}
-            </span>
-            <a href="/logout">Logout</a>
-        {% else %}
-            <a href="/login">Login</a>
-        {% endif %}
+    <div class="ribbon">🎀</div>
 
-        <a href="/owner/login">Admin Portal</a>
-        <a href="/cart">🛒 Cart</a>
-    </div>
-</nav>
+    <h1>
+        PookieBites <span class="sparkle">✨</span>
+    </h1>
 
-<section class="menu-header">
-    <h1>Our Delicious Menu 🍽️</h1>
-    <p>Choose your favourite food and order now!</p>
-</section>
+    <p>
+        Little cravings, big happiness. 🧸💗
+    </p>
 
-<section class="menu-section">
+</header>
 
-    <input
-        type="text"
-        id="searchBox"
-        class="search-box"
-        placeholder="🔍 Search for food..."
-    >
+<main class="pookie-menu">
 
-    <div class="menu-categories">
-        <button onclick="filterFood('all')">All</button>
-        <button onclick="filterFood('pizza')">🍕 Pizza</button>
-        <button onclick="filterFood('burger')">🍔 Burger</button>
-        <button onclick="filterFood('biryani')">🍛 Biryani</button>
-        <button onclick="filterFood('noodles')">🍜 Noodles</button>
-        <button onclick="filterFood('momos')">🥟 Momos</button>
-        <button onclick="filterFood('dessert')">🍰 Dessert</button>
-        <button onclick="filterFood('beverage')">🥤 Drinks</button>
-        <button onclick="filterFood('thali')">🍱 Thali</button>
-    </div>
+    <h2 class="category-title">
+        What are you craving today? 🎀
+    </h2>
 
-    <div class="menu-food-container">
+    {% if foods %}
+
+    <div class="food-grid">
 
         {% for food in foods %}
 
-        <div class="menu-food-card"
-             data-category="{{ food.category|lower }}"
-             data-name="{{ food.name|lower }}">
+        <article class="pookie-card">
 
-            <div class="menu-food-image">
-                <img
-                    src="{{ url_for('static', filename='images/' + food.image) }}"
-                    alt="{{ food.name }}"
-                >
-            </div>
+            <img
+                class="food-image"
+                src="{{ url_for('static', filename='images/' + food.image) }}"
+                alt="{{ food.name }}"
+            >
 
-            <div class="menu-food-info">
+            <div class="food-info">
 
-                <h3>{{ food.name }}</h3>
+                <h3>
+                    {{ food.name }} 🧸
+                </h3>
 
+                {% if food.description %}
                 <p>{{ food.description }}</p>
+                {% endif %}
 
-                <div class="menu-food-bottom">
-                    <span>₹{{ food.price }}</span>
-
-                    <a href="/add_to_cart/{{ food.name|urlencode }}/{{ food.price }}">
-                        <button>Add to Cart</button>
-                    </a>
+                <div class="price">
+                    ₹{{ food.price }}
                 </div>
 
+                <a
+                    class="add-button"
+                    href="{{ url_for('add_to_cart', name=food.name, price=food.price) }}"
+                >
+                    Add to Cart 💗
+                </a>
+
             </div>
-        </div>
+
+        </article>
 
         {% endfor %}
 
     </div>
-</section>
+
+    {% else %}
+
+    <div style="text-align:center;padding:60px">
+        <div style="font-size:65px">🧸</div>
+        <h2>No yummy bites yet!</h2>
+        <p>Our little pookie kitchen is getting ready. 🎀</p>
+    </div>
+
+    {% endif %}
+
+</main>
 
 <footer>
-    <h2>🍔 FoodieExpress</h2>
-    <p>Delicious food delivered to your doorstep.</p>
-    <p>© 2026 FoodieExpress. All Rights Reserved.</p>
+
+    <div class="footer-bow">🎀 🧸 🎀</div>
+
+    <h3>PookieBites</h3>
+
+    <p>
+        Made with love and a little pookie magic. 💗
+    </p>
+
+    <p>
+        © 2026 PookieBites. All Rights Reserved.
+    </p>
+
 </footer>
-
-<script>
-
-function filterFood(category) {
-
-    const cards = document.querySelectorAll(".menu-food-card");
-
-    cards.forEach(card => {
-
-        const cardCategory = card.getAttribute("data-category");
-
-        if (category === "all" ||
-            cardCategory === category.toLowerCase()) {
-
-            card.style.display = "block";
-
-        } else {
-
-            card.style.display = "none";
-
-        }
-
-    });
-}
-
-
-document.getElementById("searchBox").addEventListener("input", function () {
-
-    const search = this.value.toLowerCase();
-
-    const cards = document.querySelectorAll(".menu-food-card");
-
-    cards.forEach(card => {
-
-        const name = card.getAttribute("data-name");
-
-        card.style.display =
-            name.includes(search) ? "block" : "none";
-
-    });
-
-});
-
-</script>
 
 </body>
 </html>

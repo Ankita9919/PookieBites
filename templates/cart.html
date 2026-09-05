@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,6 +9,177 @@
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .cart-page {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .cart-title {
+            text-align: center;
+            color: #ff5722;
+            margin-bottom: 35px;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .cart-item {
+            background: white;
+            padding: 22px;
+            margin-bottom: 18px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .item-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .item-name {
+            margin: 0 0 10px;
+            color: #333;
+        }
+
+        .item-price {
+            color: #ff5722;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-control a {
+            text-decoration: none;
+        }
+
+        .quantity-control button {
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 8px;
+            background: #ff5722;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .quantity-number {
+            min-width: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .remove-btn {
+            display: inline-block;
+            margin-top: 12px;
+            color: #e53935;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .remove-btn:hover {
+            text-decoration: underline;
+        }
+
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            color: #555;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 21px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .summary-total span:last-child {
+            color: #ff5722;
+        }
+
+        .checkout-btn {
+            display: block;
+            text-align: center;
+            background: #ff5722;
+            color: white;
+            padding: 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 22px;
+        }
+
+        .checkout-btn:hover {
+            opacity: 0.9;
+        }
+
+        .continue-btn {
+            display: block;
+            text-align: center;
+            color: #555;
+            padding: 12px;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .empty-cart-icon {
+            font-size: 70px;
+        }
+
+        .empty-cart h2 {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .item-info {
+                align-items: flex-start;
+            }
+
+            .summary {
+                position: static;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -28,148 +199,135 @@
 
 </nav>
 
+<section class="cart-page">
 
-<section class="menu-section">
-
-    <h1 style="text-align:center; color:#ff5722; margin-bottom:30px;">
-        🛒 Your Cart
-    </h1>
+    <h1 class="cart-title">🛒 Your Cart</h1>
 
     {% if cart_items %}
 
-        {% for item in cart_items %}
+    <div class="cart-layout">
 
-        <div style="
-            background:white;
-            padding:20px;
-            margin:15px auto;
-            max-width:700px;
-            border-radius:12px;
-            box-shadow:0 3px 10px rgba(0,0,0,0.1);
-        ">
+        <div class="cart-items">
 
-            <div style="
-                display:flex;
-                justify-content:space-between;
-                align-items:center;
-                gap:20px;
-            ">
+            {% for item in cart_items %}
 
-                <div>
-                    <h3>{{ item.name }}</h3>
+            <div class="cart-item">
 
-                    <p>
-                        <a href="{{ url_for('decrease_quantity', name=item.name) }}" style="text-decoration:none;"><button type="button">−</button></a>
-<span style="padding:0 12px;">{{ item.quantity }}</span>
-<a href="{{ url_for('increase_quantity', name=item.name) }}" style="text-decoration:none;"><button type="button">+</button></a>
-                    </p>
-                </div>
+                <div class="item-info">
 
-                <div>
+                    <div>
+                        <h3 class="item-name">
+                            {{ item.name }}
+                        </h3>
 
-                    <strong style="color:#ff5722;">
+                        <div class="quantity-control">
+
+                            <a href="{{ url_for('decrease_quantity', name=item.name) }}">
+                                <button type="button">−</button>
+                            </a>
+
+                            <span class="quantity-number">
+                                {{ item.quantity }}
+                            </span>
+
+                            <a href="{{ url_for('increase_quantity', name=item.name) }}">
+                                <button type="button">+</button>
+                            </a>
+
+                        </div>
+
+                        <a
+                            href="{{ url_for('remove_from_cart', name=item.name) }}"
+                            class="remove-btn"
+                        >
+                            Remove item
+                        </a>
+
+                    </div>
+
+                    <div class="item-price">
                         ₹{{ item.price * item.quantity }}
-                    </strong>
-
-                    <a
-                        href="{{ url_for('remove_from_cart', name=item.name) }}"
-                        style="
-                            margin-left:15px;
-                            color:red;
-                            text-decoration:none;
-                        "
-                    >
-                        Remove
-                    </a>
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
-
-        {% endfor %}
-
-
-        <div style="
-            max-width:700px;
-            margin:30px auto;
-            text-align:right;
-        ">
-
-            <h2>
-                Total:
-                <span style="color:#ff5722;">
-                    ₹{{ total }}
-                </span>
-            </h2>
-
-            <div style="margin-top:25px;">
-
-                <a
-                    href="/menu"
-                    style="
-                        display:inline-block;
-                        background:#777;
-                        color:white;
-                        padding:12px 20px;
-                        border-radius:8px;
-                        text-decoration:none;
-                        margin-right:10px;
-                    "
-                >
-                    Continue Shopping
-                </a>
-
-                <a
-                    href="/checkout"
-                    style="
-                        display:inline-block;
-                        background:#ff5722;
-                        color:white;
-                        padding:12px 25px;
-                        border-radius:8px;
-                        text-decoration:none;
-                    "
-                >
-                    Checkout 💳
-                </a>
-
-            </div>
+            {% endfor %}
 
         </div>
 
+        <div class="summary">
+
+    <h2>Order Summary</h2>
+
+    <div class="summary-row">
+        <span>Subtotal</span>
+        <span>₹{{ subtotal }}</span>
+    </div>
+
+    <div class="summary-row">
+        <span>Delivery</span>
+
+        {% if delivery_charge == 0 %}
+            <span style="color:green;">FREE</span>
+        {% else %}
+            <span>₹{{ delivery_charge }}</span>
+        {% endif %}
+    </div>
+
+    <div class="summary-row">
+        <span>Packing</span>
+        <span>₹{{ packing_charge }}</span>
+    </div>
+
+    <hr>
+
+    <div class="summary-total">
+        <span>Total</span>
+        <span>₹{{ total }}</span>
+    </div>
+<div class="free-delivery-message">
+    {% if subtotal >= 500 %}
+        🎉 You have unlocked FREE DELIVERY!
     {% else %}
+        🚚 Add ₹{{ 500 - subtotal }} more to get FREE DELIVERY
+    {% endif %}
+</div>
 
-        <div style="text-align:center;">
 
-            <h2>Your cart is empty 🛒</h2>
 
-            <p style="margin:20px;">
-                Add some delicious food first!
-            </p>
+<a href="/checkout" class="checkout-btn">
+                Proceed to Checkout
+            </a>
 
-            <a
-                href="/menu"
-                style="
-                    display:inline-block;
-                    background:#ff5722;
-                    color:white;
-                    padding:12px 20px;
-                    border-radius:8px;
-                    text-decoration:none;
-                "
-            >
-                Browse Menu 🍕
-
+            <a href="/menu" class="continue-btn">
+                ← Continue Shopping
             </a>
 
         </div>
 
+    </div>
+
+    {% else %}
+
+    <div class="empty-cart">
+
+        <div class="empty-cart-icon">🛒</div>
+
+        <h2>Your Cart is Empty</h2>
+
+        <p>Add some delicious food first!</p>
+
+        <a href="/menu" class="checkout-btn">
+            Browse Menu
+        </a>
+
+    </div>
+
     {% endif %}
 
 </section>
-
 
 <footer>
 
@@ -188,3 +346,10 @@
 </body>
 
 </html>
+
+
+
+
+
+
+

@@ -11,3 +11,22 @@ cart_function.txt
 templates/static/
 static/images_backup/
 templates_backup_before_pookie_final/
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local database
+instance/*.db
+
+# Local backup files
+app_before_*.py
+app_before_*.html
+fix_*.py
+temp_*.html
+templates/*_before_*.html
+templates/*_before_*.py
+
+# Temporary tracking files
+tracking_*.txt

@@ -5,10 +5,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FoodieExpress - My Orders</title>
+    <title>PookieBites - My Orders 🎀</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .orders-container {
+            max-width: 950px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .orders-title {
+            text-align: center;
+            color: #d85b87;
+            margin-bottom: 35px;
+            font-size: 34px;
+        }
+
+        .order-card {
+            background: linear-gradient(135deg,#fff9fc,#fff0f6);
+            border: 2px solid #f7d5e3;
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(216,91,135,0.12);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .order-id {
+            color: #d85b87;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .status {
+            background: #ffe0ec;
+            color: #d85b87;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .order-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: white;
+            padding: 14px;
+            border-radius: 15px;
+            color: #654b57;
+        }
+
+        .items-title {
+            color: #d85b87;
+            margin: 20px 0 10px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 5px;
+            border-bottom: 1px solid #f0dbe4;
+            color: #654b57;
+        }
+
+        .bill-box {
+            margin-top: 20px;
+            padding: 18px;
+            background: white;
+            border-radius: 18px;
+        }
+
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 0;
+            color: #654b57;
+        }
+
+        .saved {
+            margin-top: 10px;
+            color: #d85b87;
+            font-weight: bold;
+        }
+
+        .total-box {
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg,#ff8fab,#e96f9a);
+            color: white;
+            border-radius: 18px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .empty-orders {
+            max-width: 600px;
+            margin: 70px auto;
+            text-align: center;
+            background: #fff5fa;
+            padding: 45px 25px;
+            border-radius: 25px;
+            border: 2px solid #f7d5e3;
+        }
+
+        .empty-orders h2 {
+            color: #d85b87;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #ff8fab;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,7 +147,7 @@
 <nav class="navbar">
 
     <div class="logo">
-        &#127828; FoodieExpress
+        🧸 PookieBites 🎀
     </div>
 
     <div class="nav-links">
@@ -26,146 +157,222 @@
 
         {% if session.get("logged_in") %}
             <span style="color:white;font-weight:bold;">
-                &#128100; {{ session["user"]["name"] }}
+                👤 {{ session["user"]["name"] }}
             </span>
 
-            <a href="/orders">Orders</a>
+            <a href="/orders">📦 My Orders</a>
             <a href="/logout">Logout</a>
         {% else %}
             <a href="/login">Login</a>
         {% endif %}
 
-        <a href="/cart">&#128722; Cart</a>
+        <a href="/cart">🛒 Cart</a>
 
     </div>
 
 </nav>
 
 
-<section class="menu-section">
+<div class="orders-container">
 
-    <h1 style="
-        text-align:center;
-        color:#ff5722;
-        margin-bottom:30px;
-    ">
-        &#128230; My Orders
+    <h1 class="orders-title">
+        🧾 My Pookie Orders 🎀
     </h1>
 
 
-    {% if order %}
+    {% if orders %}
 
-    <div style="
-        max-width:800px;
-        margin:auto;
-        background:white;
-        padding:30px;
-        border-radius:15px;
-        box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    ">
+        {% for order in orders %}
 
-        <h2>Order #{{ order.id }}</h2>
+        <div class="order-card">
 
-        <p style="margin:10px 0;">
-            <strong>Status:</strong>
-            <span style="color:#ff5722;">
-                {{ order.status }}
-            </span>
-        </p>
+            <div class="order-header">
 
-        <hr style="margin:20px 0;">
+                <div class="order-id">
+                    🎟️ Order #{{ order.id }}
+                </div>
 
+                <div class="status">
+                    🚚 {{ order.delivery_type or "Preparing" }}
+                </div>
 
-        {% for item in order["items"] %}
-
-        <div style="
-            display:flex;
-            justify-content:space-between;
-            padding:15px 0;
-            border-bottom:1px solid #eee;
-        ">
-
-            <div>
-                <h3>{{ item.name }}</h3>
-                <p>Quantity: {{ item.quantity }}</p>
             </div>
 
-            <strong>
-                &#8377;{{ item.price * item.quantity }}
-            </strong>
+
+            <div class="order-info">
+
+                <div class="info-box">
+                    🍱 <strong>Subtotal</strong><br>
+                    ₹{{ order.subtotal }}
+                </div>
+
+                <div class="info-box">
+                    🚚 <strong>Delivery</strong><br>
+                    {% if order.delivery_charge == 0 %}
+                        FREE 🎉
+                    {% else %}
+                        ₹{{ order.delivery_charge }}
+                    {% endif %}
+                </div>
+
+                <div class="info-box">
+                    🎀 <strong>Packing</strong><br>
+                    ₹{{ order.packing_charge }}
+                </div>
+
+                <div class="info-box">
+                    💳 <strong>Payment</strong><br>
+                    {{ order.payment_method }}
+                </div>
+
+            </div>
+
+
+            <h3 class="items-title">
+                🍕 Items in this order
+            </h3>
+
+
+            {% for item in order.items %}
+
+            <div class="order-item">
+
+                <span>
+                    🍴
+                    {{ item.menu_item.name if item.menu_item else "Food Item" }}
+                    × {{ item.quantity }}
+                </span>
+
+                <strong>
+                    ₹{{ item.price * item.quantity }}
+                </strong>
+
+            </div>
+
+            {% endfor %}
+
+
+            <div style="text-align:center;margin-top:20px;">
+
+    <a href="{{ url_for('reorder', order_id=order.id) }}"
+       style="
+       display:inline-block;
+       padding:12px 25px;
+       background:#ff8fab;
+       color:white;
+       text-decoration:none;
+       border-radius:22px;
+       font-weight:bold;
+       box-shadow:0 5px 12px rgba(216,91,135,0.2);
+       ">
+        🔁 Reorder This Pookie Meal 🎀
+    </a>
+
+</div>
+<div class="bill-box">
+
+                <div class="bill-row">
+                    <span>🍱 Food Subtotal</span>
+                    <strong>₹{{ order.subtotal }}</strong>
+                </div>
+
+                <div class="bill-row">
+                    <span>🚚 Delivery</span>
+                    <strong>
+                        {% if order.delivery_charge == 0 %}
+                            FREE 🎉
+                        {% else %}
+                            ₹{{ order.delivery_charge }}
+                        {% endif %}
+                    </strong>
+                </div>
+
+                <div class="bill-row">
+                    <span>🎀 Packing</span>
+                    <strong>₹{{ order.packing_charge }}</strong>
+                </div>
+
+                {% if order.discount and order.discount > 0 %}
+
+                <div class="bill-row" style="color:#d85b87;">
+                    <span>💝 Total Discount</span>
+                    <strong>- ₹{{ order.discount }}</strong>
+                </div>
+
+                <div class="saved">
+                    🎉 You saved ₹{{ order.discount }} on this order!
+                </div>
+
+                {% endif %}
+
+
+                <div class="total-box">
+                    <span>🧸 YOU PAID</span>
+                    <span>₹{{ order.total }}</span>
+                </div>
+                <div style="text-align:center;margin-top:20px;">
+                    <a href="{{ url_for('reorder', order_id=order.id) }}"
+                       style="
+                       display:inline-block;
+                       padding:12px 28px;
+                       background:#ff8fab;
+                       color:white;
+                       text-decoration:none;
+                       border-radius:25px;
+                       font-weight:bold;
+                       box-shadow:0 5px 12px rgba(216,91,135,0.2);
+                       ">
+                        🔁 Reorder This Pookie Meal 🎀
+                    </a>
+                </div>
+
+            </div>
 
         </div>
 
         {% endfor %}
 
 
-        <div style="
-            text-align:right;
-            margin-top:25px;
-        ">
+    {% else %}
+
+        <div class="empty-orders">
+
+            <div style="font-size:60px;">
+                🧸🍕🎀
+            </div>
 
             <h2>
-                Total: &#8377;{{ order.total }}
+                No Pookie Orders Yet! 🥹
             </h2>
 
-            <p style="margin-top:10px;">
-                Payment: {{ order.payment }}
+            <p>
+                Your delicious order history will appear here
+                after your first order. 💗
             </p>
+
+            <a href="/menu" class="shop-btn">
+                🍕 Start Ordering
+            </a>
 
         </div>
 
-    </div>
-
-    {% else %}
-
-    <div style="
-        text-align:center;
-        background:white;
-        padding:40px;
-        border-radius:15px;
-        max-width:600px;
-        margin:auto;
-    ">
-
-        <h2>No orders yet &#128533;</h2>
-
-        <p style="margin:20px;">
-            You haven't placed any orders yet.
-        </p>
-
-        <a href="/menu"
-           style="
-           display:inline-block;
-           background:#ff5722;
-           color:white;
-           padding:12px 20px;
-           border-radius:8px;
-           text-decoration:none;
-           ">
-            Order Food &#127829;
-        </a>
-
-    </div>
-
     {% endif %}
 
-</section>
+</div>
 
 
-<footer>
-
-    <h2>&#127828; FoodieExpress</h2>
-
-    <p>
-        Delicious food delivered to your doorstep.
-    </p>
-
-    <p>
-        &#169; 2026 FoodieExpress. All Rights Reserved.
-    </p>
-
+<footer style="
+    text-align:center;
+    padding:30px;
+    color:#76577f;
+">
+    🎀 🧸 PookieBites ✨<br>
+    Made with food, love and a little Pookie magic 💗<br>
+    © 2026 PookieBites
 </footer>
+
 
 </body>
 </html>
+
 

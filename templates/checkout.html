@@ -1,223 +1,1140 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎀 PookieBites Checkout</title>
 
-    <title>FoodieExpress - Checkout</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    background:linear-gradient(135deg,#fff0f7,#ffe3ef,#f7e9ff);
+    font-family:Arial,sans-serif;
+    color:#604752;
+}
+
+.checkout-container{
+    max-width:900px;
+    margin:40px auto;
+    padding:20px;
+}
+
+.checkout-box{
+    background:rgba(255,255,255,.96);
+    padding:30px;
+    border-radius:30px;
+    box-shadow:0 15px 45px rgba(210,90,140,.18);
+}
+
+.checkout-title{
+    text-align:center;
+    color:#d95785;
+    font-size:38px;
+    margin-bottom:5px;
+}
+
+.checkout-subtitle{
+    text-align:center;
+    color:#80606b;
+    margin-bottom:30px;
+}
+
+.section-title{
+    color:#c94f7c;
+    margin-top:28px;
+}
+
+.order-item{
+    display:flex;
+    justify-content:space-between;
+    padding:13px 5px;
+    border-bottom:1px solid #f3dbe5;
+}
+
+.total-box{
+    margin-top:20px;
+    padding:18px;
+    background:#fff0f6;
+    border-radius:20px;
+    text-align:right;
+    color:#d95785;
+}
+
+.form-input,.form-select{
+    width:100%;
+    padding:14px;
+    margin:7px 0 12px;
+    border:2px solid #f3d5e2;
+    border-radius:15px;
+    font-size:15px;
+    outline:none;
+}
+
+.form-input:focus,.form-select:focus{
+    border-color:#ef8eaf;
+}
+
+.option-box{
+    background:#fff6fa;
+    padding:16px;
+    margin:10px 0;
+    border-radius:18px;
+    border:2px solid #f4dce6;
+    transition:.2s;
+}
+
+.option-box:hover{
+    transform:translateY(-2px);
+    border-color:#f19abb;
+}
+
+.option-box label{
+    display:block;
+    cursor:pointer;
+}
+
+.offer-box{
+    background:linear-gradient(135deg,#fff1f7,#f8edff);
+    padding:18px;
+    border-radius:20px;
+    margin-top:20px;
+}
+
+.game-box{
+    margin-top:25px;
+    padding:22px;
+    background:#fff5fa;
+    border-radius:25px;
+    text-align:center;
+}
+
+.game-board{
+    width:240px;
+    height:240px;
+    margin:18px auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+}
+
+.cell{
+    border:none;
+    border-radius:15px;
+    background:#ffd9e8;
+    font-size:34px;
+    font-weight:bold;
+    color:#d95785;
+    cursor:pointer;
+}
+
+.cell:hover{
+    background:#ffc6dc;
+}
+
+.game-message{
+    font-weight:bold;
+    color:#c94f7c;
+    min-height:25px;
+}
+
+.game-button{
+    border:none;
+    padding:10px 18px;
+    border-radius:20px;
+    background:#d95785;
+    color:white;
+    cursor:pointer;
+}
+
+.gift-box{
+    margin-top:25px;
+    padding:20px;
+    border-radius:22px;
+    background:#fff7df;
+    text-align:center;
+}
+
+.gift-button{
+    border:none;
+    background:#ff9fba;
+    color:white;
+    padding:12px 20px;
+    border-radius:22px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.gift-result{
+    margin-top:15px;
+    font-weight:bold;
+    color:#d95785;
+}
+
+.place-order-btn{
+    width:100%;
+    margin-top:28px;
+    padding:17px;
+    border:none;
+    border-radius:28px;
+    background:linear-gradient(135deg,#ff8fab,#e96f9a);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.place-order-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(233,111,154,.3);
+}
+
+.success-animation{
+    text-align:center;
+    font-size:55px;
+    animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-10px)}
+}
+
+.empty-cart{
+    text-align:center;
+    padding:60px;
+}
+
+.empty-cart a{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 25px;
+    background:#ff8fab;
+    color:white;
+    border-radius:20px;
+    text-decoration:none;
+}
+</style>
 </head>
 
 <body>
 
 <nav class="navbar">
-
-    <div class="logo">
-        🍔 FoodieExpress
-    </div>
+    <div class="logo">🎀 🧸 PookieBites ✨</div>
 
     <div class="nav-links">
         <a href="/">Home</a>
         <a href="/menu">Menu</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
         <a href="/login">Login</a>
         <a href="/cart">🛒 Cart</a>
     </div>
-
 </nav>
 
+<section class="checkout-container">
 
-<section class="menu-section">
+{% if cart_items %}
 
-    <h1 style="text-align:center; color:#ff5722; margin-bottom:30px;">
-        💳 Checkout
-    </h1>
+<div class="checkout-box">
 
+<div class="success-animation">🐱 🧸 🎀</div>
 
-    {% if cart_items %}
+<h1 class="checkout-title">Pookie Checkout 💗</h1>
 
-    <div style="
-        background:white;
-        max-width:700px;
-        margin:auto;
-        padding:30px;
-        border-radius:15px;
-        box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    ">
+<p class="checkout-subtitle">
+Almost there, Pookie! Let's make your order extra cute ✨
+</p>
 
-        <h2 style="margin-bottom:20px;">
-            Order Summary
-        </h2>
+<h2 class="section-title">🍱 Your Order</h2>
 
+{% for item in cart_items %}
+<div class="order-item">
+    <span>{{ item.name }} × {{ item.quantity }}</span>
+    <strong>₹{{ item.price * item.quantity }}</strong>
+</div>
+{% endfor %}
 
-        {% for item in cart_items %}
+<div class="total-box">
+    <strong>Subtotal: ₹{{ total }}</strong>
+</div>
 
-        <div style="
-            display:flex;
-            justify-content:space-between;
-            padding:12px 0;
-            border-bottom:1px solid #eee;
-        ">
-
-            <span>
-                {{ item.name }} × {{ item.quantity }}
-            </span>
-
-            <strong>
-                ₹{{ item.price * item.quantity }}
-            </strong>
-
-        </div>
-
-        {% endfor %}
+<form action="/place_order" method="POST">
+<input type="hidden"
+       name="mystery_gift"
+       id="mysteryGift"
+       value="">
 
 
-        <h2 style="
-            text-align:right;
-            margin-top:25px;
-            color:#ff5722;
-        ">
-            Total: ₹{{ total }}
-        </h2>
+<h2 class="section-title">📦 Delivery Details</h2>
 
+<input class="form-input" type="text" name="name"
+       placeholder="👤 Full Name" required>
 
-        <form action="/place_order" method="POST">
+<input class="form-input" type="text" name="address"
+       placeholder="🏠 Delivery Address" required>
 
-            <h2 style="margin-top:30px;">
-                Delivery Details
-            </h2>
+<input class="form-input" type="tel" name="phone"
+       placeholder="📱 Phone Number" required>
 
-            <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                required
-                style="
-                    width:100%;
-                    padding:12px;
-                    margin-top:15px;
-                "
-            >
+<h2 class="section-title">🚚 Delivery Speed</h2>
 
-            <input
-                type="text"
-                name="address"
-                placeholder="Delivery Address"
-                required
-                style="
-                    width:100%;
-                    padding:12px;
-                    margin-top:15px;
-                "
-            >
+<div class="option-box">
+<label>
+<input type="radio" name="delivery_type"
+       value="Normal Delivery" checked>
+🐻 Normal Delivery — ₹0
+</label>
+</div>
 
-            <input
-                type="tel"
-                name="phone"
-                placeholder="Phone Number"
-                required
-                style="
-                    width:100%;
-                    padding:12px;
-                    margin-top:15px;
-                "
-            >
+<div class="option-box">
+<label>
+<input type="radio" name="delivery_type"
+       value="Fast Delivery">
+⚡ Fast Delivery — ₹40 extra
+</label>
+</div>
 
+<h2 class="section-title">🎀 Gift Packing</h2>
 
-            <select
-                name="payment"
-                required
-                style="
-                    width:100%;
-                    padding:12px;
-                    margin-top:15px;
-                "
-            >
+<div class="option-box">
+<label>
+<input type="radio" name="packing"
+       value="Normal Packing" checked>
+📦 Normal Packing — FREE
+</label>
+</div>
 
-                <option value="">
-                    Select Payment Method
-                </option>
+<div class="option-box">
+<label>
+<input type="radio" name="packing"
+       value="Cute Gift Packing">
+🎁 Cute Gift Packing — ₹30
+</label>
+</div>
 
-                <option value="Cash on Delivery">
-                    Cash on Delivery
-                </option>
+<h2 class="section-title">🎂 Birthday Special</h2>
 
-                <option value="UPI">
-                    UPI
-                </option>
+<input class="form-input" type="date" name="birthday"
+       id="birthday">
 
-                <option value="Card">
-                    Card
-                </option>
+<div class="option-box">
+<label>
+<input type="checkbox" name="birthday_offer" value="yes">
+🎂 It's my birthday month! Give me a Pookie surprise 💗
+</label>
+</div>
 
-            </select>
+<div class="offer-box">
+<strong>🎉 Pookie Offers</strong>
+<br><br>
 
+💗 ₹399+ → Free Normal Delivery
+<br>
+💗 ₹599+ → ₹50 OFF
+<br>
+💗 ₹799+ + UPI → Extra ₹30 OFF
+<br>
+💗 ₹999+ → Extra Pookie Discount 🎀
+<br>
+🎁 First order → Mystery Gift
+</div>
 
-            <button
-                type="submit"
-                style="
-                    width:100%;
-                    margin-top:25px;
-                    padding:15px;
-                    background:#ff5722;
-                    color:white;
-                    border:none;
-                    border-radius:8px;
-                    font-size:18px;
-                    cursor:pointer;
-                "
-            >
-                Place Order 🚴
-            </button>
+<div class="gift-box">
+<h3>🎁 Mystery Pookie Gift</h3>
 
-        </form>
+<p>
+First-time Pookie? Pick blindly! 👀
+</p>
 
+<button type="button" class="gift-button"
+        onclick="pickGift()">
+🎁 Pick My Gift
+</button>
+
+<div id="giftResult" class="gift-result"></div>
+
+<input type="hidden" name="gift" id="giftInput">
+</div>
+
+<h2 class="section-title">🎮 Pookie Tic-Tac-Toe</h2>
+
+<div class="game-box">
+
+<p>
+Beat the Pookie Bot 🤖 and unlock a tiny discount! 💗
+</p>
+
+<div class="game-board">
+<button type="button" class="cell" onclick="play(0)"></button>
+<button type="button" class="cell" onclick="play(1)"></button>
+<button type="button" class="cell" onclick="play(2)"></button>
+<button type="button" class="cell" onclick="play(3)"></button>
+<button type="button" class="cell" onclick="play(4)"></button>
+<button type="button" class="cell" onclick="play(5)"></button>
+<button type="button" class="cell" onclick="play(6)"></button>
+<button type="button" class="cell" onclick="play(7)"></button>
+<button type="button" class="cell" onclick="play(8)"></button>
+</div>
+
+<div id="gameMessage" class="game-message">
+Your turn! You are 💗
+</div>
+
+<br>
+
+<button type="button" class="game-button"
+        onclick="resetGame()">
+🔄 New Game
+</button>
+
+<input type="hidden" name="game_discount"
+       id="gameDiscount" value="0">
+
+</div>
+
+<h2 class="section-title">💳 Payment Method</h2>
+
+<select class="form-select" name="payment" required>
+
+<option value="">Select Payment Method</option>
+<option value="Cash on Delivery">💵 Cash on Delivery</option>
+<option value="UPI">📱 UPI</option>
+<option value="Card">💳 Card</option>
+
+</select>
+
+<div class="bill-summary">
+
+    <h2>🧸 Your Pookie Bill Breakdown 🎀</h2>
+
+    <div class="bill-row">
+        <span>🍱 Food Subtotal</span>
+        <strong>₹<span id="billSubtotal">{{ total }}</span></strong>
     </div>
 
-    {% else %}
-
-    <div style="text-align:center;">
-
-        <h2>Your cart is empty 🛒</h2>
-
-        <p style="margin:20px;">
-            Please add food before checkout.
-        </p>
-
-        <a href="/menu"
-           style="
-               display:inline-block;
-               background:#ff5722;
-               color:white;
-               padding:12px 20px;
-               border-radius:8px;
-               text-decoration:none;
-           ">
-            Go to Menu 🍕
-        </a>
-
+    <div class="bill-row">
+        <span>🚴 Delivery Charge</span>
+        <strong>₹<span id="billDelivery">0</span></strong>
     </div>
 
-    {% endif %}
+    <div class="bill-row">
+        <span>🎀 Packing Charge</span>
+        <strong>₹<span id="billPacking">0</span></strong>
+    </div>
+
+    <div class="bill-divider"></div>
+
+    <div class="bill-row discount">
+        <span>🎁 First Order Discount</span>
+        <strong>- ₹<span id="discountFirst">0</span></strong>
+    </div>
+
+    <div class="bill-row discount">
+        <span>💗 Order Value Discount</span>
+        <strong>- ₹<span id="discountOrder">0</span></strong>
+    </div>
+
+    <div class="bill-row discount">
+        <span>🎂 Birthday Discount</span>
+        <strong>- ₹<span id="discountBirthday">0</span></strong>
+    </div>
+
+    <div class="bill-row discount">
+        <span>🎮 Tic-Tac-Toe Reward</span>
+        <strong>- ₹<span id="discountGame">0</span></strong>
+    </div>
+
+    <div class="bill-row discount">
+        <span>💳 Payment Offer</span>
+        <strong>- ₹<span id="discountPayment">0</span></strong>
+    </div>
+
+    <div class="bill-divider"></div>
+
+    <div class="bill-row">
+        <span>💝 Total Discount</span>
+        <strong>- ₹<span id="totalDiscount">0</span></strong>
+    </div>
+
+    <div class="final-bill">
+        <span>🧸 YOU PAY</span>
+        <strong>₹<span id="finalAmount">{{ total }}</span></strong>
+    </div>
+
+    <div class="calculation-note">
+        🧮 <b>Calculation:</b><br>
+        Food + Delivery + Packing − Discounts = Final Amount 💗
+    </div>
+
+</div>
+
+<style>
+
+
+.coupon-box {
+    margin-top: 25px;
+    padding: 22px;
+    background: linear-gradient(135deg,#fff8fc,#fff0f7);
+    border: 2px dashed #ef9fbd;
+    border-radius: 22px;
+    text-align: center;
+}
+
+.coupon-box h2 {
+    color: #d85b87;
+    margin-top: 0;
+}
+
+.coupon-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.coupon-input-row .form-input {
+    margin: 0;
+}
+
+.coupon-btn {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg,#ff8fab,#e96f9a);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.coupon-btn:hover {
+    transform: scale(1.04);
+}
+
+.coupon-hints {
+    margin-top: 12px;
+    color: #8a6574;
+    font-size: 13px;
+}
+
+.coupon-message {
+    margin-top: 12px;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+.bill-summary {
+    margin-top: 30px;
+    padding: 25px;
+    background: linear-gradient(135deg,#fff7fb,#fff0f6);
+    border: 2px solid #f7d5e3;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(216,91,135,0.12);
+}
+
+.bill-summary h2 {
+    text-align: center;
+    color: #d85b87;
+    margin-bottom: 22px;
+}
+
+.bill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    color: #654b57;
+}
+
+.bill-row.discount {
+    color: #d85b87;
+}
+
+.bill-divider {
+    height: 1px;
+    background: #efd5df;
+    margin: 12px 0;
+}
+
+.final-bill {
+    margin-top: 15px;
+    padding: 18px;
+    border-radius: 20px;
+    background: linear-gradient(135deg,#ff8fab,#e96f9a);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.calculation-note {
+    margin-top: 15px;
+    padding: 13px;
+    border-radius: 15px;
+    background: #f9ecff;
+    color: #76577f;
+    text-align: center;
+    font-size: 14px;
+}
+
+</style>
+
+<script>
+
+const mysteryGifts = [
+    "?? Mini Teddy Sticker",
+    "?? Free Dessert Surprise",
+    "?? Cute Pookie Keychain",
+    "?? Cookie Treat",
+    "?? Pookie Love Note",
+    "?? Cute Sticker Pack"
+];
+
+function pickMysteryGift() {
+
+    const result = document.getElementById("giftResult");
+    const animation = document.getElementById("giftAnimation");
+
+    if (!result) return;
+
+    const isFirstOrder =
+        {{ "true" if is_first_order else "false" }};
+
+    if (!isFirstOrder) {
+        result.innerText =
+            "?? This mystery gift is only for first-order Pookies! ??";
+        return;
+    }
+
+    const gift =
+        mysteryGifts[
+            Math.floor(Math.random() * mysteryGifts.length)
+        ];
+
+    animation.innerText = "????????";
+
+    result.classList.remove("gift-reveal");
+
+    void result.offsetWidth;
+
+    result.classList.add("gift-reveal");
+
+    result.innerHTML =
+        "?? You got...<br><br>" +
+        "<span style='font-size:22px'>" +
+        gift +
+        "</span><br><br>" +
+        "?? Your Pookie surprise is unlocked! ??";
+
+    const giftInput =
+        document.getElementById("mysteryGift");
+
+    if (giftInput) {
+        giftInput.value = gift;
+    }
+
+    const button =
+        document.querySelector(".gift-pick-button");
+
+    if (button) {
+        button.disabled = true;
+        button.innerText = "?? Gift Picked!";
+        button.style.opacity = "0.7";
+        button.style.cursor = "not-allowed";
+    }
+}
+
+
+
+function updateBillPreview() {
+
+    const subtotal =
+        Number(document.getElementById("billSubtotal").innerText) || 0;
+
+    let delivery = 0;
+    let packing = 0;
+
+    const deliveryOption =
+        document.querySelector('input[name="delivery_type"]:checked');
+
+    if (deliveryOption) {
+        if (deliveryOption.value === 'Fast Delivery') {
+            delivery = 40;
+        } else if (subtotal >= 399) {
+            delivery = 0;
+        } else {
+            delivery = 40;
+        }
+    }
+
+    const packingOption =
+        document.querySelector('input[name="packing"]:checked');
+
+    if (packingOption) {
+        packing = Number(packingOption.dataset.charge || 0);
+    }
+
+    let first = 0;
+
+    const firstOrder =
+        {{ "true" if is_first_order else "false" }};
+
+    if (firstOrder) {
+        first = Math.min(
+            Math.round(subtotal * 0.10),
+            100
+        );
+    }
+
+    if ({{ "true" if is_first_order else "false" }}) {
+        first = Math.min(Math.round(subtotal * 0.10), 100);
+    }
+    let order = 0;
+    let birthday = 0;
+
+    const birthdayInput = document.getElementById("birthday");
+
+    if (birthdayInput && birthdayInput.value) {
+
+        const birthdayDate =
+            new Date(birthdayInput.value + "T00:00:00");
+
+        const today = new Date();
+
+        if (
+            birthdayDate.getMonth() === today.getMonth() &&
+            birthdayDate.getDate() === today.getDate()
+        ) {
+            birthday = 50;
+        }
+    }
+    let game = Number(
+        document.getElementById("gameDiscount")?.value || 0
+    );
+    let payment = 0;
+
+    let coupon = Number(
+        document.getElementById("couponDiscount")?.innerText || 0
+    );
+
+    if (subtotal >= 999) {
+        order = 70;
+    } else if (subtotal >= 799) {
+        order = 50;
+    } else if (subtotal >= 599) {
+        order = 30;
+    } else if (subtotal >= 399) {
+        order = 20;
+    }
+
+    const paymentSelect =
+        document.querySelector('select[name="payment"]');
+
+    if (
+        paymentSelect &&
+        paymentSelect.value === "UPI"
+    ) {
+        if (subtotal >= 999) {
+            payment = 60;
+        } else if (subtotal >= 799) {
+            payment = 30;
+        }
+    }
+
+    document.getElementById("billDelivery").innerText = delivery;
+    document.getElementById("billPacking").innerText = packing;
+
+    document.getElementById("discountFirst").innerText = first;
+    document.getElementById("discountOrder").innerText = order;
+    document.getElementById("discountBirthday").innerText = birthday;
+    document.getElementById("discountGame").innerText = game;
+    document.getElementById("discountPayment").innerText = payment;
+
+    const totalDiscount =
+        first + order + birthday + game + payment + coupon;
+
+    const finalAmount = Math.max(
+        subtotal + delivery + packing - totalDiscount,
+        0
+    );
+
+    document.getElementById("totalDiscount").innerText =
+        totalDiscount;
+
+    document.getElementById("finalAmount").innerText =
+        finalAmount;
+}
+
+document.querySelectorAll(
+    'input[name="delivery_type"], input[name="packing"], select[name="payment"]'
+).forEach(element => {
+    element.addEventListener("change", updateBillPreview);
+});
+
+setInterval(updateBillPreview, 300);
+
+updateBillPreview();
+
+
+function applyCoupon() {
+
+    const input = document.getElementById("couponInput");
+    const message = document.getElementById("couponMessage");
+
+    const code = input.value.trim().toUpperCase();
+
+    let discount = 0;
+
+    const subtotal =
+        Number(document.getElementById("billSubtotal").innerText) || 0;
+
+    const isFirstOrder =
+        {{ "true" if is_first_order else "false" }};
+
+    if (code === "POOKIE10") {
+        discount = 10;
+    }
+    else if (code === "SWEET20") {
+        discount = 20;
+    }
+    else if (code === "WELCOME50" && isFirstOrder) {
+        discount = 50;
+    }
+    else if (code === "WELCOME50" && !isFirstOrder) {
+
+        message.innerText =
+            "?? WELCOME50 is only for first orders!";
+
+        message.style.color = "#d85b87";
+        return;
+    }
+    else {
+
+        message.innerText =
+            "?? Hmm... that coupon went on a little vacation.";
+
+        message.style.color = "#d85b87";
+        return;
+    }
+
+    discount = Math.min(discount, subtotal);
+
+    document.getElementById("couponDiscount").innerText = discount;
+
+    message.innerText =
+        "?? Coupon applied! You saved ?" + discount + " ??";
+
+    message.style.color = "#4f9d69";
+
+    updateBillPreview();
+}
+
+</script>
+
+<button class="place-order-btn" type="submit">
+🎀 Place My Pookie Order 💗
+</button>
+
+</form>
+
+</div>
+
+{% else %}
+
+<div class="checkout-box empty-cart">
+
+<h1>🧸 Oops! Your cart is empty</h1>
+
+<p>
+Let's get some yummy food for your little Pookie tummy! 🍕💗
+</p>
+
+<a href="/menu">
+Explore Menu 🍓
+</a>
+
+</div>
+
+{% endif %}
 
 </section>
 
+<script>
 
-<footer>
+let board=["","","","","","","","",""];
+let gameOver=false;
+let player="X";
+let bot="O";
 
-    <h2>🍔 FoodieExpress</h2>
+function play(index){
 
-    <p>
-        Delicious food delivered to your doorstep.
-    </p>
+    if(board[index]!=="" || gameOver) return;
 
-    <p>
-        © 2026 FoodieExpress. All Rights Reserved.
-    </p>
+    board[index]=player;
+    render();
 
+    if(checkWinner(player)){
+        document.getElementById("gameMessage").innerText=
+        "🎉 You won! ₹20 Pookie discount unlocked! 💗";
+
+        document.getElementById("gameDiscount").value="20";
+        gameOver=true;
+        return;
+    }
+
+    if(board.every(x=>x!=="")){
+        document.getElementById("gameMessage").innerText=
+        "🤝 Draw! The Pookie Bot survived!";
+        gameOver=true;
+        return;
+    }
+
+    document.getElementById("gameMessage").innerText=
+    "🤖 Pookie Bot is thinking...";
+
+    setTimeout(botMove,400);
+}
+
+function botMove(){
+
+    if(gameOver)return;
+
+    let empty=[];
+
+    board.forEach((value,index)=>{
+        if(value==="") empty.push(index);
+    });
+
+    if(empty.length===0)return;
+
+    let move;
+
+    // Try to win
+    move=findWinningMove(bot);
+
+    // Block player
+    if(move===-1){
+        move=findWinningMove(player);
+    }
+
+    // Otherwise random
+    if(move===-1){
+        move=empty[Math.floor(Math.random()*empty.length)];
+    }
+
+    board[move]=bot;
+
+    render();
+
+    if(checkWinner(bot)){
+        document.getElementById("gameMessage").innerText=
+        "🤖 Pookie Bot won! Better luck next time, Pookie 😭";
+        gameOver=true;
+        return;
+    }
+
+    if(board.every(x=>x!=="")){
+        document.getElementById("gameMessage").innerText=
+        "🤝 Draw! Nobody gets the discount!";
+        gameOver=true;
+        return;
+    }
+
+    document.getElementById("gameMessage").innerText=
+    "💗 Your turn!";
+}
+
+function findWinningMove(symbol){
+
+    for(let i=0;i<9;i++){
+
+        if(board[i]!=="")continue;
+
+        board[i]=symbol;
+
+        if(checkWinner(symbol)){
+            board[i]="";
+            return i;
+        }
+
+        board[i]="";
+    }
+
+    return -1;
+}
+
+function checkWinner(symbol){
+
+    const wins=[
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ];
+
+    return wins.some(combo=>
+        combo.every(index=>board[index]===symbol)
+    );
+}
+
+function render(){
+
+    document.querySelectorAll(".cell").forEach((cell,index)=>{
+        cell.innerText=
+        board[index]==="X" ? "💗" :
+        board[index]==="O" ? "🤖" : "";
+    });
+}
+
+function resetGame(){
+
+    board=["","","","","","","","",""];
+    gameOver=false;
+
+    document.getElementById("gameDiscount").value="0";
+
+    document.getElementById("gameMessage").innerText=
+    "Your turn! You are 💗";
+
+    render();
+}
+
+function pickGift(){
+
+    const gifts=[
+        "🍫 Free Chocolate Brownie!",
+        "🧸 Cute Teddy Sticker!",
+        "🍓 Free Strawberry Dessert!",
+        "🎀 ₹30 Pookie Coupon!",
+        "🍪 Free Cookie!",
+        "💗 Surprise Love Note!"
+    ];
+
+    const gift=
+    gifts[Math.floor(Math.random()*gifts.length)];
+
+    document.getElementById("giftResult").innerText=
+    "✨ You got: "+gift;
+
+    document.getElementById("giftInput").value=gift;
+}
+
+</script>
+
+<footer style="text-align:center;padding:30px;">
+<h2>🎀 🧸 PookieBites ✨</h2>
+<p>Made with food, love and a little Pookie magic 💗</p>
+<p>© 2026 PookieBites</p>
 </footer>
 
 </body>
+
+<div class="delivery-progress-box">
+    <div class="delivery-progress-title">
+        🚚 Free Delivery Mission 🎀
+    </div>
+
+    <div id="deliveryProgressText">
+        Add more yummy food to unlock FREE delivery! 🧸
+    </div>
+
+    <div class="progress-track">
+        <div id="deliveryProgressBar" class="progress-fill"></div>
+    </div>
+</div>
+
+<style>
+.delivery-progress-box{
+    margin:20px 0;
+    padding:18px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#fff5fa,#fff0f7);
+    border:2px solid #f5d5e2;
+    text-align:center;
+}
+
+.delivery-progress-title{
+    font-size:20px;
+    font-weight:bold;
+    color:#d85b87;
+    margin-bottom:8px;
+}
+
+#deliveryProgressText{
+    color:#765563;
+    margin-bottom:12px;
+}
+
+.progress-track{
+    width:100%;
+    height:14px;
+    background:#f3dce6;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#ff9fba,#e96f9a);
+    transition:width .5s ease;
+}
+</style>
+
+<script>
+function updateDeliveryProgress(){
+
+    const subtotal =
+        Number(document.getElementById("billSubtotal")?.innerText || 0);
+
+    const target = 399;
+
+    const percentage =
+        Math.min((subtotal / target) * 100, 100);
+
+    const bar =
+        document.getElementById("deliveryProgressBar");
+
+    const text =
+        document.getElementById("deliveryProgressText");
+
+    if(!bar || !text) return;
+
+    bar.style.width = percentage + "%";
+
+    if(subtotal >= target){
+
+        text.innerHTML =
+            "🎉 FREE DELIVERY UNLOCKED! 🧸💗";
+
+    }else{
+
+        const remaining = target - subtotal;
+
+        text.innerHTML =
+            "Add ₹" + remaining +
+            " more to unlock FREE delivery! 🚚🎀";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    updateDeliveryProgress();
+
+    setTimeout(updateDeliveryProgress,100);
+
+});
+</script>
+
 </html>
+
